@@ -53,7 +53,8 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.sqldelight.android.driver)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.ktor.client.okhttp)
+            // Platform HTTP engine: OkHttp 5 needs a newer Android SDK than this build uses.
+            implementation(libs.ktor.client.android)
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)

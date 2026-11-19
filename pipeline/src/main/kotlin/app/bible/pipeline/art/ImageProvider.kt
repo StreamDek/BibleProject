@@ -36,7 +36,11 @@ interface ImageProvider {
     companion object {
         fun create(name: String, model: String?, env: Map<String, String> = System.getenv()): ImageProvider = when (name) {
             "fal" -> FalProvider(env["FAL_KEY"] ?: missing("FAL_KEY"), model ?: "fal-ai/flux/dev")
-            "openai" -> OpenAiProvider(env["OPENAI_API_KEY"] ?: missing("OPENAI_API_KEY"), model ?: "gpt-image-1")
+            "openai" -> OpenAiProvider(
+                env["OPENAI_API_KEY"] ?: missing("OPENAI_API_KEY"),
+                model ?: "gpt-image-1",
+                quality = env["OPENAI_IMAGE_QUALITY"] ?: "medium",
+            )
             "dry-run" -> DryRunProvider()
             else -> throw IllegalArgumentException("Unknown provider \"$name\" (fal, openai, dry-run)")
         }
@@ -91,8 +95,13 @@ class FalProvider(private val key: String, private val endpoint: String) : Image
 }
 
 /** OpenAI image models (https://platform.openai.com/docs/api-reference/images). Portrait 1024×1536. */
-class OpenAiProvider(private val key: String, private val modelName: String) : ImageProvider {
-    override val model = "openai:$modelName"
+class OpenAiProvider(private val key: String, private val modelName: String, private val quality: String = "medium") : ImageProvider {
+    init {
+        require(quality in setOf("low", "medium", "high")) { "OPENAI_IMAGE_QUALITY must be low, medium or high" }
+    }
+
+    /** Quality is part of the name, so changing it counts as a new brief hash and new candidates. */
+    override val model = "openai:$modelName:$quality"
 
     override fun generate(prompt: String, count: Int, seed: Long): List<Generated> {
         val res = postJson(
@@ -101,6 +110,8 @@ class OpenAiProvider(private val key: String, private val modelName: String) : I
                 put("model", modelName)
                 put("prompt", prompt)
                 put("size", "1024x1536")
+                // Set explicitly: the API's default ("auto") may choose high quality, which costs several times more.
+                put("quality", quality)
                 put("n", count)
             },
         )

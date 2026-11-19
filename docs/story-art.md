@@ -35,6 +35,8 @@ All steps are Gradle tasks in the `art` group. Run them from the repository root
    ```
    - It makes 4 candidates per story. `-Ponly=slug1,slug2` limits it to the named stories, and `-Pmodel=` picks a
      model (defaults: `fal-ai/flux/dev`, `gpt-image-1`).
+     OpenAI images are made at medium quality unless `OPENAI_IMAGE_QUALITY` is set to `low` or `high`.
+     An OpenAI API key (platform.openai.com, with billing) is separate from a ChatGPT subscription.
    - It never generates the same thing twice. Stories are skipped when they already have a published image, are
      approved, are waiting for review, or were rejected and the brief has not changed since.
    - Each candidate set keeps the model, prompt and seeds beside the images.

@@ -36,6 +36,7 @@ val withAndroid = providers.gradleProperty("bible.android").orNull != "false"
 include(":shared:core-model")
 include(":shared:feed-engine")
 include(":shared:bible-data")
+include(":shared:stories")
 include(":composeApp")
 include(":pipeline")
 include(":backend")

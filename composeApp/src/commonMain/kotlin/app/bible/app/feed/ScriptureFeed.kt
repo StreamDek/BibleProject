@@ -21,6 +21,7 @@ import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -38,24 +39,37 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.bible.app.platform.SystemBarsEffect
 import app.bible.core.Canon
 import app.bible.core.VerseId
+import app.bible.stories.Story
 
 /** What a verse-actions sheet works on: the verses on screen around the one the reader held. */
 data class VerseActionTarget(val verses: List<VerseId>, val initial: VerseId)
 
 private enum class Sheet { Settings, Jump, Search, Saved }
 
+/** Links between the Bible and Story Mode, shown in the reader's controls. */
+class StoryLinks(
+    /** The story that tells the verse being read, if any ("Part of: ..."). */
+    val storyFor: (VerseId) -> Story?,
+    val onOpenStory: (Story, VerseId) -> Unit,
+    val onStories: () -> Unit,
+    /** The story the reader came from via "Open in Bible", to go back to it. */
+    val backTo: Story?,
+    val onBackToStory: () -> Unit,
+)
+
 /**
  * The reader: the Scripture feed or the classic chapter reader, plus the shared sheets (reading settings,
  * jump, search, saved items, verse actions). Both views share one reading position.
  */
 @Composable
-fun Reader(vm: FeedViewModel, translation: String) {
+fun Reader(vm: FeedViewModel, translation: String, links: StoryLinks? = null) {
     val state by vm.state.collectAsStateWithLifecycle()
     var sheet by remember { mutableStateOf<Sheet?>(null) }
     var action by remember { mutableStateOf<VerseActionTarget?>(null) }
@@ -69,6 +83,7 @@ fun Reader(vm: FeedViewModel, translation: String) {
                 translation = translation,
                 onOpenSheet = { sheet = it },
                 onVerseAction = { action = it },
+                links = links,
             )
             ReaderMode.Classic -> ClassicReader(
                 vm = vm,
@@ -103,6 +118,7 @@ private fun ScriptureFeed(
     translation: String,
     onOpenSheet: (Sheet) -> Unit,
     onVerseAction: (VerseActionTarget) -> Unit,
+    links: StoryLinks?,
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
     val marksRevision by vm.marksRevision.collectAsStateWithLifecycle()
@@ -145,11 +161,15 @@ private fun ScriptureFeed(
                 val bookRange = current?.let { state.bookCards[it.first.book] }
                 val progress = if (bookRange == null || bookRange.last == bookRange.first) 1f
                 else (page - bookRange.first) / (bookRange.last - bookRange.first).toFloat()
+                val story = remember(current?.key, links) { current?.let { links?.storyFor?.invoke(it.first) } }
                 Chrome(
                     title = current?.let { "${Canon.book(it.first.book).name} ${it.first.chapter}" } ?: "",
                     progress = progress,
                     onOpenSheet = onOpenSheet,
                     onClassic = { vm.setMode(ReaderMode.Classic) },
+                    links = links,
+                    story = story,
+                    onOpenStory = { s -> current?.let { links?.onOpenStory?.invoke(s, it.first) } },
                 )
             }
         }
@@ -161,7 +181,7 @@ private fun ScriptureFeed(
  * screen), any fling moves exactly one card, and the settle animation is quick and does not bounce.
  */
 @Composable
-private fun flickFlingBehavior(pager: PagerState) = PagerDefaults.flingBehavior(
+internal fun flickFlingBehavior(pager: PagerState) = PagerDefaults.flingBehavior(
     state = pager,
     pagerSnapDistance = PagerSnapDistance.atMost(1),
     snapAnimationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMedium),
@@ -169,16 +189,40 @@ private fun flickFlingBehavior(pager: PagerState) = PagerDefaults.flingBehavior(
 )
 
 @Composable
-private fun Chrome(title: String, progress: Float, onOpenSheet: (Sheet) -> Unit, onClassic: () -> Unit) {
+private fun Chrome(
+    title: String,
+    progress: Float,
+    onOpenSheet: (Sheet) -> Unit,
+    onClassic: () -> Unit,
+    links: StoryLinks?,
+    story: Story?,
+    onOpenStory: (Story) -> Unit,
+) {
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
-        Row(
-            Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            TextButton(onClick = { onOpenSheet(Sheet.Jump) }) { Text("$title ▾", color = colors.onBackground) }
-            TextButton(onClick = { onOpenSheet(Sheet.Settings) }) { Text("Aa", color = colors.onBackground) }
+        Column(Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                TextButton(onClick = { onOpenSheet(Sheet.Jump) }) { Text("$title ▾", color = colors.onBackground) }
+                TextButton(onClick = { onOpenSheet(Sheet.Settings) }) { Text("Aa", color = colors.onBackground) }
+            }
+            // Story -> Bible: a way back to the story. Bible -> Story: the story this passage belongs to.
+            val back = links?.backTo
+            when {
+                back != null && links != null -> AssistChip(
+                    onClick = links.onBackToStory,
+                    label = { Text("‹ Back to ${back.title}", maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                )
+                story != null -> AssistChip(
+                    onClick = { onOpenStory(story) },
+                    label = { Text("Part of: ${story.title} ›", maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                )
+            }
         }
         Column(
             Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()
@@ -194,7 +238,8 @@ private fun Chrome(title: String, progress: Float, onOpenSheet: (Sheet) -> Unit,
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 TextButton(onClick = { onOpenSheet(Sheet.Search) }) { Text("Search", color = colors.onBackground) }
                 TextButton(onClick = { onOpenSheet(Sheet.Saved) }) { Text("Saved", color = colors.onBackground) }
-                TextButton(onClick = onClassic) { Text("Chapter view", color = colors.onBackground) }
+                if (links != null) TextButton(onClick = links.onStories) { Text("Stories", color = colors.onBackground) }
+                TextButton(onClick = onClassic) { Text("Chapter", color = colors.onBackground) }
             }
             Text(
                 "Hold a verse to highlight, bookmark, note or copy",

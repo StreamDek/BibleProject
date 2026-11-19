@@ -1,6 +1,7 @@
 package app.bible.app.feed
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -69,6 +70,10 @@ fun ScriptureCard(
     onTap: () -> Unit,
     onVerseAction: (VerseId) -> Unit,
     modifier: Modifier = Modifier,
+    /** A line above the reference, e.g. a story step title. */
+    label: String? = null,
+    /** Tapping the reference, e.g. to open the passage in the Bible from a story. */
+    onReferenceTap: (() -> Unit)? = null,
 ) {
     var verses by remember(card) { mutableStateOf<List<VerseText>?>(null) }
     var heading by remember(card) { mutableStateOf<String?>(null) }
@@ -137,10 +142,15 @@ fun ScriptureCard(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,
         ) {
+            label?.let {
+                Text(it, style = TextStyle(fontSize = 13.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 0.4.sp), color = colors.secondary)
+                Spacer(Modifier.height(6.dp))
+            }
             Text(
-                text = "${card.reference.uppercase()} · ${translation.uppercase()}",
+                text = "${card.reference.uppercase()} · ${translation.uppercase()}" + if (onReferenceTap != null) "  ›" else "",
                 style = TextStyle(fontSize = 12.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.Medium),
                 color = colors.primary,
+                modifier = if (onReferenceTap != null) Modifier.clickable(onClickLabel = "Open in the Bible") { onReferenceTap() } else Modifier,
             )
             section?.let {
                 Spacer(Modifier.height(10.dp))

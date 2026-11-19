@@ -21,11 +21,15 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: "21" }
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew -Pbible.android=false :shared:core-model:jvmTest :shared:feed-engine:jvmTest :shared:bible-data:jvmTest :pipeline:test :backend:test --console=plain
+      - run: ./gradlew -Pbible.android=false :shared:core-model:jvmTest :shared:feed-engine:jvmTest :shared:bible-data:jvmTest :shared:stories:jvmTest :pipeline:test :backend:test --console=plain
       - name: Check the bundled KJV database is up to date
         run: |
           ./gradlew -Pbible.android=false :pipeline:importKjv --console=plain
           git diff --exit-code -- shared/feed-engine/src/jvmTest/resources/kjv-units.tsv composeApp/src/commonMain/composeResources/files/bible-kjv.stamp
+      - name: Check the bundled story catalogue is up to date
+        run: |
+          ./gradlew -Pbible.android=false :pipeline:buildStories --console=plain
+          git diff --exit-code -- composeApp/src/commonMain/composeResources/files/stories.json
 
   android:
     name: Android app
@@ -50,7 +54,7 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: "21" }
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew -Pbible.android=false :shared:core-model:iosSimulatorArm64Test :shared:feed-engine:iosSimulatorArm64Test --console=plain
+      - run: ./gradlew -Pbible.android=false :shared:core-model:iosSimulatorArm64Test :shared:feed-engine:iosSimulatorArm64Test :shared:stories:iosSimulatorArm64Test --console=plain
       - run: brew install xcodegen
       - name: Build for the iOS simulator
         working-directory: iosApp

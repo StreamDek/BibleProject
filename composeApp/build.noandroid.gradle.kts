@@ -21,6 +21,7 @@ kotlin {
             implementation(project(":shared:core-model"))
             implementation(project(":shared:feed-engine"))
             implementation(project(":shared:bible-data"))
+            implementation(project(":shared:stories"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)

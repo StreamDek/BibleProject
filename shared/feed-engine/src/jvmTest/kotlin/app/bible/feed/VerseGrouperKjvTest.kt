@@ -41,7 +41,7 @@ class VerseGrouperKjvTest {
 
     @Test fun midSentenceBreaksAreRareAndMarked() {
         val rates = mutableMapOf<Density, Double>()
-        for (density in listOf(Density.Fixed(3), Density.Fixed(5), Density.Fixed(10), Density.Auto)) {
+        for (density in Density.Options.filter { it != Density.Fixed(1) }) {
             val cards = VerseGrouper.forDensity(density).group(units, density)
             val midSentence = cards.count { units[it.last].weightAfter == Boundary.NONE }
             val unmarked = cards.count { units[it.last].weightAfter == Boundary.NONE && !it.continues }

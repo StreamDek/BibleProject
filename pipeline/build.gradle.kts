@@ -32,6 +32,21 @@ tasks.register<JavaExec>("importKjv") {
         repoRoot.file("content/sources/kjv/eng-kjv.osis.xml").asFile.path,
         repoRoot.file("composeApp/src/commonMain/composeResources/files/bible-kjv.db").asFile.path,
         repoRoot.file("shared/feed-engine/src/jvmTest/resources/kjv-units.tsv").asFile.path,
+        repoRoot.dir("content/editorial").asFile.path,
+    )
+}
+
+// ./gradlew :pipeline:extractParagraphs -Pusfx=/path/to/eng-web.usfx.xml
+// Regenerates content/editorial/paragraphs.txt from a public-domain USFX edition (positions only, no text).
+tasks.register<JavaExec>("extractParagraphs") {
+    group = "content"
+    description = "Extracts paragraph starts from a USFX Bible into content/editorial/paragraphs.txt"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("app.bible.pipeline.MainKt")
+    args(
+        "extract-paragraphs",
+        (project.findProperty("usfx") as String?) ?: "missing -Pusfx=<file>",
+        repoRoot.file("content/editorial/paragraphs.txt").asFile.path,
     )
 }
 

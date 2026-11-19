@@ -13,6 +13,8 @@ CREATE TABLE verse (
     text TEXT NOT NULL,
     -- Words supplied by the translators (KJV italics), as "start:end;start:end" character offsets, or NULL.
     italics TEXT,
+    -- Words of Jesus (red letters), same "start:end;..." format, or NULL.
+    red TEXT,
     -- Bit 0: starts a paragraph. Bit 1: poetry line.
     flags INTEGER NOT NULL,
     -- Strength of the boundary after this verse: 0 mid-sentence, 1 sentence end, 2 paragraph,
@@ -27,11 +29,23 @@ CREATE TABLE heading (
     text TEXT NOT NULL
 );
 
+-- Our own section headings (editorial, not Scripture), keyed by the section's first verse.
+CREATE TABLE section (
+    verse_id INTEGER NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL
+);
+
 insertMeta:
 INSERT OR REPLACE INTO meta(key, value) VALUES (?, ?);
 
 insertVerse:
-INSERT INTO verse(id, text, italics, flags, weight_after) VALUES (?, ?, ?, ?, ?);
+INSERT INTO verse(id, text, italics, red, flags, weight_after) VALUES (?, ?, ?, ?, ?, ?);
+
+insertSection:
+INSERT INTO section(verse_id, title) VALUES (?, ?);
+
+sectionsBetween:
+SELECT verse_id, title FROM section WHERE verse_id BETWEEN ? AND ? ORDER BY verse_id;
 
 insertHeading:
 INSERT INTO heading(chapter_id, kind, text) VALUES (?, ?, ?);
@@ -40,10 +54,10 @@ metaValue:
 SELECT value FROM meta WHERE key = ?;
 
 versesBetween:
-SELECT id, text, italics, flags, weight_after FROM verse WHERE id BETWEEN ? AND ? ORDER BY id;
+SELECT id, text, italics, red, flags, weight_after FROM verse WHERE id BETWEEN ? AND ? ORDER BY id;
 
 verseById:
-SELECT id, text, italics, flags, weight_after FROM verse WHERE id = ?;
+SELECT id, text, italics, red, flags, weight_after FROM verse WHERE id = ?;
 
 -- Lightweight rows for the grouper: no text, just length and boundary weight.
 unitsBetween:

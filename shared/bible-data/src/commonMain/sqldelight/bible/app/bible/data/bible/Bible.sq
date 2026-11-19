@@ -1,6 +1,6 @@
 -- One read-only database per translation, e.g. bible-kjv.db, built by :pipeline.
 -- Verse IDs are canonical (BBCCCVVV, KJV versification), see app.bible.core.VerseId.
--- Full-text search (verse_fts, FTS5) is created by the pipeline with raw SQL and queried in BibleRepository.
+-- Full-text search (verse_fts, FTS4; Android has no FTS5) is created by the pipeline with raw SQL and queried in BibleSearch.
 
 CREATE TABLE meta (
     key TEXT NOT NULL PRIMARY KEY,

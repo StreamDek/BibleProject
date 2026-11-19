@@ -20,3 +20,7 @@ expect fun appIconChangeNote(): String?
 /** Hides or shows the status bar while this composable is on screen (immersive view). */
 @Composable
 expect fun SystemBarsEffect(hideStatusBar: Boolean)
+
+/** Handles the system back gesture or button while [enabled] (Android). Other platforms use on-screen buttons. */
+@Composable
+expect fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit)

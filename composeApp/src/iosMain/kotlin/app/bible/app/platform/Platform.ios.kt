@@ -36,3 +36,6 @@ actual fun SystemBarsEffect(hideStatusBar: Boolean) {
         statusBarListener?.invoke(hideStatusBar)
     }
 }
+
+@Composable
+actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) = Unit

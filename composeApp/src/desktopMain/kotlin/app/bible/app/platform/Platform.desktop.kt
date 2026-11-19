@@ -9,3 +9,6 @@ actual fun appIconChangeNote(): String? = null
 
 @Composable
 actual fun SystemBarsEffect(hideStatusBar: Boolean) = Unit
+
+@Composable
+actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) = Unit

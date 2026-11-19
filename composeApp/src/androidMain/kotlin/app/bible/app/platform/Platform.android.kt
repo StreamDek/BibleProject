@@ -95,3 +95,10 @@ private fun setStatusBarHidden(window: Window, hidden: Boolean) {
         decor.systemUiVisibility = if (hidden) decor.systemUiVisibility or flags else decor.systemUiVisibility and flags.inv()
     }
 }
+
+// ---- back ---------------------------------------------------------------------------------------------
+
+@Composable
+actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) {
+    androidx.activity.compose.BackHandler(enabled = enabled, onBack = onBack)
+}

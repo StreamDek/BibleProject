@@ -39,12 +39,13 @@ class ArtPipelineTest {
             assertTrue("any text, letters, writing" in p, b.slug)
             assertTrue("not European" in p || !b.people, b.slug)
             assertFalse('"' in b.scene && b.depiction != Depiction.Symbolic, "${b.slug}: quotes in a scene get drawn as lettering")
-            if (b.divine == DivinePresence.LightSilhouette) assertTrue("no face" in p, b.slug)
+            if (b.divine != DivinePresence.None) assertTrue("no face" in p, b.slug)
             if (!b.people) assertEquals(DivinePresence.None, b.divine, b.slug)
         }
         val byslug = briefs.associateBy { it.slug }
         assertEquals(DivinePresence.LightSilhouette, byslug.getValue("feeding-five-thousand").divine)
         assertEquals(Depiction.Symbolic, byslug.getValue("prodigal-son").depiction)
+        assertEquals(DivinePresence.FacelessHand, byslug.getValue("creation-of-heavens-and-earth").divine)
         assertEquals(Depiction.Historical, byslug.getValue("armor-of-god").depiction)
         assertTrue(briefs.filter { it.depiction == Depiction.Atmospheric }.all { !it.people }, "atmospheric images show no people")
     }

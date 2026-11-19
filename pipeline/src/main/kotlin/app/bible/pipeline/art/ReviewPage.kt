@@ -30,7 +30,7 @@ object ReviewPage {
             </style></head><body>
             <header><b>Story art review</b><span id="count"></span><span style="flex:1"></span>
             <button onclick="download()">Download decisions.tsv</button></header><main>
-            <p>Every image must be checked against the imagery policy: God and Jesus only as light with no face; people of the ancient Near East and Mediterranean; no text, modern objects, halos, gore or nudity; nothing the passage does not say. Click a candidate to approve it, or reject with a reason.</p>
+            <p>Every image must be checked against the imagery policy: God and Jesus only as light with no face (or a faceless hand where the brief allows it); people of the ancient Near East and Mediterranean; no text, modern objects, halos, gore or nudity; nothing the passage does not say. Click a candidate to approve it, or reject with a reason.</p>
             """.trimIndent(),
         )
         if (pending.isEmpty()) append("<p><b>Nothing is waiting for review.</b></p>")
@@ -38,7 +38,7 @@ object ReviewPage {
             val id = esc(b.slug)
             append("<section id=\"s-$id\" data-slug=\"$id\" data-hash=\"${esc(set.briefHash)}\" data-round=\"${set.round}\">")
             append("<h2>${esc(b.title)}</h2><div class=\"ref\">${esc(b.reference)}</div>")
-            append("<div class=\"meta\">Depiction: ${b.depiction.label} · God or Jesus: ${if (b.divine == DivinePresence.LightSilhouette) "light silhouette only" else "not shown"} · ")
+            append("<div class=\"meta\">Depiction: ${b.depiction.label} · God or Jesus: ${when (b.divine) { DivinePresence.LightSilhouette -> "light silhouette only"; DivinePresence.FacelessHand -> "faceless hand only"; DivinePresence.None -> "not shown" }} · ")
             append("People: ${if (b.people) "yes" else "no"} · Model: ${esc(set.model)} · Round ${set.round}</div>")
             append("<div>${esc(b.scene)}</div>")
             append("<details><summary>Prompt</summary><pre>${esc(set.prompt)}</pre></details>")

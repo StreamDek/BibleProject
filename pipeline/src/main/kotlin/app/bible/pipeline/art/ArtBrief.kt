@@ -13,6 +13,8 @@ enum class DivinePresence {
     @SerialName("none") None,
     /** A glowing human silhouette made of light, with no facial features. */
     @SerialName("light_silhouette") LightSilhouette,
+    /** A hand reaching from clouds or light, with no face or body. Chosen by an editor where the context fits. */
+    @SerialName("faceless_hand") FacelessHand,
 }
 
 /**
@@ -45,7 +47,11 @@ data class ArtBrief(
         if (mustShow.isNotEmpty()) append(" Show: ").append(mustShow.joinToString("; ")).append('.')
         if (people) append(" ").append(PEOPLE_RULE)
         else append(" A landscape or setting only, with no people or figures.")
-        if (divine == DivinePresence.LightSilhouette) append(" ").append(DIVINE_RULE)
+        when (divine) {
+            DivinePresence.LightSilhouette -> append(" ").append(DIVINE_RULE)
+            DivinePresence.FacelessHand -> append(" ").append(HAND_RULE)
+            DivinePresence.None -> Unit
+        }
         if (keepVague.isNotEmpty()) append(" Keep these details indistinct: ").append(keepVague.joinToString("; ")).append('.')
         append(" ").append(COMPOSITION)
         val avoid = BASE_AVOID + mustNotShow
@@ -67,6 +73,8 @@ data class ArtBrief(
             "People have historically plausible ancient Near Eastern and Mediterranean appearance, dress and setting, not European."
         private const val DIVINE_RULE =
             "God or Jesus, where present, is shown only as a luminous human silhouette formed of soft light, with no face or facial features visible."
+        private const val HAND_RULE =
+            "God is shown only as a hand reaching out from clouds or light, with no face, head or body visible."
         private const val COMPOSITION =
             "Vertical composition; the main subject in the upper half; the lower part of the image calm, dark and low in detail."
         private val BASE_AVOID = listOf(

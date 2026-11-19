@@ -1,0 +1,71 @@
+# Production stack for the VPS (2 GB RAM, 2 TB/month bandwidth).
+# Images and content packs are NOT served from here: they live in Cloudflare R2 behind the Cloudflare CDN,
+# so this server only handles accounts, sync and the admin platform.
+#
+#   cp .env.example .env   # fill in secrets
+#   docker compose up -d
+name: bible
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bible
+      POSTGRES_USER: bible
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    # Tuned for ~400 MB of the 2 GB: small shared buffers, few connections.
+    command: >
+      postgres
+      -c shared_buffers=128MB
+      -c effective_cache_size=384MB
+      -c work_mem=4MB
+      -c maintenance_work_mem=64MB
+      -c max_connections=30
+      -c wal_compression=on
+      -c log_min_duration_statement=500
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bible -d bible"]
+      interval: 10s
+      retries: 5
+    mem_limit: 512m
+    # Not published to the host: only reachable by the other containers.
+
+  api:
+    image: ${API_IMAGE:-ghcr.io/streamdek/bible-api:latest}
+    restart: unless-stopped
+    depends_on:
+      postgres: { condition: service_healthy }
+    environment:
+      APP_VERSION: ${APP_VERSION:-latest}
+      DATABASE_URL: jdbc:postgresql://postgres:5432/bible
+      DATABASE_USER: bible
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_POOL_SIZE: "8"
+    mem_limit: 400m
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      API_DOMAIN: ${API_DOMAIN:?set API_DOMAIN in .env}
+      ADMIN_DOMAIN: ${ADMIN_DOMAIN:-}
+      ACME_EMAIL: ${ACME_EMAIL:?set ACME_EMAIL in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    mem_limit: 128m
+
+  # The admin web app (Next.js) is added in Phase 2.
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

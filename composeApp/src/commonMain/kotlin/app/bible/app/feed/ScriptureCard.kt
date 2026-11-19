@@ -60,10 +60,18 @@ fun ScriptureCard(
         heading = loadHeading(card)
     }
     val colors = MaterialTheme.colorScheme
-    // Dense cards (10 verses) are given a larger character budget, so their type is set a little smaller.
-    val densityScale = if (card.last.verse - card.first.verse >= 7) 0.88f else 1f
+    // Dense cards (7 or 10 verses) are given a larger character budget, so their type is set a little smaller.
+    val span = card.last.verse - card.first.verse + 1
+    val densityScale = when {
+        span >= 8 -> 0.88f
+        span >= 6 -> 0.94f
+        else -> 1f
+    }
     val size = (21 * prefs.fontScale * densityScale).sp
 
+    // The card only becomes scrollable when its text overflows (very large type). Otherwise the scroll modifier
+    // would claim the drag and the pager would need a long swipe instead of a flick.
+    val scroll = rememberScrollState()
     Box(
         modifier
             .fillMaxSize()
@@ -76,7 +84,7 @@ fun ScriptureCard(
                 .navigationBarsPadding()
                 .padding(horizontal = 28.dp)
                 .padding(top = 72.dp, bottom = 64.dp)
-                .verticalScroll(rememberScrollState()), // only scrolls at very large font sizes
+                .verticalScroll(scroll, enabled = scroll.maxValue > 0),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,
         ) {

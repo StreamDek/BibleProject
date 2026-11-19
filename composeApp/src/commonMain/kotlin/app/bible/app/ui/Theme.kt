@@ -91,6 +91,7 @@ fun cardBackground(book: Int, dark: Boolean): Brush {
  * Top padding that clears the status bar when it is shown, and the camera cutout or notch when Immersive view
  * hides the status bar (statusBarsPadding alone drops to zero then and text would run under the camera).
  */
+@Composable
 fun androidx.compose.ui.Modifier.topSafePadding(): androidx.compose.ui.Modifier =
     windowInsetsPadding(
         androidx.compose.foundation.layout.WindowInsets.safeDrawing

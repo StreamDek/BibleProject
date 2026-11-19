@@ -1,7 +1,1287 @@
 # Our own section headings (written by our editors, not copied from any edition; publishers' headings are copyrighted).
 # Format: OSIS reference of the section's first verse<TAB>heading. '#' starts a comment.
 # Each line makes the break before that verse a section break (weight 3), so a card never spans two sections.
-# Coverage so far: Luke. More books are added through the admin Story Studio later.
+# Coverage: all 66 books. Psalms are one section per psalm, plus the Hebrew letter divisions of Psalm 119.
+Gen.1.1	The creation
+Gen.2.4	The garden in Eden
+Gen.2.18	The making of woman
+Gen.3.1	The fall
+Gen.3.14	The curse and the promise
+Gen.4.1	Cain and Abel
+Gen.4.17	The line of Cain
+Gen.4.25	Seth is born
+Gen.5.1	From Adam to Noah
+Gen.6.1	Wickedness on the earth
+Gen.6.9	Noah builds the ark
+Gen.7.1	The flood
+Gen.8.1	The waters go down
+Gen.8.20	Noah's offering
+Gen.9.1	God's covenant with Noah
+Gen.9.18	Noah's sons
+Gen.10.1	The nations descended from Noah
+Gen.11.1	The tower of Babel
+Gen.11.10	From Shem to Abram
+Gen.12.1	The call of Abram
+Gen.12.10	Abram in Egypt
+Gen.13.1	Abram and Lot part
+Gen.14.1	Abram rescues Lot
+Gen.14.17	Melchizedek blesses Abram
+Gen.15.1	God's covenant with Abram
+Gen.16.1	Hagar and Ishmael
+Gen.17.1	The sign of circumcision
+Gen.18.1	Three visitors
+Gen.18.16	Abraham pleads for Sodom
+Gen.19.1	The destruction of Sodom
+Gen.19.30	Lot and his daughters
+Gen.20.1	Abraham and Abimelech
+Gen.21.1	Isaac is born
+Gen.21.9	Hagar and Ishmael sent away
+Gen.21.22	The covenant at Beersheba
+Gen.22.1	Abraham offers Isaac
+Gen.22.20	Nahor's family
+Gen.23.1	Sarah's death and burial
+Gen.24.1	A wife for Isaac
+Gen.25.1	Abraham's death
+Gen.25.12	Ishmael's descendants
+Gen.25.19	Jacob and Esau are born
+Gen.25.27	Esau sells his birthright
+Gen.26.1	Isaac and Abimelech
+Gen.26.34	Esau's wives
+Gen.27.1	Jacob takes Esau's blessing
+Gen.27.41	Jacob flees from Esau
+Gen.28.10	Jacob's dream at Bethel
+Gen.29.1	Jacob meets Rachel
+Gen.29.15	Jacob marries Leah and Rachel
+Gen.29.31	Jacob's children
+Gen.30.25	Jacob's flocks increase
+Gen.31.1	Jacob flees from Laban
+Gen.31.22	Laban overtakes Jacob
+Gen.32.1	Jacob prepares to meet Esau
+Gen.32.24	Jacob wrestles with God
+Gen.33.1	Jacob meets Esau
+Gen.34.1	Dinah and Shechem
+Gen.35.1	Jacob returns to Bethel
+Gen.35.16	Rachel dies
+Gen.35.22	The sons of Jacob
+Gen.36.1	Esau's descendants
+Gen.37.1	Joseph's dreams
+Gen.37.12	Joseph sold by his brothers
+Gen.38.1	Judah and Tamar
+Gen.39.1	Joseph and Potiphar's wife
+Gen.40.1	The cupbearer and the baker
+Gen.41.1	Pharaoh's dreams
+Gen.41.37	Joseph rules in Egypt
+Gen.42.1	Joseph's brothers go to Egypt
+Gen.43.1	The second journey to Egypt
+Gen.44.1	The silver cup
+Gen.45.1	Joseph makes himself known
+Gen.46.1	Jacob goes to Egypt
+Gen.46.28	Jacob meets Joseph
+Gen.47.1	Jacob before Pharaoh
+Gen.47.13	The famine
+Gen.47.27	Jacob's last request
+Gen.48.1	Jacob blesses Ephraim and Manasseh
+Gen.49.1	Jacob blesses his sons
+Gen.49.29	Jacob's death
+Gen.50.1	Jacob's burial
+Gen.50.15	Joseph reassures his brothers
+Gen.50.22	Joseph's death
+Exod.1.1	Israel oppressed in Egypt
+Exod.2.1	The birth of Moses
+Exod.2.11	Moses flees to Midian
+Exod.2.23	God hears Israel
+Exod.3.1	The burning bush
+Exod.4.1	Signs for Moses
+Exod.4.18	Moses returns to Egypt
+Exod.5.1	Bricks without straw
+Exod.6.1	God promises deliverance
+Exod.6.14	The families of Moses and Aaron
+Exod.7.1	Aaron's rod
+Exod.7.14	Water turned to blood
+Exod.8.1	Frogs
+Exod.8.16	Lice
+Exod.8.20	Flies
+Exod.9.1	The death of livestock
+Exod.9.8	Boils
+Exod.9.13	Hail
+Exod.10.1	Locusts
+Exod.10.21	Darkness
+Exod.11.1	The death of the firstborn announced
+Exod.12.1	The passover
+Exod.12.29	The death of the firstborn
+Exod.12.37	Israel leaves Egypt
+Exod.12.43	The law of the passover
+Exod.13.1	The firstborn are the Lord's
+Exod.13.17	The pillar of cloud and fire
+Exod.14.1	Crossing the Red Sea
+Exod.15.1	The song of Moses
+Exod.15.22	Bitter water made sweet
+Exod.16.1	Manna and quails
+Exod.17.1	Water from the rock
+Exod.17.8	Amalek defeated
+Exod.18.1	Jethro's counsel
+Exod.19.1	Israel at Sinai
+Exod.20.1	The ten commandments
+Exod.20.18	The people afraid
+Exod.21.1	Laws about servants
+Exod.21.12	Laws about violence
+Exod.22.1	Laws about property
+Exod.22.16	Laws of conduct
+Exod.23.1	Justice and mercy
+Exod.23.10	Sabbaths and feasts
+Exod.23.20	An angel to lead the way
+Exod.24.1	The covenant confirmed
+Exod.25.1	Offerings for the tabernacle
+Exod.25.10	The ark
+Exod.25.23	The table
+Exod.25.31	The candlestick
+Exod.26.1	The tabernacle
+Exod.27.1	The altar and the court
+Exod.27.20	Oil for the lamp
+Exod.28.1	Garments for the priests
+Exod.29.1	The consecration of the priests
+Exod.29.38	The daily offerings
+Exod.30.1	The altar of incense
+Exod.30.11	The ransom money
+Exod.30.17	The laver
+Exod.30.22	The anointing oil and incense
+Exod.31.1	Bezaleel and Aholiab
+Exod.31.12	The sabbath
+Exod.32.1	The golden calf
+Exod.32.15	Moses breaks the tablets
+Exod.33.1	The presence of the Lord
+Exod.34.1	New tablets
+Exod.34.29	Moses' shining face
+Exod.35.1	The sabbath and the offerings
+Exod.35.30	The craftsmen
+Exod.36.1	The tabernacle is made
+Exod.37.1	The ark and the furnishings
+Exod.38.1	The altar and the court
+Exod.38.21	Materials for the tabernacle
+Exod.39.1	The priests' garments are made
+Exod.39.32	The work is finished
+Exod.40.1	The tabernacle set up
+Exod.40.34	The glory of the Lord fills the tabernacle
+Lev.1.1	The burnt offering
+Lev.2.1	The meat offering
+Lev.3.1	The peace offering
+Lev.4.1	The sin offering
+Lev.5.1	The trespass offering
+Lev.6.8	The law of the offerings
+Lev.8.1	Aaron and his sons consecrated
+Lev.9.1	The priests begin their work
+Lev.10.1	Nadab and Abihu
+Lev.11.1	Clean and unclean animals
+Lev.12.1	Purification after childbirth
+Lev.13.1	Laws about leprosy
+Lev.14.1	Cleansing from leprosy
+Lev.15.1	Discharges
+Lev.16.1	The day of atonement
+Lev.17.1	The sanctity of blood
+Lev.18.1	Unlawful relations
+Lev.19.1	Be holy
+Lev.20.1	Penalties
+Lev.21.1	Holiness of the priests
+Lev.22.1	Holy things
+Lev.23.1	The feasts of the Lord
+Lev.24.1	The lamp and the bread
+Lev.24.10	A blasphemer punished
+Lev.25.1	The sabbath year
+Lev.25.8	The year of jubile
+Lev.26.1	Blessings for obedience
+Lev.26.14	Punishment for disobedience
+Lev.27.1	Vows and tithes
+Num.1.1	The first census
+Num.2.1	The camp of Israel
+Num.3.1	The Levites
+Num.4.1	The duties of the Levites
+Num.5.1	Purity in the camp
+Num.5.11	The test for jealousy
+Num.6.1	The Nazarite vow
+Num.6.22	The priestly blessing
+Num.7.1	Offerings at the dedication
+Num.8.1	The lamps
+Num.8.5	The Levites set apart
+Num.9.1	The passover at Sinai
+Num.9.15	The cloud over the tabernacle
+Num.10.1	The silver trumpets
+Num.10.11	Israel leaves Sinai
+Num.11.1	Complaints in the camp
+Num.11.16	Seventy elders
+Num.11.31	Quails
+Num.12.1	Miriam and Aaron oppose Moses
+Num.13.1	Spies sent into Canaan
+Num.14.1	The people rebel
+Num.14.26	Forty years in the wilderness
+Num.15.1	Laws about offerings
+Num.15.32	The sabbath breaker
+Num.15.37	Fringes
+Num.16.1	The rebellion of Korah
+Num.16.41	The plague
+Num.17.1	Aaron's rod buds
+Num.18.1	Duties of priests and Levites
+Num.19.1	The water of purification
+Num.20.1	Water from the rock
+Num.20.14	Edom refuses passage
+Num.20.22	The death of Aaron
+Num.21.1	The brasen serpent
+Num.21.10	The journey to Moab
+Num.21.21	Sihon and Og defeated
+Num.22.1	Balak sends for Balaam
+Num.22.21	Balaam's ass
+Num.23.1	Balaam blesses Israel
+Num.24.1	Balaam's prophecies
+Num.25.1	Sin at Peor
+Num.26.1	The second census
+Num.27.1	The daughters of Zelophehad
+Num.27.12	Joshua to succeed Moses
+Num.28.1	Daily and festival offerings
+Num.30.1	Vows
+Num.31.1	Vengeance on Midian
+Num.32.1	Tribes east of Jordan
+Num.33.1	The journeys of Israel
+Num.33.50	Commands for the conquest
+Num.34.1	The borders of Canaan
+Num.35.1	Cities for the Levites
+Num.35.9	Cities of refuge
+Num.36.1	Inheritance of daughters
+Deut.1.1	Moses recalls the journey
+Deut.1.19	Israel refuses to enter
+Deut.2.1	The wilderness years
+Deut.2.24	Victory over Sihon
+Deut.3.1	Victory over Og
+Deut.3.12	Land east of Jordan divided
+Deut.3.23	Moses may not enter
+Deut.4.1	Obey the Lord
+Deut.4.41	Cities of refuge
+Deut.5.1	The ten commandments
+Deut.6.1	The great commandment
+Deut.7.1	A people holy to the Lord
+Deut.8.1	Remember the Lord
+Deut.9.1	Not because of your righteousness
+Deut.10.1	New tablets
+Deut.10.12	What the Lord requires
+Deut.11.1	Love and obey
+Deut.11.26	A blessing and a curse
+Deut.12.1	One place of worship
+Deut.13.1	Against false prophets
+Deut.14.1	Clean and unclean food
+Deut.14.22	Tithes
+Deut.15.1	The year of release
+Deut.16.1	The feasts
+Deut.16.18	Judges
+Deut.17.14	The king
+Deut.18.1	Priests and Levites
+Deut.18.9	A prophet like Moses
+Deut.19.1	Cities of refuge
+Deut.20.1	Laws of war
+Deut.21.1	Various laws
+Deut.26.1	Firstfruits and tithes
+Deut.27.1	The altar on mount Ebal
+Deut.28.1	Blessings for obedience
+Deut.28.15	Curses for disobedience
+Deut.29.1	The covenant renewed
+Deut.30.1	Return to the Lord
+Deut.30.11	Choose life
+Deut.31.1	Joshua succeeds Moses
+Deut.31.14	Israel's rebellion foretold
+Deut.31.30	The song of Moses
+Deut.32.44	Moses' final words
+Deut.33.1	Moses blesses the tribes
+Deut.34.1	The death of Moses
+Josh.1.1	The Lord commissions Joshua
+Josh.2.1	Rahab hides the spies
+Josh.3.1	Crossing the Jordan
+Josh.4.1	Twelve memorial stones
+Josh.5.1	Circumcision at Gilgal
+Josh.5.13	The captain of the Lord's host
+Josh.6.1	The fall of Jericho
+Josh.7.1	Achan's sin
+Josh.8.1	Ai destroyed
+Josh.8.30	The covenant renewed at Ebal
+Josh.9.1	The Gibeonite deception
+Josh.10.1	The sun stands still
+Josh.10.16	The five kings
+Josh.10.28	Conquest of the south
+Josh.11.1	Conquest of the north
+Josh.12.1	The defeated kings
+Josh.13.1	Land still to be taken
+Josh.14.1	The division of Canaan
+Josh.14.6	Caleb's inheritance
+Josh.15.1	The land of Judah
+Josh.16.1	Ephraim and Manasseh
+Josh.18.1	The remaining tribes
+Josh.20.1	Cities of refuge
+Josh.21.1	Cities of the Levites
+Josh.21.43	The Lord's promises fulfilled
+Josh.22.1	The eastern tribes go home
+Josh.22.10	The altar by the Jordan
+Josh.23.1	Joshua's farewell
+Josh.24.1	The covenant at Shechem
+Josh.24.29	The death of Joshua
+Judg.1.1	Israel fails to complete the conquest
+Judg.2.1	The angel at Bochim
+Judg.2.6	The pattern of the judges
+Judg.3.1	Nations left to test Israel
+Judg.3.7	Othniel
+Judg.3.12	Ehud
+Judg.3.31	Shamgar
+Judg.4.1	Deborah and Barak
+Judg.5.1	The song of Deborah
+Judg.6.1	The call of Gideon
+Judg.6.25	Gideon destroys Baal's altar
+Judg.6.33	The sign of the fleece
+Judg.7.1	Gideon's three hundred
+Judg.8.1	Gideon pursues the Midianites
+Judg.8.22	Gideon's ephod
+Judg.9.1	Abimelech
+Judg.10.1	Tola and Jair
+Judg.10.6	Israel oppressed again
+Judg.11.1	Jephthah
+Judg.11.29	Jephthah's vow
+Judg.12.1	Ephraim against Jephthah
+Judg.12.8	Ibzan, Elon and Abdon
+Judg.13.1	The birth of Samson
+Judg.14.1	Samson's marriage
+Judg.15.1	Samson's revenge
+Judg.16.1	Samson and Delilah
+Judg.16.23	The death of Samson
+Judg.17.1	Micah's idols
+Judg.18.1	The Danites move north
+Judg.19.1	The Levite and his concubine
+Judg.20.1	War against Benjamin
+Judg.21.1	Wives for Benjamin
+Ruth.1.1	Naomi and Ruth
+Ruth.2.1	Ruth gleans in Boaz's field
+Ruth.3.1	Ruth at the threshingfloor
+Ruth.4.1	Boaz marries Ruth
+Ruth.4.18	The line of David
+1Sam.1.1	Hannah prays for a son
+1Sam.1.21	Samuel given to the Lord
+1Sam.2.1	Hannah's prayer
+1Sam.2.12	The sins of Eli's sons
+1Sam.2.27	Judgment on Eli's house
+1Sam.3.1	The Lord calls Samuel
+1Sam.4.1	The ark captured
+1Sam.5.1	The ark among the Philistines
+1Sam.6.1	The ark returned
+1Sam.7.3	Samuel judges Israel
+1Sam.8.1	Israel asks for a king
+1Sam.9.1	Saul meets Samuel
+1Sam.10.1	Saul anointed king
+1Sam.10.17	Saul chosen at Mizpeh
+1Sam.11.1	Saul rescues Jabesh-gilead
+1Sam.12.1	Samuel's farewell
+1Sam.13.1	Saul's unlawful sacrifice
+1Sam.14.1	Jonathan attacks the Philistines
+1Sam.14.24	Saul's rash oath
+1Sam.15.1	Saul rejected as king
+1Sam.16.1	David anointed
+1Sam.16.14	David plays for Saul
+1Sam.17.1	David and Goliath
+1Sam.18.1	Saul's jealousy
+1Sam.19.1	Saul tries to kill David
+1Sam.20.1	Jonathan's covenant with David
+1Sam.21.1	David at Nob
+1Sam.22.1	David at the cave of Adullam
+1Sam.22.6	Saul kills the priests
+1Sam.23.1	David saves Keilah
+1Sam.23.15	Saul pursues David
+1Sam.24.1	David spares Saul in the cave
+1Sam.25.1	David and Abigail
+1Sam.26.1	David spares Saul again
+1Sam.27.1	David among the Philistines
+1Sam.28.3	Saul and the witch of Endor
+1Sam.29.1	The Philistines send David away
+1Sam.30.1	David defeats the Amalekites
+1Sam.31.1	The death of Saul
+2Sam.1.1	David hears of Saul's death
+2Sam.1.17	David's lament
+2Sam.2.1	David king over Judah
+2Sam.2.12	War between the houses
+2Sam.3.1	Abner joins David
+2Sam.3.22	Joab kills Abner
+2Sam.4.1	The death of Ishbosheth
+2Sam.5.1	David king over all Israel
+2Sam.5.6	David takes Jerusalem
+2Sam.5.17	Victory over the Philistines
+2Sam.6.1	The ark brought to Jerusalem
+2Sam.7.1	God's covenant with David
+2Sam.7.18	David's prayer
+2Sam.8.1	David's victories
+2Sam.9.1	David and Mephibosheth
+2Sam.10.1	War with the Ammonites
+2Sam.11.1	David and Bathsheba
+2Sam.12.1	Nathan rebukes David
+2Sam.12.15	The child dies
+2Sam.12.26	Rabbah captured
+2Sam.13.1	Amnon and Tamar
+2Sam.13.23	Absalom kills Amnon
+2Sam.14.1	Absalom returns
+2Sam.15.1	Absalom's conspiracy
+2Sam.15.13	David flees Jerusalem
+2Sam.16.1	Ziba and Shimei
+2Sam.16.15	The counsel of Ahithophel and Hushai
+2Sam.18.1	The death of Absalom
+2Sam.18.19	David mourns Absalom
+2Sam.19.9	David returns to Jerusalem
+2Sam.20.1	Sheba's rebellion
+2Sam.21.1	The Gibeonites avenged
+2Sam.21.15	Wars with the Philistines
+2Sam.22.1	David's song of deliverance
+2Sam.23.1	David's last words
+2Sam.23.8	David's mighty men
+2Sam.24.1	David's census
+1Kgs.1.1	Adonijah sets himself up
+1Kgs.1.11	Solomon anointed king
+1Kgs.2.1	David's charge to Solomon
+1Kgs.2.13	Solomon secures the kingdom
+1Kgs.3.1	Solomon asks for wisdom
+1Kgs.3.16	A wise judgment
+1Kgs.4.1	Solomon's officials
+1Kgs.4.20	Solomon's prosperity and wisdom
+1Kgs.5.1	Preparing to build the temple
+1Kgs.6.1	Solomon builds the temple
+1Kgs.7.1	Solomon's palace
+1Kgs.7.13	The temple furnishings
+1Kgs.8.1	The ark brought into the temple
+1Kgs.8.22	Solomon's prayer of dedication
+1Kgs.8.54	Solomon blesses the people
+1Kgs.9.1	The Lord appears to Solomon again
+1Kgs.9.10	Solomon's other works
+1Kgs.10.1	The queen of Sheba
+1Kgs.10.14	Solomon's wealth
+1Kgs.11.1	Solomon turns from the Lord
+1Kgs.11.14	Solomon's adversaries
+1Kgs.11.41	The death of Solomon
+1Kgs.12.1	The kingdom divided
+1Kgs.12.25	Jeroboam's golden calves
+1Kgs.13.1	The man of God from Judah
+1Kgs.14.1	Ahijah's prophecy against Jeroboam
+1Kgs.14.21	Rehoboam king of Judah
+1Kgs.15.1	Abijam and Asa
+1Kgs.15.25	Nadab and Baasha
+1Kgs.16.8	Elah, Zimri and Omri
+1Kgs.16.29	Ahab king of Israel
+1Kgs.17.1	Elijah fed by ravens
+1Kgs.17.8	The widow of Zarephath
+1Kgs.18.1	Elijah and Obadiah
+1Kgs.18.17	Elijah on mount Carmel
+1Kgs.18.41	The drought ends
+1Kgs.19.1	Elijah flees to Horeb
+1Kgs.19.19	The call of Elisha
+1Kgs.20.1	War with Syria
+1Kgs.21.1	Naboth's vineyard
+1Kgs.22.1	Micaiah warns Ahab
+1Kgs.22.29	The death of Ahab
+1Kgs.22.41	Jehoshaphat and Ahaziah
+2Kgs.1.1	Elijah and Ahaziah
+2Kgs.2.1	Elijah taken up to heaven
+2Kgs.2.19	Elisha's first miracles
+2Kgs.3.1	War against Moab
+2Kgs.4.1	The widow's oil
+2Kgs.4.8	The Shunammite's son
+2Kgs.4.38	Death in the pot
+2Kgs.5.1	Naaman healed
+2Kgs.6.1	The axe head floats
+2Kgs.6.8	Blinded Syrians
+2Kgs.6.24	Famine in Samaria
+2Kgs.7.3	The siege lifted
+2Kgs.8.1	The Shunammite's land restored
+2Kgs.8.7	Hazael
+2Kgs.8.16	Jehoram and Ahaziah of Judah
+2Kgs.9.1	Jehu anointed king
+2Kgs.9.30	The death of Jezebel
+2Kgs.10.1	Jehu destroys Ahab's house
+2Kgs.10.18	Jehu destroys Baal worship
+2Kgs.11.1	Athaliah and Joash
+2Kgs.12.1	Joash repairs the temple
+2Kgs.13.1	Jehoahaz and Jehoash of Israel
+2Kgs.13.14	The death of Elisha
+2Kgs.14.1	Amaziah king of Judah
+2Kgs.14.23	Jeroboam the second
+2Kgs.15.1	Kings of Judah and Israel
+2Kgs.16.1	Ahaz king of Judah
+2Kgs.17.1	The fall of Samaria
+2Kgs.17.7	Why Israel fell
+2Kgs.17.24	Samaria resettled
+2Kgs.18.1	Hezekiah king of Judah
+2Kgs.18.13	Sennacherib threatens Jerusalem
+2Kgs.19.1	Isaiah's message
+2Kgs.19.14	Hezekiah's prayer
+2Kgs.19.35	Jerusalem delivered
+2Kgs.20.1	Hezekiah's illness
+2Kgs.20.12	Envoys from Babylon
+2Kgs.21.1	Manasseh and Amon
+2Kgs.22.1	Josiah finds the book of the law
+2Kgs.23.1	Josiah's reforms
+2Kgs.23.31	Jehoahaz and Jehoiakim
+2Kgs.24.8	Jehoiachin taken to Babylon
+2Kgs.24.18	Zedekiah
+2Kgs.25.1	The fall of Jerusalem
+2Kgs.25.22	Gedaliah
+2Kgs.25.27	Jehoiachin released
+1Chr.1.1	From Adam to Abraham
+1Chr.1.28	Abraham's descendants
+1Chr.2.1	The sons of Israel
+1Chr.3.1	The family of David
+1Chr.4.1	The families of Judah and Simeon
+1Chr.5.1	The tribes east of Jordan
+1Chr.6.1	The Levites
+1Chr.7.1	The northern tribes
+1Chr.8.1	The family of Benjamin and Saul
+1Chr.9.1	Those who returned to Jerusalem
+1Chr.10.1	The death of Saul
+1Chr.11.1	David king over Israel
+1Chr.11.10	David's mighty men
+1Chr.12.1	David's supporters
+1Chr.13.1	The ark brought from Kirjath-jearim
+1Chr.14.1	David's house and victories
+1Chr.15.1	The ark brought to Jerusalem
+1Chr.16.7	David's psalm of thanks
+1Chr.17.1	God's covenant with David
+1Chr.17.16	David's prayer
+1Chr.18.1	David's victories
+1Chr.19.1	War with the Ammonites
+1Chr.20.1	Rabbah captured
+1Chr.21.1	David's census
+1Chr.22.1	Preparations for the temple
+1Chr.23.1	The duties of the Levites
+1Chr.24.1	The divisions of the priests
+1Chr.25.1	The musicians
+1Chr.26.1	Gatekeepers and treasurers
+1Chr.27.1	Army and officials
+1Chr.28.1	David's charge to Solomon
+1Chr.29.1	Gifts for the temple
+1Chr.29.10	David's prayer of praise
+1Chr.29.26	The death of David
+2Chr.1.1	Solomon asks for wisdom
+2Chr.2.1	Preparing to build the temple
+2Chr.3.1	Solomon builds the temple
+2Chr.4.1	The temple furnishings
+2Chr.5.1	The ark brought into the temple
+2Chr.6.1	Solomon's prayer of dedication
+2Chr.7.1	Fire from heaven
+2Chr.7.11	The Lord appears to Solomon
+2Chr.8.1	Solomon's other works
+2Chr.9.1	The queen of Sheba
+2Chr.9.13	Solomon's wealth
+2Chr.10.1	The kingdom divided
+2Chr.11.5	Rehoboam strengthens Judah
+2Chr.12.1	Shishak invades Judah
+2Chr.13.1	Abijah's war with Jeroboam
+2Chr.14.1	Asa's reforms
+2Chr.15.1	Asa's covenant
+2Chr.16.1	Asa's last years
+2Chr.17.1	Jehoshaphat king of Judah
+2Chr.18.1	Micaiah warns Ahab
+2Chr.19.1	Jehoshaphat appoints judges
+2Chr.20.1	Jehoshaphat's victory
+2Chr.21.1	Jehoram king of Judah
+2Chr.22.1	Ahaziah and Athaliah
+2Chr.23.1	Joash made king
+2Chr.24.1	Joash repairs the temple
+2Chr.24.15	Joash turns away
+2Chr.25.1	Amaziah
+2Chr.26.1	Uzziah
+2Chr.27.1	Jotham
+2Chr.28.1	Ahaz
+2Chr.29.1	Hezekiah cleanses the temple
+2Chr.30.1	Hezekiah's passover
+2Chr.31.1	Hezekiah's reforms
+2Chr.32.1	Sennacherib threatens Jerusalem
+2Chr.32.24	Hezekiah's illness and pride
+2Chr.33.1	Manasseh
+2Chr.33.21	Amon
+2Chr.34.1	Josiah's reforms
+2Chr.34.14	The book of the law found
+2Chr.35.1	Josiah's passover
+2Chr.35.20	The death of Josiah
+2Chr.36.1	The last kings of Judah
+2Chr.36.11	The fall of Jerusalem
+2Chr.36.22	Cyrus's decree
+Ezra.1.1	Cyrus allows the return
+Ezra.2.1	Those who returned
+Ezra.3.1	The altar rebuilt
+Ezra.3.8	The temple foundation laid
+Ezra.4.1	Opposition to the rebuilding
+Ezra.5.1	Rebuilding resumes
+Ezra.6.1	Darius's decree
+Ezra.6.13	The temple completed
+Ezra.7.1	Ezra comes to Jerusalem
+Ezra.8.1	Ezra's companions
+Ezra.9.1	Ezra's prayer about intermarriage
+Ezra.10.1	The people's confession
+Neh.1.1	Nehemiah's prayer
+Neh.2.1	Nehemiah sent to Jerusalem
+Neh.2.11	Nehemiah inspects the walls
+Neh.3.1	The builders of the wall
+Neh.4.1	Opposition to the work
+Neh.5.1	Nehemiah helps the poor
+Neh.6.1	Plots against Nehemiah
+Neh.6.15	The wall completed
+Neh.7.1	The list of returned exiles
+Neh.8.1	Ezra reads the law
+Neh.9.1	The people confess their sins
+Neh.9.38	The covenant sealed
+Neh.11.1	The new residents of Jerusalem
+Neh.12.1	Priests and Levites
+Neh.12.27	The wall dedicated
+Neh.13.1	Nehemiah's reforms
+Esth.1.1	Queen Vashti deposed
+Esth.2.1	Esther made queen
+Esth.2.19	Mordecai uncovers a plot
+Esth.3.1	Haman's plot against the Jews
+Esth.4.1	Mordecai asks Esther to help
+Esth.5.1	Esther's banquet
+Esth.5.9	Haman's gallows
+Esth.6.1	The king honours Mordecai
+Esth.7.1	Haman hanged
+Esth.8.1	The king's decree for the Jews
+Esth.9.1	The Jews defend themselves
+Esth.9.20	The feast of Purim
+Esth.10.1	The greatness of Mordecai
+Job.1.1	Job's faithfulness
+Job.1.6	Satan's first test
+Job.2.1	Satan's second test
+Job.2.11	Job's three friends
+Job.3.1	Job curses the day of his birth
+Job.4.1	Eliphaz speaks
+Job.6.1	Job answers Eliphaz
+Job.8.1	Bildad speaks
+Job.9.1	Job answers Bildad
+Job.11.1	Zophar speaks
+Job.12.1	Job answers Zophar
+Job.15.1	Eliphaz speaks again
+Job.16.1	Job's reply
+Job.18.1	Bildad speaks again
+Job.19.1	I know that my redeemer liveth
+Job.20.1	Zophar speaks again
+Job.21.1	Why do the wicked prosper?
+Job.22.1	Eliphaz's third speech
+Job.23.1	Job longs to find God
+Job.25.1	Bildad's third speech
+Job.26.1	Job's reply
+Job.27.1	Job maintains his integrity
+Job.28.1	Where wisdom is found
+Job.29.1	Job remembers his former life
+Job.30.1	Job's present suffering
+Job.31.1	Job's final defence
+Job.32.1	Elihu speaks
+Job.33.1	Elihu rebukes Job
+Job.34.1	Elihu declares God's justice
+Job.35.1	Elihu condemns Job
+Job.36.1	Elihu extols God's greatness
+Job.38.1	The Lord answers out of the whirlwind
+Job.40.1	Job's response
+Job.40.6	The Lord speaks again
+Job.42.1	Job's repentance
+Job.42.7	Job restored
+Ps.119.1	Aleph
+Ps.119.9	Beth
+Ps.119.17	Gimel
+Ps.119.25	Daleth
+Ps.119.33	He
+Ps.119.41	Vau
+Ps.119.49	Zain
+Ps.119.57	Cheth
+Ps.119.65	Teth
+Ps.119.73	Jod
+Ps.119.81	Caph
+Ps.119.89	Lamed
+Ps.119.97	Mem
+Ps.119.105	Nun
+Ps.119.113	Samech
+Ps.119.121	Ain
+Ps.119.129	Pe
+Ps.119.137	Tzaddi
+Ps.119.145	Koph
+Ps.119.153	Resh
+Ps.119.161	Schin
+Ps.119.169	Tau
+Prov.1.1	The purpose of Proverbs
+Prov.1.8	Warnings against enticement
+Prov.1.20	Wisdom calls aloud
+Prov.2.1	The value of wisdom
+Prov.3.1	Trust in the Lord
+Prov.3.13	Wisdom is better than riches
+Prov.3.27	Do good to your neighbour
+Prov.4.1	Get wisdom
+Prov.5.1	Warning against adultery
+Prov.6.1	Warnings against folly
+Prov.6.20	Warning against adultery
+Prov.7.1	The adulteress
+Prov.8.1	Wisdom's call
+Prov.8.22	Wisdom at creation
+Prov.9.1	Wisdom and folly
+Prov.10.1	Proverbs of Solomon
+Prov.22.17	Sayings of the wise
+Prov.24.23	More sayings of the wise
+Prov.25.1	Proverbs copied by Hezekiah's men
+Prov.30.1	The words of Agur
+Prov.31.1	The words of king Lemuel
+Prov.31.10	The virtuous woman
+Eccl.1.1	All is vanity
+Eccl.1.12	The vanity of wisdom
+Eccl.2.1	The vanity of pleasure
+Eccl.2.12	Wisdom and folly
+Eccl.2.18	The vanity of toil
+Eccl.3.1	A time for everything
+Eccl.3.16	Injustice
+Eccl.4.1	Oppression and toil
+Eccl.4.9	Two are better than one
+Eccl.5.1	Fear God
+Eccl.5.10	The vanity of riches
+Eccl.6.1	Wealth without enjoyment
+Eccl.7.1	Wisdom for life
+Eccl.8.1	Obey the king
+Eccl.8.9	The righteous and the wicked
+Eccl.9.1	One event for all
+Eccl.9.13	Wisdom better than strength
+Eccl.10.1	Folly
+Eccl.11.1	Cast thy bread upon the waters
+Eccl.11.7	Rejoice in thy youth
+Eccl.12.1	Remember thy Creator
+Eccl.12.9	The conclusion of the matter
+Song.1.1	The bride and the bridegroom
+Song.2.8	The beloved comes
+Song.3.1	The bride's dream
+Song.3.6	The wedding procession
+Song.4.1	The beauty of the bride
+Song.5.2	The bride's second dream
+Song.5.9	The beloved described
+Song.6.4	The bride's beauty praised
+Song.7.1	The bride's beauty
+Song.7.10	The bride's love
+Song.8.5	Love is strong as death
+Isa.1.1	A rebellious nation
+Isa.1.18	Come now, and let us reason together
+Isa.2.1	The mountain of the Lord's house
+Isa.2.6	The day of the Lord
+Isa.3.1	Judgment on Jerusalem
+Isa.3.16	The daughters of Zion
+Isa.4.2	The branch of the Lord
+Isa.5.1	The song of the vineyard
+Isa.5.8	Woes to the wicked
+Isa.6.1	Isaiah's vision and call
+Isa.7.1	A sign to Ahaz
+Isa.8.1	Assyria, the Lord's instrument
+Isa.9.1	Unto us a child is born
+Isa.9.8	The Lord's anger against Israel
+Isa.10.5	Judgment on Assyria
+Isa.10.20	A remnant shall return
+Isa.11.1	The branch from Jesse
+Isa.12.1	A song of praise
+Isa.13.1	The burden of Babylon
+Isa.14.1	The fall of the king of Babylon
+Isa.14.24	Assyria and Philistia
+Isa.15.1	The burden of Moab
+Isa.17.1	The burden of Damascus
+Isa.18.1	A message to Ethiopia
+Isa.19.1	The burden of Egypt
+Isa.20.1	Isaiah walks barefoot
+Isa.21.1	Babylon is fallen
+Isa.22.1	The valley of vision
+Isa.23.1	The burden of Tyre
+Isa.24.1	The Lord's judgment on the earth
+Isa.25.1	Praise for deliverance
+Isa.26.1	A song of trust
+Isa.27.1	Israel's deliverance
+Isa.28.1	Woe to Ephraim
+Isa.28.14	A precious corner stone
+Isa.29.1	Woe to Ariel
+Isa.29.13	Lips without heart
+Isa.30.1	Woe to the rebellious children
+Isa.30.18	The Lord will be gracious
+Isa.31.1	Woe to those who trust Egypt
+Isa.32.1	A king shall reign in righteousness
+Isa.33.1	The Lord our king
+Isa.34.1	Judgment on the nations
+Isa.35.1	The desert shall blossom
+Isa.36.1	Sennacherib threatens Jerusalem
+Isa.37.1	Hezekiah seeks the Lord
+Isa.37.14	Hezekiah's prayer
+Isa.37.21	Isaiah's answer
+Isa.38.1	Hezekiah's illness
+Isa.39.1	Envoys from Babylon
+Isa.40.1	Comfort ye my people
+Isa.40.12	The incomparable God
+Isa.41.1	The Lord helps Israel
+Isa.42.1	The servant of the Lord
+Isa.42.10	A new song
+Isa.43.1	Fear not, I have redeemed thee
+Isa.43.14	A new thing
+Isa.44.1	Israel the chosen
+Isa.44.9	The folly of idols
+Isa.44.24	Cyrus the Lord's shepherd
+Isa.45.1	The Lord anoints Cyrus
+Isa.46.1	The idols of Babylon
+Isa.47.1	The fall of Babylon
+Isa.48.1	Israel refined
+Isa.49.1	The servant, a light to the Gentiles
+Isa.49.14	Zion not forgotten
+Isa.50.1	The servant's obedience
+Isa.51.1	Comfort for Zion
+Isa.52.1	Awake, O Zion
+Isa.52.13	The suffering servant
+Isa.54.1	The Lord's everlasting love
+Isa.55.1	Come to the waters
+Isa.56.1	Salvation for all
+Isa.56.9	Blind watchmen
+Isa.57.1	Idolatry condemned
+Isa.57.15	Comfort for the contrite
+Isa.58.1	True fasting
+Isa.59.1	Sin separates from God
+Isa.60.1	Arise, shine
+Isa.61.1	The year of the Lord's favour
+Isa.62.1	Zion's new name
+Isa.63.1	The day of vengeance
+Isa.63.7	Remembering the Lord's mercy
+Isa.64.1	A prayer for help
+Isa.65.1	Judgment and salvation
+Isa.65.17	New heavens and a new earth
+Isa.66.1	Judgment and hope
+Jer.1.1	The call of Jeremiah
+Jer.2.1	Israel forsakes the Lord
+Jer.3.1	Unfaithful Israel
+Jer.4.1	Return to the Lord
+Jer.4.5	Disaster from the north
+Jer.5.1	Not one righteous
+Jer.6.1	Jerusalem besieged
+Jer.7.1	The message at the temple gate
+Jer.8.4	Sin and punishment
+Jer.9.1	Jeremiah's lament
+Jer.9.23	Glory in knowing the Lord
+Jer.10.1	God and idols
+Jer.11.1	The broken covenant
+Jer.11.18	A plot against Jeremiah
+Jer.12.1	Jeremiah's complaint
+Jer.13.1	The linen girdle
+Jer.14.1	Drought, famine and sword
+Jer.15.10	Jeremiah's complaint
+Jer.16.1	Jeremiah forbidden to marry
+Jer.17.1	Judah's sin
+Jer.17.5	Trust in the Lord
+Jer.17.19	Keep the sabbath holy
+Jer.18.1	The potter's house
+Jer.19.1	The broken bottle
+Jer.20.1	Jeremiah and Pashur
+Jer.20.7	Jeremiah's complaint
+Jer.21.1	Zedekiah's request
+Jer.22.1	Judgment on the kings of Judah
+Jer.23.1	The righteous branch
+Jer.23.9	Lying prophets
+Jer.24.1	Two baskets of figs
+Jer.25.1	Seventy years of captivity
+Jer.25.15	The cup of the Lord's fury
+Jer.26.1	Jeremiah threatened with death
+Jer.27.1	The yoke of Babylon
+Jer.28.1	Hananiah the false prophet
+Jer.29.1	A letter to the exiles
+Jer.30.1	Restoration promised
+Jer.31.1	The Lord's everlasting love
+Jer.31.31	A new covenant
+Jer.32.1	Jeremiah buys a field
+Jer.33.1	Promise of restoration
+Jer.34.1	Warning to Zedekiah
+Jer.34.8	Freedom for slaves revoked
+Jer.35.1	The Rechabites
+Jer.36.1	The king burns the scroll
+Jer.37.1	Jeremiah imprisoned
+Jer.38.1	Jeremiah in the dungeon
+Jer.39.1	The fall of Jerusalem
+Jer.40.1	Jeremiah freed
+Jer.41.1	Gedaliah murdered
+Jer.42.1	The remnant asks for guidance
+Jer.43.1	Flight to Egypt
+Jer.44.1	Idolatry in Egypt
+Jer.45.1	A message to Baruch
+Jer.46.1	Prophecy against Egypt
+Jer.47.1	Prophecy against the Philistines
+Jer.48.1	Prophecy against Moab
+Jer.49.1	Prophecies against the nations
+Jer.50.1	Prophecy against Babylon
+Jer.51.59	The scroll thrown into the Euphrates
+Jer.52.1	The fall of Jerusalem
+Jer.52.31	Jehoiachin released
+Lam.1.1	The sorrows of Jerusalem
+Lam.2.1	The Lord's anger
+Lam.3.1	Hope in the Lord's mercy
+Lam.4.1	The horrors of the siege
+Lam.5.1	A prayer for restoration
+Ezek.1.1	The vision of God's glory
+Ezek.2.1	Ezekiel's call
+Ezek.3.1	The scroll
+Ezek.3.16	A watchman for Israel
+Ezek.4.1	The siege of Jerusalem acted out
+Ezek.5.1	The shaven hair
+Ezek.6.1	Against the mountains of Israel
+Ezek.7.1	The end has come
+Ezek.8.1	Idolatry in the temple
+Ezek.9.1	The marked men
+Ezek.10.1	The glory leaves the temple
+Ezek.11.1	Judgment on Israel's leaders
+Ezek.11.14	A new heart
+Ezek.12.1	The exile acted out
+Ezek.13.1	False prophets
+Ezek.14.1	Idolaters condemned
+Ezek.15.1	The useless vine
+Ezek.16.1	Jerusalem, the unfaithful wife
+Ezek.17.1	Two eagles and a vine
+Ezek.18.1	The soul that sinneth shall die
+Ezek.19.1	A lament for Israel's princes
+Ezek.20.1	Israel's rebellion
+Ezek.21.1	The sword of the Lord
+Ezek.22.1	Jerusalem's sins
+Ezek.23.1	Two sisters
+Ezek.24.1	The boiling pot
+Ezek.24.15	The death of Ezekiel's wife
+Ezek.25.1	Against Ammon, Moab, Edom and Philistia
+Ezek.26.1	Against Tyre
+Ezek.28.1	Against the king of Tyre
+Ezek.28.20	Against Zidon
+Ezek.29.1	Against Egypt
+Ezek.33.1	The watchman
+Ezek.33.21	Jerusalem's fall reported
+Ezek.34.1	The shepherds of Israel
+Ezek.35.1	Against mount Seir
+Ezek.36.1	Hope for Israel's mountains
+Ezek.36.16	A new heart and a new spirit
+Ezek.37.1	The valley of dry bones
+Ezek.37.15	One nation, one king
+Ezek.38.1	Against Gog
+Ezek.40.1	The vision of the new temple
+Ezek.43.1	The glory returns
+Ezek.44.1	The priests
+Ezek.45.1	The holy portion
+Ezek.47.1	The river from the temple
+Ezek.47.13	The borders of the land
+Ezek.48.1	The division of the land
+Dan.1.1	Daniel in Babylon
+Dan.2.1	Nebuchadnezzar's dream
+Dan.2.31	The dream explained
+Dan.3.1	The golden image
+Dan.3.19	The fiery furnace
+Dan.4.1	Nebuchadnezzar's second dream
+Dan.4.28	The dream fulfilled
+Dan.5.1	The writing on the wall
+Dan.6.1	Daniel in the lions' den
+Dan.7.1	The four beasts
+Dan.7.9	The Ancient of days
+Dan.8.1	The ram and the he goat
+Dan.9.1	Daniel's prayer
+Dan.9.20	The seventy weeks
+Dan.10.1	Daniel's vision by the river
+Dan.11.1	Kings of the north and south
+Dan.12.1	The time of the end
+Hos.1.1	Hosea's wife and children
+Hos.2.1	Israel's unfaithfulness
+Hos.2.14	The Lord's love for Israel
+Hos.3.1	Hosea redeems his wife
+Hos.4.1	The Lord's charge against Israel
+Hos.5.1	Judgment on Israel and Judah
+Hos.6.1	Come, and let us return
+Hos.7.1	Israel's sin
+Hos.8.1	Sowing the wind
+Hos.9.1	Punishment for Israel
+Hos.10.1	Israel's sin and captivity
+Hos.11.1	God's love for Israel
+Hos.12.1	Ephraim's sin
+Hos.13.1	The Lord's anger
+Hos.14.1	Return to the Lord
+Joel.1.1	The plague of locusts
+Joel.1.13	A call to repentance
+Joel.2.1	The day of the Lord
+Joel.2.12	Rend your heart
+Joel.2.18	The Lord's answer
+Joel.2.28	I will pour out my spirit
+Joel.3.1	Judgment on the nations
+Joel.3.17	Blessings for God's people
+Amos.1.1	Judgment on Israel's neighbours
+Amos.2.4	Judgment on Judah and Israel
+Amos.3.1	Witnesses against Israel
+Amos.4.1	Israel has not returned
+Amos.5.1	Seek the Lord and live
+Amos.5.18	The day of the Lord
+Amos.6.1	Woe to them that are at ease
+Amos.7.1	Locusts, fire and a plumbline
+Amos.7.10	Amos and Amaziah
+Amos.8.1	A basket of summer fruit
+Amos.9.1	The Lord by the altar
+Amos.9.11	Israel restored
+Obad.1.1	Edom's pride brought down
+Obad.1.15	The day of the Lord
+Jonah.1.1	Jonah flees from the Lord
+Jonah.1.17	Jonah's prayer
+Jonah.3.1	Nineveh repents
+Jonah.4.1	Jonah's anger and the Lord's mercy
+Mic.1.1	Judgment on Samaria and Jerusalem
+Mic.2.1	Woe to the oppressors
+Mic.3.1	Leaders and prophets condemned
+Mic.4.1	The mountain of the Lord
+Mic.5.1	A ruler from Bethlehem
+Mic.6.1	The Lord's case against Israel
+Mic.7.1	Israel's misery
+Mic.7.8	Hope in the Lord
+Nah.1.1	The Lord's anger against Nineveh
+Nah.2.1	The fall of Nineveh
+Nah.3.1	Woe to the bloody city
+Hab.1.1	Habakkuk's complaint
+Hab.1.5	The Lord's answer
+Hab.1.12	Habakkuk's second complaint
+Hab.2.2	The just shall live by faith
+Hab.2.5	Woes to the oppressor
+Hab.3.1	Habakkuk's prayer
+Zeph.1.1	The day of the Lord's wrath
+Zeph.2.1	Judgment on the nations
+Zeph.3.1	Jerusalem's sin
+Zeph.3.9	Restoration promised
+Hag.1.1	A call to rebuild the temple
+Hag.2.1	The glory of the new house
+Hag.2.10	Blessings for a defiled people
+Hag.2.20	Zerubbabel the Lord's signet
+Zech.1.1	A call to return
+Zech.1.7	The man among the myrtle trees
+Zech.1.18	Four horns and four carpenters
+Zech.2.1	The man with a measuring line
+Zech.3.1	Clean garments for the high priest
+Zech.4.1	The candlestick and the olive trees
+Zech.5.1	The flying roll
+Zech.5.5	The woman in the ephah
+Zech.6.1	Four chariots
+Zech.6.9	A crown for Joshua
+Zech.7.1	Justice and mercy, not fasting
+Zech.8.1	The Lord will bless Jerusalem
+Zech.9.1	Judgment on Israel's enemies
+Zech.9.9	The coming king
+Zech.10.1	The Lord will care for Judah
+Zech.11.1	The two staffs
+Zech.12.1	Jerusalem's deliverance
+Zech.13.1	A fountain opened
+Zech.13.7	The shepherd smitten
+Zech.14.1	The day of the Lord
+Mal.1.1	The Lord's love for Israel
+Mal.1.6	Polluted offerings
+Mal.2.1	Warning to the priests
+Mal.2.10	Faithlessness
+Mal.3.1	The messenger of the covenant
+Mal.3.7	Robbing God
+Mal.3.13	The book of remembrance
+Mal.4.1	The day of the Lord
+Matt.1.1	The genealogy of Jesus
+Matt.1.18	The birth of Jesus
+Matt.2.1	The wise men
+Matt.2.13	The flight into Egypt
+Matt.2.16	Herod kills the children
+Matt.2.19	The return to Nazareth
+Matt.3.1	John the Baptist
+Matt.3.13	The baptism of Jesus
+Matt.4.1	The temptation of Jesus
+Matt.4.12	Jesus begins to preach
+Matt.4.18	The first disciples
+Matt.4.23	Jesus heals many
+Matt.5.1	The beatitudes
+Matt.5.13	Salt and light
+Matt.5.17	Jesus fulfils the law
+Matt.5.21	Anger
+Matt.5.27	Adultery
+Matt.5.31	Divorce
+Matt.5.33	Oaths
+Matt.5.38	An eye for an eye
+Matt.5.43	Love your enemies
+Matt.6.1	Giving in secret
+Matt.6.5	The Lord's prayer
+Matt.6.16	Fasting
+Matt.6.19	Treasures in heaven
+Matt.6.25	Take no thought for your life
+Matt.7.1	Judge not
+Matt.7.7	Ask, seek, knock
+Matt.7.13	The strait gate
+Matt.7.15	A tree and its fruit
+Matt.7.21	The wise and foolish builders
+Matt.8.1	A leper cleansed
+Matt.8.5	The centurion's faith
+Matt.8.14	Many healed
+Matt.8.18	The cost of following
+Matt.8.23	Calming the storm
+Matt.8.28	Two men possessed by devils
+Matt.9.1	A paralysed man healed
+Matt.9.9	The call of Matthew
+Matt.9.14	New wine in new bottles
+Matt.9.18	A ruler's daughter and a woman healed
+Matt.9.27	Two blind men healed
+Matt.9.35	The harvest is plenteous
+Matt.10.1	The twelve sent out
+Matt.10.16	Persecution foretold
+Matt.10.26	Fear not
+Matt.10.34	Not peace but a sword
+Matt.11.1	Messengers from John
+Matt.11.20	Woe to the unrepentant cities
+Matt.11.25	Come unto me
+Matt.12.1	Lord of the sabbath
+Matt.12.9	A withered hand healed
+Matt.12.15	God's chosen servant
+Matt.12.22	Jesus and Beelzebub
+Matt.12.38	The sign of Jonas
+Matt.12.46	Jesus' true family
+Matt.13.1	The parable of the sower
+Matt.13.10	Why Jesus taught in parables
+Matt.13.18	The sower explained
+Matt.13.24	The wheat and the tares
+Matt.13.31	The mustard seed and the leaven
+Matt.13.36	The tares explained
+Matt.13.44	Hidden treasure and the pearl
+Matt.13.47	The net
+Matt.13.53	A prophet without honour
+Matt.14.1	The death of John the Baptist
+Matt.14.13	Feeding the five thousand
+Matt.14.22	Jesus walks on the water
+Matt.14.34	Healing at Gennesaret
+Matt.15.1	Tradition and the commandment
+Matt.15.10	What defiles a man
+Matt.15.21	A Canaanite woman's faith
+Matt.15.29	Feeding the four thousand
+Matt.16.1	The sign of the times
+Matt.16.5	The leaven of the Pharisees
+Matt.16.13	Peter confesses the Christ
+Matt.16.21	Jesus foretells his death
+Matt.17.1	The transfiguration
+Matt.17.14	A boy healed
+Matt.17.22	Jesus foretells his death again
+Matt.17.24	The temple tax
+Matt.18.1	Who is the greatest
+Matt.18.7	Causes of stumbling
+Matt.18.10	The lost sheep
+Matt.18.15	When a brother sins
+Matt.18.21	The unforgiving servant
+Matt.19.1	Marriage and divorce
+Matt.19.13	Jesus blesses little children
+Matt.19.16	The rich young man
+Matt.20.1	Labourers in the vineyard
+Matt.20.17	Jesus foretells his death a third time
+Matt.20.20	A mother's request
+Matt.20.29	Two blind men receive sight
+Matt.21.1	The entry into Jerusalem
+Matt.21.12	Cleansing the temple
+Matt.21.18	The fig tree withers
+Matt.21.23	By what authority?
+Matt.21.28	The two sons
+Matt.21.33	The wicked husbandmen
+Matt.22.1	The marriage feast
+Matt.22.15	Tribute to Caesar
+Matt.22.23	The question about the resurrection
+Matt.22.34	The great commandment
+Matt.22.41	Whose son is Christ?
+Matt.23.1	Woes to the scribes and Pharisees
+Matt.23.37	Lament over Jerusalem
+Matt.24.1	Signs of the end
+Matt.24.29	The coming of the Son of man
+Matt.24.32	The fig tree
+Matt.24.36	No one knows the day
+Matt.25.1	The ten virgins
+Matt.25.14	The talents
+Matt.25.31	The sheep and the goats
+Matt.26.1	The plot against Jesus
+Matt.26.6	Jesus anointed at Bethany
+Matt.26.14	Judas agrees to betray Jesus
+Matt.26.17	The Last Supper
+Matt.26.31	Peter's denial foretold
+Matt.26.36	Gethsemane
+Matt.26.47	Jesus is arrested
+Matt.26.57	Before the high priest
+Matt.26.69	Peter denies Jesus
+Matt.27.1	Judas hangs himself
+Matt.27.11	Before Pilate
+Matt.27.27	The soldiers mock Jesus
+Matt.27.32	The crucifixion
+Matt.27.45	The death of Jesus
+Matt.27.57	The burial
+Matt.27.62	The guard at the tomb
+Matt.28.1	He is risen
+Matt.28.11	The guards' report
+Matt.28.16	The great commission
+Mark.1.1	John the Baptist
+Mark.1.9	The baptism and temptation of Jesus
+Mark.1.14	The first disciples
+Mark.1.21	An unclean spirit cast out
+Mark.1.29	Many healed
+Mark.1.35	Preaching in Galilee
+Mark.1.40	A leper cleansed
+Mark.2.1	A paralysed man healed
+Mark.2.13	The call of Levi
+Mark.2.18	New wine in new bottles
+Mark.2.23	Lord of the sabbath
+Mark.3.1	A withered hand healed
+Mark.3.7	Crowds follow Jesus
+Mark.3.13	The twelve chosen
+Mark.3.20	Jesus and Beelzebub
+Mark.3.31	Jesus' true family
+Mark.4.1	The parable of the sower
+Mark.4.21	A candle under a bushel
+Mark.4.26	The growing seed
+Mark.4.30	The mustard seed
+Mark.4.35	Calming the storm
+Mark.5.1	The man possessed by Legion
+Mark.5.21	Jairus' daughter and a woman healed
+Mark.6.1	A prophet without honour
+Mark.6.7	The twelve sent out
+Mark.6.14	The death of John the Baptist
+Mark.6.30	Feeding the five thousand
+Mark.6.45	Jesus walks on the water
+Mark.6.53	Healing at Gennesaret
+Mark.7.1	Tradition and the commandment
+Mark.7.14	What defiles a man
+Mark.7.24	A Syrophenician woman's faith
+Mark.7.31	A deaf man healed
+Mark.8.1	Feeding the four thousand
+Mark.8.11	The leaven of the Pharisees
+Mark.8.22	A blind man healed at Bethsaida
+Mark.8.27	Peter confesses the Christ
+Mark.8.31	Jesus foretells his death
+Mark.9.2	The transfiguration
+Mark.9.14	A boy healed
+Mark.9.30	Jesus foretells his death again
+Mark.9.33	Who is the greatest
+Mark.9.38	He that is not against us
+Mark.9.42	Causes of stumbling
+Mark.10.1	Marriage and divorce
+Mark.10.13	Jesus blesses little children
+Mark.10.17	The rich young man
+Mark.10.32	Jesus foretells his death a third time
+Mark.10.35	The request of James and John
+Mark.10.46	Blind Bartimaeus
+Mark.11.1	The entry into Jerusalem
+Mark.11.12	The fig tree and the temple
+Mark.11.20	Have faith in God
+Mark.11.27	By what authority?
+Mark.12.1	The wicked husbandmen
+Mark.12.13	Tribute to Caesar
+Mark.12.18	The question about the resurrection
+Mark.12.28	The great commandment
+Mark.12.35	Whose son is Christ?
+Mark.12.38	Beware of the scribes
+Mark.12.41	The widow's two mites
+Mark.13.1	Signs of the end
+Mark.13.24	The coming of the Son of man
+Mark.13.28	The fig tree
+Mark.13.32	Watch
+Mark.14.1	The plot against Jesus
+Mark.14.3	Jesus anointed at Bethany
+Mark.14.10	Judas agrees to betray Jesus
+Mark.14.12	The Last Supper
+Mark.14.26	Peter's denial foretold
+Mark.14.32	Gethsemane
+Mark.14.43	Jesus is arrested
+Mark.14.53	Before the council
+Mark.14.66	Peter denies Jesus
+Mark.15.1	Before Pilate
+Mark.15.16	The soldiers mock Jesus
+Mark.15.21	The crucifixion
+Mark.15.33	The death of Jesus
+Mark.15.42	The burial
+Mark.16.1	He is risen
+Mark.16.9	Jesus appears to his followers
+Mark.16.14	The great commission
 Luke.1.1	Why Luke wrote
 Luke.1.5	An angel promises John's birth
 Luke.1.26	Gabriel comes to Mary
@@ -133,3 +1413,416 @@ Luke.24.13	The road to Emmaus
 Luke.24.36	Jesus appears to the disciples
 Luke.24.44	Their understanding opened
 Luke.24.50	The ascension
+John.1.1	The Word made flesh
+John.1.19	John the Baptist's testimony
+John.1.29	The Lamb of God
+John.1.35	The first disciples
+John.1.43	Philip and Nathanael
+John.2.1	The wedding at Cana
+John.2.13	Cleansing the temple
+John.3.1	Jesus and Nicodemus
+John.3.22	John the Baptist and Jesus
+John.4.1	The woman of Samaria
+John.4.27	The harvest is ready
+John.4.39	Many Samaritans believe
+John.4.43	The nobleman's son healed
+John.5.1	Healing at the pool of Bethesda
+John.5.17	The authority of the Son
+John.5.31	Witnesses to Jesus
+John.6.1	Feeding the five thousand
+John.6.15	Jesus walks on the water
+John.6.22	The bread of life
+John.6.60	Many disciples turn back
+John.7.1	Jesus at the feast of tabernacles
+John.7.37	Rivers of living water
+John.7.45	Unbelief of the leaders
+John.7.53	The woman taken in adultery
+John.8.12	The light of the world
+John.8.31	The truth shall make you free
+John.8.48	Before Abraham was, I am
+John.9.1	A man born blind receives sight
+John.9.13	The Pharisees question the healed man
+John.9.35	Spiritual blindness
+John.10.1	The good shepherd
+John.10.22	The Jews reject Jesus
+John.11.1	The death of Lazarus
+John.11.17	I am the resurrection and the life
+John.11.38	Lazarus raised
+John.11.45	The plot to kill Jesus
+John.12.1	Jesus anointed at Bethany
+John.12.12	The entry into Jerusalem
+John.12.20	The hour has come
+John.12.37	Unbelief and belief
+John.13.1	Jesus washes the disciples' feet
+John.13.18	Jesus foretells his betrayal
+John.13.31	A new commandment
+John.14.1	I am the way
+John.14.15	The promise of the Comforter
+John.15.1	The true vine
+John.15.18	The world's hatred
+John.16.1	The work of the Comforter
+John.16.16	Sorrow turned to joy
+John.17.1	Jesus prays for his disciples
+John.17.20	Jesus prays for all believers
+John.18.1	Jesus is arrested
+John.18.12	Before Annas, and Peter's denial
+John.18.28	Before Pilate
+John.19.1	Jesus sentenced to death
+John.19.17	The crucifixion
+John.19.31	Jesus' side pierced
+John.19.38	The burial
+John.20.1	The empty tomb
+John.20.11	Jesus appears to Mary Magdalene
+John.20.19	Jesus appears to the disciples
+John.20.24	Thomas believes
+John.20.30	The purpose of this book
+John.21.1	The miraculous catch of fish
+John.21.15	Jesus restores Peter
+John.21.20	Jesus and the beloved disciple
+Acts.1.1	The promise of the Holy Ghost
+Acts.1.9	The ascension
+Acts.1.12	Matthias chosen
+Acts.2.1	The day of Pentecost
+Acts.2.14	Peter's sermon
+Acts.2.37	Three thousand believe
+Acts.2.42	The fellowship of believers
+Acts.3.1	A lame man healed
+Acts.3.12	Peter speaks in Solomon's porch
+Acts.4.1	Peter and John before the council
+Acts.4.23	The believers pray for boldness
+Acts.4.32	All things in common
+Acts.5.1	Ananias and Sapphira
+Acts.5.12	Many signs and wonders
+Acts.5.17	The apostles persecuted
+Acts.6.1	Seven chosen to serve
+Acts.6.8	Stephen seized
+Acts.7.1	Stephen's speech
+Acts.7.54	The stoning of Stephen
+Acts.8.1	Saul persecutes the church
+Acts.8.4	Philip in Samaria
+Acts.8.26	Philip and the Ethiopian
+Acts.9.1	The conversion of Saul
+Acts.9.19	Saul preaches in Damascus
+Acts.9.26	Saul in Jerusalem
+Acts.9.32	Aeneas and Dorcas
+Acts.10.1	Cornelius' vision
+Acts.10.9	Peter's vision
+Acts.10.23	Peter at Cornelius' house
+Acts.10.44	The Holy Ghost falls on the Gentiles
+Acts.11.1	Peter explains his actions
+Acts.11.19	The church at Antioch
+Acts.12.1	Peter's escape from prison
+Acts.12.20	The death of Herod
+Acts.13.1	Barnabas and Saul sent out
+Acts.13.13	Paul preaches at Antioch in Pisidia
+Acts.13.44	Turning to the Gentiles
+Acts.14.1	At Iconium
+Acts.14.8	At Lystra and Derbe
+Acts.14.21	The return to Antioch
+Acts.15.1	The council at Jerusalem
+Acts.15.22	The letter to the Gentile believers
+Acts.15.36	Paul and Barnabas part
+Acts.16.1	Timothy joins Paul
+Acts.16.6	The call to Macedonia
+Acts.16.11	Lydia believes
+Acts.16.16	Paul and Silas in prison
+Acts.17.1	At Thessalonica
+Acts.17.10	At Berea
+Acts.17.16	Paul at Athens
+Acts.18.1	Paul at Corinth
+Acts.18.18	Paul returns to Antioch
+Acts.18.24	Apollos
+Acts.19.1	Paul at Ephesus
+Acts.19.11	The sons of Sceva
+Acts.19.21	The riot at Ephesus
+Acts.20.1	Through Macedonia and Greece
+Acts.20.7	Eutychus raised
+Acts.20.17	Farewell to the Ephesian elders
+Acts.21.1	On to Jerusalem
+Acts.21.17	Paul visits James
+Acts.21.27	Paul arrested
+Acts.22.1	Paul's defence before the people
+Acts.22.22	Paul the Roman citizen
+Acts.22.30	Before the council
+Acts.23.12	The plot to kill Paul
+Acts.24.1	Paul before Felix
+Acts.25.1	Paul appeals to Caesar
+Acts.25.13	Festus consults Agrippa
+Acts.26.1	Paul before Agrippa
+Acts.27.1	Paul sails for Rome
+Acts.27.13	The storm
+Acts.27.27	The shipwreck
+Acts.28.1	On Melita
+Acts.28.11	Paul arrives at Rome
+Acts.28.17	Paul preaches at Rome
+Rom.1.1	Greeting
+Rom.1.8	Paul's longing to visit Rome
+Rom.1.16	The power of the gospel
+Rom.1.18	God's wrath against sin
+Rom.2.1	God's righteous judgment
+Rom.2.17	The Jews and the law
+Rom.3.1	God's faithfulness
+Rom.3.9	None righteous
+Rom.3.21	Righteousness through faith
+Rom.4.1	Abraham justified by faith
+Rom.5.1	Peace with God
+Rom.5.12	Adam and Christ
+Rom.6.1	Dead to sin, alive in Christ
+Rom.6.15	Servants of righteousness
+Rom.7.1	Freed from the law
+Rom.7.7	The struggle with sin
+Rom.8.1	Life in the Spirit
+Rom.8.18	Future glory
+Rom.8.31	More than conquerors
+Rom.9.1	God's sovereign choice
+Rom.9.30	Israel's unbelief
+Rom.10.1	Salvation for all who believe
+Rom.11.1	The remnant of Israel
+Rom.11.11	The olive tree
+Rom.11.25	All Israel shall be saved
+Rom.12.1	A living sacrifice
+Rom.12.9	Love in action
+Rom.13.1	Submission to authorities
+Rom.13.8	Love fulfils the law
+Rom.14.1	The weak and the strong
+Rom.15.1	Bearing with one another
+Rom.15.14	Paul's ministry to the Gentiles
+Rom.15.22	Paul's plan to visit Rome
+Rom.16.1	Personal greetings
+Rom.16.17	Final instructions
+Rom.16.25	Doxology
+1Cor.1.1	Greeting and thanksgiving
+1Cor.1.10	Divisions in the church
+1Cor.1.18	Christ the power and wisdom of God
+1Cor.2.1	Paul's preaching
+1Cor.2.6	Wisdom from the Spirit
+1Cor.3.1	God's fellow workers
+1Cor.4.1	Stewards of the mysteries of God
+1Cor.5.1	Sin in the church
+1Cor.6.1	Lawsuits among believers
+1Cor.6.12	Your body is a temple
+1Cor.7.1	Marriage
+1Cor.8.1	Food offered to idols
+1Cor.9.1	The rights of an apostle
+1Cor.9.24	Run to win
+1Cor.10.1	Warnings from Israel's history
+1Cor.10.14	Flee from idolatry
+1Cor.10.23	Do all to the glory of God
+1Cor.11.1	Order in worship
+1Cor.11.17	The Lord's supper
+1Cor.12.1	Spiritual gifts
+1Cor.12.12	One body, many members
+1Cor.13.1	The way of love
+1Cor.14.1	Prophecy and tongues
+1Cor.14.26	Order in the church
+1Cor.15.1	The resurrection of Christ
+1Cor.15.12	The resurrection of the dead
+1Cor.15.35	The resurrection body
+1Cor.16.1	The collection for the saints
+1Cor.16.5	Plans and greetings
+2Cor.1.1	The God of all comfort
+2Cor.1.12	Paul's change of plans
+2Cor.2.5	Forgiving the offender
+2Cor.2.12	The triumph in Christ
+2Cor.3.1	Ministers of the new covenant
+2Cor.4.1	Treasure in earthen vessels
+2Cor.5.1	Our heavenly dwelling
+2Cor.5.11	The ministry of reconciliation
+2Cor.6.1	Paul's hardships
+2Cor.6.14	Be not unequally yoked
+2Cor.7.2	Paul's joy
+2Cor.8.1	Generous giving
+2Cor.9.1	The cheerful giver
+2Cor.10.1	Paul defends his ministry
+2Cor.11.1	Paul and the false apostles
+2Cor.11.16	Paul's sufferings
+2Cor.12.1	Paul's vision and thorn
+2Cor.12.11	Paul's concern for the Corinthians
+2Cor.13.1	Final warnings and greetings
+Gal.1.1	Greeting
+Gal.1.6	No other gospel
+Gal.1.11	Paul called by God
+Gal.2.1	Paul accepted by the apostles
+Gal.2.11	Paul rebukes Peter
+Gal.2.15	Justified by faith
+Gal.3.1	Faith or works of the law
+Gal.3.15	The law and the promise
+Gal.4.1	Sons and heirs
+Gal.4.8	Paul's concern for the Galatians
+Gal.4.21	Hagar and Sarah
+Gal.5.1	Freedom in Christ
+Gal.5.16	Walk in the Spirit
+Gal.6.1	Bear one another's burdens
+Gal.6.11	Final warning
+Eph.1.1	Spiritual blessings in Christ
+Eph.1.15	Paul's prayer
+Eph.2.1	Saved by grace
+Eph.2.11	One in Christ
+Eph.3.1	The mystery revealed
+Eph.3.14	Paul's prayer for the Ephesians
+Eph.4.1	Unity in the body of Christ
+Eph.4.17	The new man
+Eph.5.1	Walk in love and light
+Eph.5.22	Wives and husbands
+Eph.6.1	Children and servants
+Eph.6.10	The armour of God
+Phil.1.1	Thanksgiving and prayer
+Phil.1.12	To live is Christ
+Phil.1.27	Worthy of the gospel
+Phil.2.1	The mind of Christ
+Phil.2.12	Shining as lights
+Phil.2.19	Timothy and Epaphroditus
+Phil.3.1	Knowing Christ
+Phil.3.12	Pressing toward the mark
+Phil.4.1	Rejoice in the Lord
+Phil.4.10	Thanks for their gifts
+Col.1.1	Thanksgiving and prayer
+Col.1.15	The supremacy of Christ
+Col.2.1	Complete in Christ
+Col.2.16	Freedom from rules
+Col.3.1	Seek those things which are above
+Col.3.18	Rules for Christian households
+Col.4.2	Further instructions
+Col.4.7	Final greetings
+1Thess.1.1	The Thessalonians' faith
+1Thess.2.1	Paul's ministry in Thessalonica
+1Thess.2.17	Paul's longing to see them
+1Thess.3.1	Timothy's report
+1Thess.4.1	Living to please God
+1Thess.4.13	The coming of the Lord
+1Thess.5.1	The day of the Lord
+1Thess.5.12	Final instructions
+2Thess.1.1	Judgment at Christ's coming
+2Thess.2.1	The man of sin
+2Thess.2.13	Stand fast
+2Thess.3.1	Pray for us
+2Thess.3.6	Warning against idleness
+1Tim.1.1	Warning against false teachers
+1Tim.1.12	The Lord's grace to Paul
+1Tim.2.1	Instructions on worship
+1Tim.3.1	Qualifications for bishops
+1Tim.3.8	Qualifications for deacons
+1Tim.3.14	The mystery of godliness
+1Tim.4.1	A good minister of Jesus Christ
+1Tim.5.1	Widows, elders and servants
+1Tim.6.3	Godliness with contentment
+1Tim.6.11	Fight the good fight
+2Tim.1.1	Not ashamed of the gospel
+2Tim.2.1	A good soldier of Jesus Christ
+2Tim.2.14	A workman approved
+2Tim.3.1	Perilous times
+2Tim.3.10	All scripture is given by inspiration of God
+2Tim.4.1	Preach the word
+2Tim.4.9	Personal instructions
+Titus.1.1	Elders in Crete
+Titus.1.10	False teachers
+Titus.2.1	Sound doctrine
+Titus.3.1	Doing good
+Titus.3.12	Final instructions
+Phlm.1.1	Greeting and thanksgiving
+Phlm.1.8	Paul's plea for Onesimus
+Heb.1.1	God has spoken by his Son
+Heb.2.1	So great salvation
+Heb.2.5	Jesus made like his brethren
+Heb.3.1	Jesus greater than Moses
+Heb.3.7	Harden not your hearts
+Heb.4.1	A rest for the people of God
+Heb.4.14	Jesus the great high priest
+Heb.5.11	Going on to maturity
+Heb.6.13	The certainty of God's promise
+Heb.7.1	Melchisedec
+Heb.8.1	The high priest of a new covenant
+Heb.9.1	The earthly tabernacle
+Heb.9.11	The blood of Christ
+Heb.10.1	Christ's sacrifice once for all
+Heb.10.19	Draw near with faith
+Heb.10.26	A warning against falling away
+Heb.11.1	By faith
+Heb.12.1	Looking unto Jesus
+Heb.12.3	The Lord's discipline
+Heb.12.18	Mount Sion
+Heb.13.1	Concluding exhortations
+Heb.13.20	Benediction
+Jas.1.1	Trials and temptations
+Jas.1.19	Doers of the word
+Jas.2.1	No respect of persons
+Jas.2.14	Faith without works is dead
+Jas.3.1	Taming the tongue
+Jas.3.13	Wisdom from above
+Jas.4.1	Submit yourselves to God
+Jas.4.13	Boasting about tomorrow
+Jas.5.1	Warning to the rich
+Jas.5.7	Patience in suffering
+Jas.5.13	The prayer of faith
+1Pet.1.1	A living hope
+1Pet.1.13	Be holy
+1Pet.2.1	Living stones
+1Pet.2.11	Live as servants of God
+1Pet.2.18	Christ's example of suffering
+1Pet.3.1	Wives and husbands
+1Pet.3.8	Suffering for righteousness
+1Pet.4.1	Living for God
+1Pet.4.12	Suffering as a Christian
+1Pet.5.1	Feed the flock of God
+1Pet.5.5	Humble yourselves
+2Pet.1.1	Growing in grace
+2Pet.1.12	Eyewitnesses of his majesty
+2Pet.2.1	False teachers
+2Pet.3.1	The day of the Lord will come
+2Pet.3.14	Final words
+1John.1.1	The word of life
+1John.1.5	Walking in the light
+1John.2.1	Christ our advocate
+1John.2.15	Love not the world
+1John.2.18	Antichrists
+1John.3.1	Children of God
+1John.3.11	Love one another
+1John.4.1	Try the spirits
+1John.4.7	God is love
+1John.5.1	Faith overcomes the world
+1John.5.13	Assurance of eternal life
+2John.1.1	Walk in truth and love
+2John.1.7	Beware of deceivers
+3John.1.1	Gaius commended
+3John.1.9	Diotrephes and Demetrius
+Jude.1.1	Contend for the faith
+Jude.1.5	Judgment on the ungodly
+Jude.1.17	Keep yourselves in the love of God
+Jude.1.24	Doxology
+Rev.1.1	The revelation of Jesus Christ
+Rev.1.9	The vision of the Son of man
+Rev.2.1	To the church at Ephesus
+Rev.2.8	To the church at Smyrna
+Rev.2.12	To the church at Pergamos
+Rev.2.18	To the church at Thyatira
+Rev.3.1	To the church at Sardis
+Rev.3.7	To the church at Philadelphia
+Rev.3.14	To the church of the Laodiceans
+Rev.4.1	The throne in heaven
+Rev.5.1	The book and the Lamb
+Rev.6.1	The seals opened
+Rev.7.1	The sealed of Israel
+Rev.7.9	A great multitude
+Rev.8.1	The seventh seal
+Rev.8.6	The trumpets
+Rev.10.1	The angel and the little book
+Rev.11.1	The two witnesses
+Rev.11.15	The seventh trumpet
+Rev.12.1	The woman and the dragon
+Rev.13.1	The beast out of the sea
+Rev.13.11	The beast out of the earth
+Rev.14.1	The Lamb and the 144,000
+Rev.14.6	The three angels
+Rev.14.14	The harvest of the earth
+Rev.15.1	The seven last plagues
+Rev.16.1	The vials of God's wrath
+Rev.17.1	The great whore
+Rev.18.1	The fall of Babylon
+Rev.19.1	Rejoicing in heaven
+Rev.19.11	The rider on the white horse
+Rev.20.1	The thousand years
+Rev.20.11	The great white throne
+Rev.21.1	A new heaven and a new earth
+Rev.21.9	The new Jerusalem
+Rev.22.1	The river of life
+Rev.22.6	I come quickly

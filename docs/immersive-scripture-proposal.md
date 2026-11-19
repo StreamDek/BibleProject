@@ -1,6 +1,6 @@
 # Immersive Scripture Experience: Product and Technical Proposal
 
-**Status:** Draft for approval (revision 2). Nothing here has been implemented.
+**Status:** Approved (revision 3). Phase 0 is in progress.
 **Date:** 19 November 2026
 **Revision 2:** This is a new project built from scratch (there is no existing code to reuse). It launches with the KJV only, and the backend is self-hosted on your VPS.
 **Scope:** Section 24 of the brief "Bible App: Immersive Scripture Experience, Story Mode & Interactive Learning"
@@ -644,7 +644,7 @@ Admin · Editor (writes) · Theological reviewer (approves interpretive content)
 | Up to 100k MAU | Up to 30k | 4 vCPU, 8 GB RAM, 160 GB SSD | Still one box. Watch Postgres memory |
 | Up to 1M MAU | Up to 300k | 8 vCPU, 16-32 GB RAM, or two servers (app + database) | Add a second server as a database replica or standby. Peak sync traffic is a few hundred requests per second |
 
-What spec is your VPS? If it is smaller than the first row, it still works for development and the beta.
+Henry's VPS has **2 GB RAM and 2 TB/month bandwidth**, which matches the first row. Memory limits per service are in `deploy/README.md`. Because images and packs are served from R2 through the CDN, the 2 TB allowance is used only by API traffic, which is tiny.
 
 ---
 
@@ -770,13 +770,16 @@ The durations assume **two mobile engineers, one backend/admin engineer, one par
 
 ---
 
-## 15. Decisions needed from you
+## 15. Decisions (approved 19 November 2026)
 
-Already decided: **built from scratch**, **KJV only at launch**, **hosted on your VPS**.
-
-1. **Your VPS spec and provider** (CPU, RAM, disk, monthly bandwidth), so I can confirm the sizing in §11.3.
-2. **Where images and packs live:** Cloudflare R2 behind the CDN (recommended, about $0-5 a month), or the VPS behind the CDN (everything on your server).
-3. **Backend:** Ktor + PostgreSQL on the VPS (recommended), or self-hosted Supabase.
-4. **Imagery policy:** depiction of Jesus and of God, and whether to offer "landscapes only" from launch (recommended).
-5. **Phase order:** free reading before Story Mode (recommended), or Story Mode first as in the brief.
-6. **Approval to start Phase 0** (repository, VPS setup, KJV import and the pager spike).
+| Topic | Decision |
+|---|---|
+| Codebase | Built from scratch in `StreamDek/BibleProject` |
+| Translation | KJV only at launch |
+| Hosting | Henry's VPS (2 GB RAM, 2 TB/month bandwidth): Ktor + PostgreSQL + Caddy in Docker Compose. Image processing and pack builds run in CI, not on the VPS |
+| Images and packs | Cloudflare R2 behind the Cloudflare CDN |
+| Backend | Ktor + PostgreSQL |
+| Depicting Jesus and God | In human form but as light: a glowing silhouette with no detailed face (see `docs/imagery-policy.md`) |
+| Image reuse | Every image is generated once and shared by all users; images are keyed to scenes and stored content-addressed, and the pipeline reuses before it regenerates |
+| Phase order | Free reading first, then Story Mode |
+| Start | Phase 0 approved and started |

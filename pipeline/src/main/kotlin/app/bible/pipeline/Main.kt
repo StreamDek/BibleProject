@@ -69,13 +69,23 @@ fun main(args: Array<String>) {
             val n = workflow(args).applyDecisions(File(args[5]), args[6])
             println("Added $n decisions to ${args[2]}")
         }
+        "art-import" -> {
+            require(args.size == 9) { "usage: art-import <briefs> <review.tsv> <manifest.json> <work-dir> <story-slug> <image> <reviewer> <note>" }
+            val path = workflow(args).importApproved(args[5], File(args[6]), args[7], args[8])
+            println("Approved ${args[6]} for ${args[5]} ($path). Run artPublish to publish it.")
+        }
         "art-publish" -> {
             require(args.size == 9) { "usage: art-publish <briefs> <review.tsv> <manifest.json> <work-dir> <app-art.json> <cdn-base|-> <local-dir|r2> <allow-dry-run>" }
-            val target = if (args[7] == "r2") R2Target.fromEnv() else LocalTarget(File(args[7]))
+            val bundle = args[7] == "bundle"
+            val target = when (args[7]) {
+                "r2" -> R2Target.fromEnv()
+                "bundle" -> LocalTarget(File(args[5]).parentFile) // composeResources/files
+                else -> LocalTarget(File(args[7]))
+            }
             val wf = workflow(args)
             val base = args[6].takeIf { it != "-" } ?: wf.manifest.base
             println("Publishing to ${target.description}")
-            val r = wf.publish(target, base, args[8] == "true")
+            val r = wf.publish(target, base, args[8] == "true", bundle)
             val text = r.manifest.encode()
             File(args[3]).apply { parentFile.mkdirs() }.writeText(text)
             File(args[5]).writeText(text)

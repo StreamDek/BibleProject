@@ -1,0 +1,82 @@
+-- user.db: everything the reader creates on this device. Works with no account. Phase 7 adds a change log
+-- for sync; every row already carries updated_at (epoch milliseconds) for that.
+
+CREATE TABLE setting (
+    key TEXT NOT NULL PRIMARY KEY,
+    value TEXT NOT NULL
+);
+
+-- Where each reading source was left, as a canonical verse id (BBCCCVVV). Source "feed" is free reading.
+CREATE TABLE reading_position (
+    source TEXT NOT NULL PRIMARY KEY,
+    verse_id INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+-- One highlight colour per verse. color is an index into the app's highlight palette.
+CREATE TABLE highlight (
+    verse_id INTEGER NOT NULL PRIMARY KEY,
+    color INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+CREATE TABLE bookmark (
+    verse_id INTEGER NOT NULL PRIMARY KEY,
+    created_at INTEGER NOT NULL
+);
+
+-- One note per verse for now.
+CREATE TABLE note (
+    verse_id INTEGER NOT NULL PRIMARY KEY,
+    body TEXT NOT NULL,
+    created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+settingValue:
+SELECT value FROM setting WHERE key = ?;
+
+putSetting:
+INSERT OR REPLACE INTO setting(key, value) VALUES (?, ?);
+
+position:
+SELECT verse_id FROM reading_position WHERE source = ?;
+
+putPosition:
+INSERT OR REPLACE INTO reading_position(source, verse_id, updated_at) VALUES (?, ?, ?);
+
+highlightsBetween:
+SELECT verse_id, color FROM highlight WHERE verse_id BETWEEN ? AND ?;
+
+putHighlight:
+INSERT OR REPLACE INTO highlight(verse_id, color, updated_at) VALUES (?, ?, ?);
+
+removeHighlight:
+DELETE FROM highlight WHERE verse_id = ?;
+
+bookmarksBetween:
+SELECT verse_id FROM bookmark WHERE verse_id BETWEEN ? AND ?;
+
+allBookmarks:
+SELECT verse_id, created_at FROM bookmark ORDER BY created_at DESC;
+
+putBookmark:
+INSERT OR REPLACE INTO bookmark(verse_id, created_at) VALUES (?, ?);
+
+removeBookmark:
+DELETE FROM bookmark WHERE verse_id = ?;
+
+notesBetween:
+SELECT verse_id, body FROM note WHERE verse_id BETWEEN ? AND ?;
+
+allNotes:
+SELECT verse_id, body, updated_at FROM note ORDER BY updated_at DESC;
+
+noteCreatedAt:
+SELECT created_at FROM note WHERE verse_id = ?;
+
+putNote:
+INSERT OR REPLACE INTO note(verse_id, body, created_at, updated_at) VALUES (?, ?, ?, ?);
+
+removeNote:
+DELETE FROM note WHERE verse_id = ?;

@@ -24,7 +24,11 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)
         }
-        commonTest.dependencies { implementation(kotlin("test")) }
+        jvmTest.dependencies { implementation(libs.sqldelight.sqlite.driver) }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
+        }
     }
 }
 
@@ -34,6 +38,11 @@ sqldelight {
         create("BibleDatabase") {
             packageName.set("app.bible.data.bible")
             srcDirs("src/commonMain/sqldelight/bible")
+        }
+        // Read-write, one per device: reading position, settings, highlights, bookmarks, notes.
+        create("UserDatabase") {
+            packageName.set("app.bible.data.user")
+            srcDirs("src/commonMain/sqldelight/user")
         }
     }
 }

@@ -654,15 +654,15 @@ Henry's VPS has **2 GB RAM and 2 TB/month bandwidth**, which matches the first r
 
 - Monthly active users (MAU) at 1k, 10k, 100k and 1M. About **30% sign in** (sync costs scale with these users only).
 - Image bandwidth: an average of about **25 MB per MAU per month**. That is about 80 unique 720p images while reading online (about 90 KB each, many reused across cards in the same scene) plus occasional pack downloads. Text is tiny.
-- Prices are list prices as of late 2026 and should be confirmed before committing. The Claude prices come from Anthropic's current price list. Other prices are approximate.
+- Prices are list prices as of late 2026 and should be confirmed before committing. Language-model prices are typical current list prices for a mid-tier and a top-tier model. Other prices are approximate.
 
 ### 12.2 One-off content production
 
 | Item | Basis | Estimate |
 |---|---|---|
 | Image generation, Tier B (3,000 approved images) | 4 candidates each plus 30% regeneration → about 15,600 generations × $0.03-0.10 | **$470 - $1,560** |
-| Automatic image validation | About 15,600 vision checks with Claude Sonnet 5.5 ($2 / $10 per million input / output tokens; about 3k tokens in and 400 out each, so about $0.01; Batch API −50%) | **$80 - $160** |
-| Story drafts (summaries, context, questions) | About 450 stories × (draft plus grounding check) with Claude Opus 5.5 ($4 / $20 per million) ≈ $0.35 per story; Batch API −50% | **$80 - $160** |
+| Automatic image validation | About 15,600 vision checks with a mid-tier vision-capable language model (about $2 / $10 per million input / output tokens; about 3k tokens in and 400 out each, so about $0.01; Batch API −50%) | **$80 - $160** |
+| Story drafts (summaries, context, questions) | About 450 stories × (draft plus grounding check) with a top-tier language model (about $4 / $20 per million) ≈ $0.35 per story; Batch API −50% | **$80 - $160** |
 | Catalogue clustering and scene planning | One-off LLM pass | **< $50** |
 | Style LoRA training (optional) | A few GPU hours | **$20 - $100** |
 | **AI total** |  | **about $0.7k - $1.9k** |

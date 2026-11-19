@@ -1,7 +1,7 @@
-# Bible
+# VerseUp
 
 A free, offline-first Bible app with an immersive vertical Scripture feed, Story Mode and Regular Mode.
-Kotlin Multiplatform + Compose Multiplatform for Android and iOS. No ads, no subscriptions, ever.
+Kotlin Multiplatform + Compose Multiplatform for Android and iOS. Logos are in `branding/`. No ads, no subscriptions, ever.
 
 The product and technical plan is in [docs/immersive-scripture-proposal.md](docs/immersive-scripture-proposal.md).
 Image rules are in [docs/imagery-policy.md](docs/imagery-policy.md).

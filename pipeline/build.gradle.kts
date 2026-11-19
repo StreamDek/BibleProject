@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":shared:core-model"))
     implementation(project(":shared:bible-data"))
     implementation(project(":shared:feed-engine"))
+    implementation(project(":shared:stories"))
     implementation(libs.sqldelight.sqlite.driver)
     implementation(libs.sqlite.jdbc)
     testImplementation(kotlin("test"))
@@ -47,6 +48,21 @@ tasks.register<JavaExec>("extractParagraphs") {
         "extract-paragraphs",
         (project.findProperty("usfx") as String?) ?: "missing -Pusfx=<file>",
         repoRoot.file("content/editorial/paragraphs.txt").asFile.path,
+    )
+}
+
+// ./gradlew :pipeline:buildStories  →  builds the bundled story catalogue from the CSV, curation and editorial files.
+tasks.register<JavaExec>("buildStories") {
+    group = "content"
+    description = "Builds composeResources/files/stories.json from content/catalogue and content/stories"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("app.bible.pipeline.MainKt")
+    args(
+        "build-stories",
+        repoRoot.file("content/catalogue/bible_story_catalogue.csv").asFile.path,
+        repoRoot.file("content/stories/curation.tsv").asFile.path,
+        repoRoot.file("content/stories/editorial.tsv").asFile.path,
+        repoRoot.file("composeApp/src/commonMain/composeResources/files/stories.json").asFile.path,
     )
 }
 

@@ -10,6 +10,9 @@ and they never contain text.
   detailed face**. Features are never rendered; the figure is defined by light, not by facial likeness.
 - This applies to every scene where Jesus or God appears (for example the Baptism, the Transfiguration, the
   Resurrection appearances, the burning bush, the Sermon on the Mount). Brief fields: `divine_figure: light_silhouette`.
+- **Faceless hands are also allowed where the context calls for them** (Henry, 19 November 2026): for example God's hand
+  reaching from the clouds at the creation. Only the hand (and perhaps a sleeve or cloud) is shown, never a face or a
+  full figure. An editor chooses this per story; the brief field is `divine_figure: faceless_hand`.
 - The Holy Spirit is shown only through the imagery Scripture itself uses (a dove at the Baptism, tongues of fire
   at Pentecost), never as a person.
 - The infant Jesus in Nativity scenes follows the same rule: the child is surrounded by and partly formed of

@@ -1,5 +1,17 @@
 {
     "version": 1,
     "base": "",
-    "images": {}
+    "images": {
+        "creation-of-heavens-and-earth": {
+            "hash": "010b0bd29d433bb741361adcb49e4392302c758149f45e910f5d579fcbe4171b",
+            "widths": [
+                720
+            ],
+            "blurhash": "TIQmCm~qD%?H?aIUIU%MRjR+%MM{",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        }
+    }
 }

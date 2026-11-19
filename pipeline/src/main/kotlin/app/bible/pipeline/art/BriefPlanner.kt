@@ -87,7 +87,14 @@ object BriefPlanner {
             "scene" -> r.copy(scene = value)
             "setting" -> r.copy(setting = value)
             "depiction" -> r.copy(depiction = enumValueOfLabel(value))
-            "divine_figure" -> r.copy(divine = if (value == "light_silhouette") DivinePresence.LightSilhouette else DivinePresence.None)
+            "divine_figure" -> r.copy(
+                divine = when (value) {
+                    "light_silhouette" -> DivinePresence.LightSilhouette
+                    "faceless_hand" -> DivinePresence.FacelessHand
+                    "none" -> DivinePresence.None
+                    else -> throw PlanException("overrides.tsv: divine_figure for ${b.slug} must be none, light_silhouette or faceless_hand")
+                },
+            )
             "people" -> r.copy(people = value == "yes")
             "must_show" -> r.copy(mustShow = value.split(';').map { it.trim() }.filter { it.isNotEmpty() })
             "must_not_show" -> r.copy(mustNotShow = value.split(';').map { it.trim() }.filter { it.isNotEmpty() })

@@ -1,0 +1,2 @@
+# Story art review log (append only). Columns: slug, brief_hash, round, action, candidate, reviewer, time, note
+# action: approve (candidate is published), reject (the brief needs editing in overrides.tsv), regenerate (same brief, new seeds)

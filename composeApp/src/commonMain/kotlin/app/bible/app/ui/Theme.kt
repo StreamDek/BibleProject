@@ -1,5 +1,8 @@
 package app.bible.app.ui
 
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -83,3 +86,14 @@ fun cardBackground(book: Int, dark: Boolean): Brush {
     }
     return Brush.verticalGradient(colors)
 }
+
+/**
+ * Top padding that clears the status bar when it is shown, and the camera cutout or notch when Immersive view
+ * hides the status bar (statusBarsPadding alone drops to zero then and text would run under the camera).
+ */
+@Composable
+fun androidx.compose.ui.Modifier.topSafePadding(): androidx.compose.ui.Modifier =
+    windowInsetsPadding(
+        androidx.compose.foundation.layout.WindowInsets.safeDrawing
+            .only(androidx.compose.foundation.layout.WindowInsetsSides.Top),
+    )

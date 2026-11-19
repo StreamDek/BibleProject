@@ -40,6 +40,8 @@ data class ReadingPrefs(
     val dark: Boolean = true,
     /** Show the words of Jesus in red. */
     val redLetters: Boolean = true,
+    /** Hide the status bar for a full-screen reading view. */
+    val immersive: Boolean = false,
 )
 
 enum class ReaderMode { Feed, Classic }
@@ -133,6 +135,8 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
 
     fun setRedLetters(on: Boolean) = updatePrefs { it.copy(redLetters = on) }
 
+    fun setImmersive(on: Boolean) = updatePrefs { it.copy(immersive = on) }
+
     private fun updatePrefs(change: (ReadingPrefs) -> ReadingPrefs) {
         _state.update { it.copy(prefs = change(it.prefs)) }
         val p = state.value.prefs
@@ -141,6 +145,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
             user.putSetting(KEY_FONT_SCALE, "${p.fontScale}")
             user.putSetting(KEY_DARK, "${p.dark}")
             user.putSetting(KEY_RED_LETTERS, "${p.redLetters}")
+            user.putSetting(KEY_IMMERSIVE, "${p.immersive}")
         }
     }
 
@@ -156,6 +161,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
             fontScale = user.setting(KEY_FONT_SCALE)?.toFloatOrNull()?.coerceIn(0.8f, 1.6f) ?: d.fontScale,
             dark = user.setting(KEY_DARK)?.toBooleanStrictOrNull() ?: d.dark,
             redLetters = user.setting(KEY_RED_LETTERS)?.toBooleanStrictOrNull() ?: d.redLetters,
+            immersive = user.setting(KEY_IMMERSIVE)?.toBooleanStrictOrNull() ?: d.immersive,
         )
     }
 
@@ -274,5 +280,6 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
         const val KEY_FONT_SCALE = "reading.font_scale"
         const val KEY_DARK = "reading.dark"
         const val KEY_RED_LETTERS = "reading.red_letters"
+        const val KEY_IMMERSIVE = "reading.immersive"
     }
 }

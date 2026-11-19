@@ -14,3 +14,5 @@ deploy/.env
 *.keystore
 *.jks
 node_modules/
+# Story art candidates (see docs/story-art.md); only approved, published images leave this folder.
+art-work/

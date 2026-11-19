@@ -1,0 +1,22 @@
+# Editor corrections to the planned art briefs (content/art/briefs.jsonl). TAB-separated: slug, field, value.
+# Fields: scene, setting, depiction (direct, historical, symbolic, atmospheric), divine_figure (none, light_silhouette),
+#         people (yes, no), must_show, must_not_show, keep_vague (lists separated by ;), style, skip (yes).
+# After editing, run ./gradlew :pipeline:artPlan. A changed brief gets a new hash, so it can be generated again.
+
+creation-of-heavens-and-earth	scene	Light breaking over dark primeval waters at the dawn of creation, the first light dividing from darkness
+creation-of-heavens-and-earth	people	no
+creation-of-adam-and-eve	scene	A lush garden in Eden with rivers and trees in soft morning light; the first man and woman seen small and at a distance among the foliage
+creation-of-adam-and-eve	divine_figure	none
+creation-of-adam-and-eve	must_not_show	nudity; close-up figures
+burning-bush	scene	Moses, a shepherd, kneeling barefoot before a desert bush that burns with bright fire yet is not consumed, at the foot of a mountain, his flock nearby
+burning-bush	divine_figure	none
+burning-bush	must_show	the bush burning but not consumed
+birth-of-jesus	scene	A humble stable at night in Bethlehem: Mary and Joseph beside a manger, the newborn child wrapped in swaddling clothes and glowing softly with light
+birth-of-jesus	keep_vague	the number of visitors; the child's features
+birth-of-jesus	must_not_show	snow; a Western barn
+feeding-five-thousand	scene	A great crowd seated in groups on a green hillside beside the Sea of Galilee at evening; the luminous figure of Jesus holding loaves and fish while disciples carry baskets
+crucifixion	scene	Three crosses on a hill outside Jerusalem's walls under a darkened sky, seen from a distance; women watching in grief in the foreground
+crucifixion	must_not_show	blood; wounds; close-up of the crucified
+crucifixion	keep_vague	the figures on the crosses
+resurrection	scene	An empty rock-cut tomb in a garden at dawn, the great stone rolled away, bright light streaming from the open tomb, women arriving with spices
+resurrection	divine_figure	none

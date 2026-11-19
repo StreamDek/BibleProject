@@ -30,16 +30,21 @@ kotlin {
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.lifecycle.runtime.compose)
             implementation(libs.kotlinx.coroutines.core)
+            // Story art: published images from the CDN, cached on the device (proposal §6.4).
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor3)
         }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.kotlinx.coroutines.swing)
                 implementation(libs.sqldelight.sqlite.driver)
+                implementation(libs.ktor.client.okhttp)
             }
         }
         iosMain.dependencies {
             implementation(libs.sqldelight.native.driver)
+            implementation(libs.ktor.client.darwin)
         }
         commonTest.dependencies { implementation(kotlin("test")) }
     }

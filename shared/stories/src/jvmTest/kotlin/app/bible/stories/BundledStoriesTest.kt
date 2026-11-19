@@ -48,7 +48,8 @@ class BundledStoriesTest {
         for (s in catalogue.stories) {
             listOfNotNull(s.intro, s.summary).forEach { assertTrue(it.text.length in 40..600, "${s.slug}: ${it.text.length} chars") }
         }
-        assertTrue(catalogue.stories.count { it.intro != null } >= 80)
+        val without = catalogue.stories.filter { it.intro == null }.map { it.slug }
+        assertTrue(without.isEmpty(), "Stories without an introduction: $without")
     }
 
     @Test fun shelvesAreFilled() {

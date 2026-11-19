@@ -16,17 +16,25 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.bible.app.data.BibleRepository
-import app.bible.app.data.openBundledBible
+import app.bible.app.data.openBundledBibleDriver
+import app.bible.app.data.openUserDriver
 import app.bible.app.feed.FeedViewModel
-import app.bible.app.feed.ScriptureFeed
+import app.bible.app.feed.Reader
 import app.bible.app.ui.BibleTheme
+import app.bible.data.user.UserDatabase
+import app.bible.data.user.UserStore
+
+/** The app's long-lived data sources, opened once at start-up. */
+private class AppData(val bible: BibleRepository, val user: UserStore)
 
 @Composable
 fun App() {
-    var repo by remember { mutableStateOf<BibleRepository?>(null) }
-    LaunchedEffect(Unit) { repo = BibleRepository(openBundledBible()) }
-    val r = repo
-    if (r == null) {
+    var data by remember { mutableStateOf<AppData?>(null) }
+    LaunchedEffect(Unit) {
+        data = AppData(BibleRepository(openBundledBibleDriver()), UserStore(UserDatabase(openUserDriver())))
+    }
+    val d = data
+    if (d == null) {
         BibleTheme(dark = true) {
             Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
                 CircularProgressIndicator(Modifier.align(Alignment.Center))
@@ -34,9 +42,9 @@ fun App() {
         }
         return
     }
-    val vm = viewModel { FeedViewModel(r) }
+    val vm = viewModel { FeedViewModel(d.bible, d.user) }
     val state by vm.state.collectAsStateWithLifecycle()
     BibleTheme(dark = state.prefs.dark) {
-        ScriptureFeed(vm, translation = r.translationCode)
+        Reader(vm, translation = d.bible.translationCode)
     }
 }

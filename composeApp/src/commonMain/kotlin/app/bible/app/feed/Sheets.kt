@@ -62,6 +62,14 @@ fun ReadingSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -
                 Text("Dark", Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
                 Switch(checked = prefs.dark, onCheckedChange = { vm.toggleDark() })
             }
+            Spacer(Modifier.height(4.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text("Words of Jesus in red", style = MaterialTheme.typography.titleSmall)
+                    Text("As marked in the KJV source text", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
+                }
+                Switch(checked = prefs.redLetters, onCheckedChange = { vm.setRedLetters(it) })
+            }
         }
     }
 }

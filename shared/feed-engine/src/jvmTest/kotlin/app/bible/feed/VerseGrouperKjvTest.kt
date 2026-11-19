@@ -75,8 +75,8 @@ class VerseGrouperKjvTest {
     }
 
     companion object {
-        // Locked after review. Luke 2 has no paragraph marks in the eBible KJV, so cards fall on sentence ends.
-        // Phase 1 adds editorial section boundaries (weight 3), which should give 1-7 | 8-14 | 15-20.
-        const val GOLDEN_LUKE_2 = "1-5 | 6-10 | 11-15 | 16-20 | 21-24 | 25-32 | 33-37 | 38-42 | 43-47 | 48-52"
+        // Locked after review. Cards start at our section breaks (2:8 shepherds, 2:21 presentation, 2:25 Simeon,
+        // 2:36 Anna, 2:39 Nazareth, 2:41 the boy Jesus in the temple) and otherwise end on paragraph or sentence ends.
+        const val GOLDEN_LUKE_2 = "1-3 | 4-7 | 8-12 | 13-17 | 18-20 | 21-24 | 25-32 | 33-35 | 36-38 | 39-40 | 41-45 | 46-48 | 49-52"
     }
 }

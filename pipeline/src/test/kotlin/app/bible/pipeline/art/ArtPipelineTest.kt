@@ -46,7 +46,7 @@ class ArtPipelineTest {
         assertEquals(DivinePresence.LightSilhouette, byslug.getValue("feeding-five-thousand").divine)
         assertEquals(Depiction.Symbolic, byslug.getValue("prodigal-son").depiction)
         assertEquals(Depiction.Historical, byslug.getValue("armor-of-god").depiction)
-        assertFalse(byslug.getValue("creation-of-heavens-and-earth").people)
+        assertTrue(briefs.filter { it.depiction == Depiction.Atmospheric }.all { !it.people }, "atmospheric images show no people")
     }
 
     @Test fun briefsFileIsUpToDate() {

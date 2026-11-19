@@ -60,7 +60,7 @@ object StoriesBuilder {
                 title = c.title,
                 period = Period.of(first),
                 kind = if (sourceRows.all { it.type != "Narrative" }) StoryKind.Teaching else StoryKind.Narrative,
-                categories = categories,
+                categories = categories.sortedBy { it.ordinal }.toSet(), // stable order: the output is checked into git
                 steps = steps,
                 related = c.related.map { (ref, rel, note) -> RelatedPassage(parse(ref, "story ${c.slug}"), rel, note) },
                 arranged = steps.size > 1 && books.size > 1,
@@ -82,7 +82,7 @@ object StoriesBuilder {
                 title = title,
                 period = Period.of(passage.first),
                 kind = if (row.type == "Narrative") StoryKind.Narrative else StoryKind.Teaching,
-                categories = categories,
+                categories = categories.sortedBy { it.ordinal }.toSet(), // stable order: the output is checked into git
                 steps = listOf(StoryStep(null, listOf(StoryAccount(passage)))),
                 order = index,
                 sources = listOf(row.id),

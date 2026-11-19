@@ -13,13 +13,14 @@ Image rules are in [docs/imagery-policy.md](docs/imagery-policy.md).
 | `shared/core-model` | Canonical verse IDs (BBCCCVVV, KJV versification), books, passages, reference parser |
 | `shared/feed-engine` | The verse grouper (1/3/5/10/Auto verses per card) shared by every reading mode |
 | `shared/bible-data` | SQLDelight schema for the read-only `bible-<translation>.db` |
+| `shared/stories` | Story Mode model (stories, steps, parallel accounts), discovery and story pages |
 | `composeApp` | Shared Compose UI (Android, iOS, desktop preview) |
 | `androidApp` | Android application shell |
 | `iosApp` | iOS application shell (XcodeGen project) |
 | `pipeline` | Content tools: KJV import, later pack building and image jobs |
 | `backend` | Ktor API (accounts, sync, admin) with PostgreSQL |
 | `deploy` | Docker Compose, Caddy and backup scripts for the VPS |
-| `content` | Source texts (KJV OSIS from eBible.org, public domain) and the story catalogue |
+| `content` | Source texts (KJV OSIS from eBible.org, public domain), the story catalogue, and story curation (`content/stories`) |
 
 ## Build
 
@@ -32,6 +33,7 @@ cd iosApp && xcodegen && open iosApp.xcodeproj     # iOS (run from Xcode)
 
 ./gradlew -Pbible.android=false :shared:core-model:jvmTest :shared:feed-engine:jvmTest :backend:test
 ./gradlew :pipeline:importKjv                      # rebuild the bundled KJV database
+./gradlew :pipeline:buildStories                   # rebuild stories.json after editing content/stories or the catalogue
 ```
 
 `-Pbible.android=false` builds everything except Android, for machines without the Android SDK.

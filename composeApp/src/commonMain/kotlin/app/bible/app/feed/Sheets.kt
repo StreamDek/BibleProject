@@ -1,6 +1,10 @@
 package app.bible.app.feed
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -29,9 +33,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import app.bible.app.platform.AppIcon
+import app.bible.app.platform.appIconChangeNote
+import app.bible.app.platform.appIconSupported
+import app.bible.app.platform.currentAppIcon
+import app.bible.app.platform.selectAppIcon
+import app.bible.app.resources.Res
+import app.bible.app.resources.app_icon_red
+import app.bible.app.resources.app_icon_white
 import app.bible.core.Book
+import org.jetbrains.compose.resources.painterResource
 import app.bible.core.Canon
 import app.bible.core.Testament
 import app.bible.core.VerseId
@@ -41,7 +55,7 @@ import app.bible.feed.Density
 @Composable
 fun ReadingSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Unit) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
-        Column(Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
+        Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
             Text("Verses per card", style = MaterialTheme.typography.titleSmall)
             Spacer(Modifier.height(8.dp))
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -70,7 +84,56 @@ fun ReadingSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -
                 }
                 Switch(checked = prefs.redLetters, onCheckedChange = { vm.setRedLetters(it) })
             }
+            Spacer(Modifier.height(4.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text("Immersive view", style = MaterialTheme.typography.titleSmall)
+                    Text("Hide the status bar for a full-screen view", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
+                }
+                Switch(checked = prefs.immersive, onCheckedChange = { vm.setImmersive(it) })
+            }
+            if (appIconSupported()) {
+                Spacer(Modifier.height(20.dp))
+                AppIconPicker()
+            }
         }
+    }
+}
+
+/** Lets the reader choose the VerseUp icon shown on their home screen. */
+@Composable
+private fun AppIconPicker() {
+    var selected by remember { mutableStateOf(currentAppIcon()) }
+    Text("App icon", style = MaterialTheme.typography.titleSmall)
+    Spacer(Modifier.height(8.dp))
+    Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
+        for (icon in AppIcon.entries) {
+            val isSelected = icon == selected
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.clip(RoundedCornerShape(12.dp)).clickable {
+                    if (!isSelected) { selectAppIcon(icon); selected = icon }
+                }.padding(6.dp),
+            ) {
+                Image(
+                    painter = painterResource(if (icon == AppIcon.White) Res.drawable.app_icon_white else Res.drawable.app_icon_red),
+                    contentDescription = "${icon.label} icon",
+                    modifier = Modifier.size(64.dp)
+                        .border(
+                            width = if (isSelected) 3.dp else 1.dp,
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                            shape = RoundedCornerShape(16.dp),
+                        )
+                        .padding(4.dp),
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(icon.label, style = MaterialTheme.typography.labelMedium)
+            }
+        }
+    }
+    appIconChangeNote()?.let {
+        Spacer(Modifier.height(4.dp))
+        Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
     }
 }
 

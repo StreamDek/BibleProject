@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import app.bible.app.ui.topSafePadding
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.PagerState
@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.bible.app.platform.SystemBarsEffect
 import app.bible.core.Canon
 import app.bible.core.VerseId
 
@@ -58,6 +59,8 @@ fun Reader(vm: FeedViewModel, translation: String) {
     val state by vm.state.collectAsStateWithLifecycle()
     var sheet by remember { mutableStateOf<Sheet?>(null) }
     var action by remember { mutableStateOf<VerseActionTarget?>(null) }
+
+    SystemBarsEffect(hideStatusBar = state.prefs.immersive)
 
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         when (state.mode) {
@@ -170,7 +173,7 @@ private fun Chrome(title: String, progress: Float, onOpenSheet: (Sheet) -> Unit,
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
         Row(
-            Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 12.dp, vertical = 8.dp),
+            Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {

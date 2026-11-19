@@ -10,12 +10,33 @@
         android:theme="@android:style/Theme.Material.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode|density|fontScale">
+            android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode|density|fontScale" />
+
+        <!-- Home screen icons. Exactly one alias is enabled; the reader picks one in Aa > App icon. -->
+        <activity-alias
+            android:name=".LauncherRed"
+            android:targetActivity=".MainActivity"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+        <activity-alias
+            android:name=".LauncherWhite"
+            android:targetActivity=".MainActivity"
+            android:icon="@mipmap/ic_launcher_white"
+            android:roundIcon="@mipmap/ic_launcher_white_round"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
     </application>
 </manifest>

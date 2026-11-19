@@ -100,12 +100,38 @@ class ArtPipelineTest {
             assertTrue(f.exists())
             val read = javax.imageio.ImageIO.read(f)
             assertEquals(w, read.width)
-            assertEquals(w * 16 / 9, read.height)
+            assertEquals(w * 16 / 9, read.height) // dry-run images are 9:16 and keep their shape
         }
         manifest.writeText(r.manifest.encode())
         val again = wf().publish(LocalTarget(out), "https://cdn.example.com", allowDryRun = true) {}
         assertEquals(0, again.uploaded)
         assertEquals(r.manifest, ArtManifest.decode(manifest.readText()))
+        dir.deleteRecursively()
+    }
+
+    @Test fun editorImageIsApprovedAndBundled() {
+        val dir = Files.createTempDirectory("art").toFile()
+        val briefsFile = File(dir, "briefs.jsonl").apply { writeText(ArtBrief.writeJsonl(briefs.take(2))) }
+        val review = File(dir, "review.tsv")
+        val manifest = File(dir, "manifest.json")
+        val work = File(dir, "work")
+        fun wf() = ArtWorkflow(briefsFile, review, manifest, work)
+        // A 3:4 image, like the creation test image.
+        val img = java.awt.image.BufferedImage(600, 800, java.awt.image.BufferedImage.TYPE_INT_RGB)
+        val png = File(dir, "test.png").also { javax.imageio.ImageIO.write(img, "png", it) }
+        val slug = briefs[0].slug
+        wf().importApproved(slug, png, "Henry", "test image")
+        assertTrue(review.readText().contains("\tapprove\tc1.png\tHenry\t"))
+        assertEquals(0, wf().generate(DryRunProvider(), 10, setOf(slug)) {}, "an approved story is not generated")
+        val res = File(dir, "files")
+        val r = wf().publish(LocalTarget(res), "", allowDryRun = false, bundle = true) {}
+        val art = r.manifest.images.getValue(slug)
+        assertTrue(art.bundled)
+        assertEquals(listOf(720), art.widths)
+        val out = javax.imageio.ImageIO.read(File(res, "art/${art.hash}.720.jpg"))
+        assertEquals(960, out.height, "keeps its 3:4 shape")
+        assertEquals(art, r.manifest.available(slug))
+        assertFalse(File(res, "manifest").exists(), "bundling writes no CDN manifest")
         dir.deleteRecursively()
     }
 }

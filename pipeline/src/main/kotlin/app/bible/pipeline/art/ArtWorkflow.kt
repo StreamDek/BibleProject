@@ -117,7 +117,32 @@ class ArtWorkflow(
 
     class PublishResult(val manifest: ArtManifest, val published: List<String>, val uploaded: Int)
 
-    fun publish(target: PublishTarget, base: String, allowDryRun: Boolean, log: (String) -> Unit = ::println): PublishResult {
+    /**
+     * Adds an image an editor supplied (rather than generated here) as the approved art for [slug], recorded in
+     * review.tsv like any other approval.
+     */
+    fun importApproved(slug: String, file: File, reviewer: String, note: String): String {
+        val b = briefs.firstOrNull { it.slug == slug } ?: throw IllegalArgumentException("No brief for story \"$slug\"")
+        val bytes = file.readBytes()
+        requireNotNull(ImageIO.read(ByteArrayInputStream(bytes))) { "${file.name} is not a PNG or JPEG image" }
+        val hash = b.hash(EDITOR)
+        val round = 1 + decisions.count { it.slug == slug && it.briefHash == hash }
+        val dir = candidateDir(slug, hash, round).apply { mkdirs() }
+        val name = "c1.${if (isPng(bytes)) "png" else "jpg"}"
+        File(dir, name).writeBytes(bytes)
+        val meta = CandidateSet(slug, hash, round, EDITOR, "Supplied by an editor: ${file.name}", Instant.now().toString(), listOf(CandidateFile(name)))
+        File(dir, META).writeText(json.encodeToString(CandidateSet.serializer(), meta))
+        val d = Decision(slug, hash, round, Action.Approve, name, reviewer, Instant.now().toString(), note)
+        if (!reviewFile.exists()) reviewFile.writeText(Decision.HEADER)
+        reviewFile.appendText(d.line() + "\n")
+        return "${dir.relativeTo(work)}/$name"
+    }
+
+    /**
+     * Publishes approved images. With [bundle], images go into the app itself (one 720 px width) instead of the
+     * CDN, for testing before R2 is set up; the manifest marks them as bundled.
+     */
+    fun publish(target: PublishTarget, base: String, allowDryRun: Boolean, bundle: Boolean = false, log: (String) -> Unit = ::println): PublishResult {
         val bySlug = briefs.associateBy { it.slug }
         val images = LinkedHashMap(manifest.images.filterKeys { it in bySlug })
         val published = ArrayList<String>()
@@ -134,22 +159,25 @@ class ArtWorkflow(
             if (meta.model == "dry-run" && !allowDryRun) throw IllegalStateException("${b.slug}: refusing to publish a dry-run placeholder")
             val original = source.readBytes()
             val hash = sha256Hex(original)
-            if (images[b.slug]?.hash == hash) continue
+            if (images[b.slug]?.let { it.hash == hash && it.bundled == bundle } == true) continue
             val img = ImageIO.read(ByteArrayInputStream(original)) ?: throw IllegalStateException("${b.slug}: cannot read ${source.name}")
-            val portrait = cropTo(img, 9, 16)
-            for (w in WIDTHS) {
-                val key = "img/$hash.$w.jpg"
+            // Portrait images keep their own shape (the app crops to fit); anything wider than 3:4 is cropped to 3:4.
+            val art = if (img.width * 4 > img.height * 3) cropTo(img, 3, 4) else img
+            val widths = if (bundle) listOf(BUNDLED_WIDTH) else WIDTHS
+            for (w in widths) {
+                val key = if (bundle) "art/$hash.$w.jpg" else "img/$hash.$w.jpg"
                 if (target.exists(key)) continue
-                target.put(key, jpeg(scale(portrait, w, w * 16 / 9)), "image/jpeg", IMMUTABLE)
+                target.put(key, jpeg(scale(art, w, w * art.height / art.width)), "image/jpeg", IMMUTABLE)
                 uploaded++
             }
-            val small = scale(portrait, 27, 48)
+            val small = scale(art, 27, 27 * art.height / art.width)
             val px = small.getRGB(0, 0, small.width, small.height, null, 0, small.width)
-            images[b.slug] = ArtImage(hash, WIDTHS, Blurhash.encode(px, small.width, small.height, 3, 4), b.depiction, b.people)
+            images[b.slug] = ArtImage(hash, widths, Blurhash.encode(px, small.width, small.height, 3, 4), b.depiction, b.people, bundled = bundle)
             published += b.slug
             log("  ${b.slug}: published ${hash.take(12)}")
         }
         val m = ArtManifest(base = base, images = images)
+        if (bundle) return PublishResult(m, published, uploaded)
         val text = m.encode()
         target.put("manifest/art-${sha256Hex(text).take(16)}.json", text.toByteArray(), "application/json", IMMUTABLE)
         target.put("manifest/art.json", text.toByteArray(), "application/json", "public, max-age=300")
@@ -166,6 +194,9 @@ class ArtWorkflow(
 
     companion object {
         val WIDTHS = listOf(360, 720, 1080)
+        const val BUNDLED_WIDTH = 720
+        /** Model name recorded for images an editor supplied. */
+        const val EDITOR = "editor-supplied"
         const val META = "candidates.json"
         const val IMMUTABLE = "public, max-age=31536000, immutable"
         private val json = Json { prettyPrint = true; ignoreUnknownKeys = true }

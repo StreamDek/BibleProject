@@ -51,7 +51,7 @@ All steps are Gradle tasks in the `art` group. Run them from the repository root
 4. **Publish.**
    ```
    R2_ACCOUNT_ID=... R2_BUCKET=... R2_ACCESS_KEY_ID=... R2_SECRET_ACCESS_KEY=... \
-     ./gradlew :pipeline:artPublish -Pbase=https://<cdn domain>
+     ./gradlew :pipeline:artPublish -PcdnBase=https://<cdn domain>
    ```
    - It crops each approved image to 9:16 and makes 360, 720 and 1080 px wide JPEGs plus a blurhash.
    - It uploads them under content-addressed names with `Cache-Control: immutable`, skipping files R2 already has.

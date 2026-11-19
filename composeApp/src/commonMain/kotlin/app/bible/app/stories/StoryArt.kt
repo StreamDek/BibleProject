@@ -17,12 +17,14 @@ import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.layout.ContentScale
+import app.bible.app.resources.Res
 import app.bible.stories.ArtImage
 import app.bible.stories.ArtManifest
 import app.bible.stories.Blurhash
 import app.bible.stories.Period
 import app.bible.stories.Story
 import coil3.compose.AsyncImage
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import androidx.compose.ui.graphics.Canvas as BitmapCanvas
 
 /** The published story art, provided once at the top of the app. Empty until images are published. */
@@ -31,14 +33,15 @@ val LocalStoryArt = staticCompositionLocalOf { ArtManifest() }
 /** The published image for [story], or null when it has none yet. */
 @Composable
 fun publishedArt(story: Story): ArtImage? {
-    val m = LocalStoryArt.current
-    return if (m.base.isBlank()) null else m.images[story.slug]
+    return LocalStoryArt.current.available(story.slug)
 }
 
 /**
  * Story art. A published image (generated once, reviewed, and shared by every user) loads from the CDN over its
- * blurhash preview, and stays in the device's image cache. Without one, the story shows placeholder art.
+ * blurhash preview, and stays in the device's image cache. A bundled image (a test image shipped before the CDN
+ * exists) loads from the app's own resources. Without one, the story shows placeholder art.
  */
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun StoryArt(story: Story, modifier: Modifier = Modifier) {
     val manifest = LocalStoryArt.current
@@ -56,7 +59,7 @@ fun StoryArt(story: Story, modifier: Modifier = Modifier) {
             PlaceholderArt(story, Modifier.fillMaxSize())
         }
         AsyncImage(
-            model = manifest.url(image, widthPx),
+            model = if (image.bundled) Res.getUri(manifest.bundledPath(image)) else manifest.url(image, widthPx),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize(),

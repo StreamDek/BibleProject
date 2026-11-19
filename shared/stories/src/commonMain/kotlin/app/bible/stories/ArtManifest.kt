@@ -20,10 +20,16 @@ data class ArtManifest(
 ) {
     /** URL of the smallest published width that is at least [widthPx] wide, or null when nothing is published. */
     fun url(image: ArtImage, widthPx: Int): String? {
-        if (base.isBlank() || image.widths.isEmpty()) return null
+        if (image.bundled || base.isBlank() || image.widths.isEmpty()) return null
         val w = image.widths.sorted().firstOrNull { it >= widthPx } ?: image.widths.max()
         return "${base.trimEnd('/')}/img/${image.hash}.$w.${image.ext}"
     }
+
+    /** The image for [slug] if the app can show it: bundled in the app, or published to a configured CDN. */
+    fun available(slug: String): ArtImage? = images[slug]?.takeIf { it.bundled || base.isNotBlank() }
+
+    /** Path of a bundled image inside the app's resources ("files/art/<hash>.<width>.<ext>"). */
+    fun bundledPath(image: ArtImage): String = "files/art/${image.hash}.${image.widths.max()}.${image.ext}"
 
     fun encode(): String = ArtJson.encodeToString(serializer(), copy(images = images.entries.sortedBy { it.key }.associate { it.key to it.value }))
 
@@ -44,6 +50,8 @@ data class ArtImage(
     /** False for landscapes and settings with no people or divine figures. */
     val people: Boolean = true,
     val ext: String = "jpg",
+    /** Shipped inside the app (for example a test image before the CDN exists) instead of downloaded. */
+    val bundled: Boolean = false,
 )
 
 /** How literally an image depicts its passage (imagery policy §3). Shown in "About this image". */

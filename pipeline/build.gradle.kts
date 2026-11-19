@@ -124,14 +124,26 @@ artTask(
     { (project.findProperty("reviewer") as String?) ?: error("Pass -Previewer=<your name>") },
 )
 
-// ./gradlew :pipeline:artPublish -Pbase=https://cdn.example.com      (R2 credentials from the environment)
+// ./gradlew :pipeline:artImport -Pstory=<slug> -Pimage=<file.png> -Previewer=Henry -Pnote="why"
+// Uses an image an editor supplied as the approved art for one story (recorded in review.tsv).
+artTask(
+    "artImport", "Approves an editor-supplied image for one story",
+    { "art-import" }, { artFiles[0] }, { artFiles[1] }, { artFiles[2] }, { artFiles[3] },
+    { (project.findProperty("story") as String?) ?: error("Pass -Pstory=<story slug>") },
+    { (project.findProperty("image") as String?) ?: error("Pass -Pimage=<image file>") },
+    { (project.findProperty("reviewer") as String?) ?: error("Pass -Previewer=<your name>") },
+    { (project.findProperty("note") as String?) ?: "Supplied by an editor" },
+)
+
+// ./gradlew :pipeline:artPublish -Pbundle                              (puts images inside the app, for testing)
+// ./gradlew :pipeline:artPublish -PcdnBase=https://cdn.example.com      (R2 credentials from the environment)
 // ./gradlew :pipeline:artPublish -Plocal=/tmp/art-out                 (writes files to a folder instead)
 artTask(
     "artPublish", "Publishes approved images and writes the manifest the app reads",
     { "art-publish" }, { artFiles[0] }, { artFiles[1] }, { artFiles[2] }, { artFiles[3] },
     { repoRoot.file("composeApp/src/commonMain/composeResources/files/art.json").asFile.path },
-    { (project.findProperty("base") as String?) ?: System.getenv("ART_CDN_BASE") ?: "-" },
-    { (project.findProperty("local") as String?) ?: "r2" },
+    { (project.findProperty("cdnBase") as String?) ?: System.getenv("ART_CDN_BASE") ?: "-" },
+    { if (project.hasProperty("bundle")) "bundle" else (project.findProperty("local") as String?) ?: "r2" },
     { if (project.hasProperty("allowDryRun")) "true" else "false" },
 )
 

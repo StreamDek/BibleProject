@@ -1,0 +1,653 @@
+﻿id,testament,book,title,scripture_reference,content_type,review_status
+STORY-0001,Old Testament,Genesis,Creation of heavens and earth,Genesis 1:1-2:3,Narrative,Needs editorial review
+STORY-0002,Old Testament,Genesis,Creation of Adam and Eve,Genesis 2:4-25,Narrative,Needs editorial review
+STORY-0003,Old Testament,Genesis,The fall and expulsion,Genesis 3,Narrative,Needs editorial review
+STORY-0004,Old Testament,Genesis,Cain and Abel,Genesis 4:1-16,Narrative,Needs editorial review
+STORY-0005,Old Testament,Genesis,Descendants of Cain and Seth,Genesis 4:17-5:32,Narrative,Needs editorial review
+STORY-0006,Old Testament,Genesis,Corruption before the flood,Genesis 6:1-8,Narrative,Needs editorial review
+STORY-0007,Old Testament,Genesis,Noah builds the ark,Genesis 6:9-7:16,Narrative,Needs editorial review
+STORY-0008,Old Testament,Genesis,The great flood,Genesis 7:17-8:19,Narrative,Needs editorial review
+STORY-0009,Old Testament,Genesis,God's covenant with Noah,Genesis 8:20-9:17,Narrative,Needs editorial review
+STORY-0010,Old Testament,Genesis,Noah and his sons,Genesis 9:18-29,Narrative,Needs editorial review
+STORY-0011,Old Testament,Genesis,Tower of Babel,Genesis 11:1-9,Narrative,Needs editorial review
+STORY-0012,Old Testament,Genesis,Call of Abram,Genesis 12:1-9,Narrative,Needs editorial review
+STORY-0013,Old Testament,Genesis,Abram in Egypt,Genesis 12:10-20,Narrative,Needs editorial review
+STORY-0014,Old Testament,Genesis,Abram rescues Lot,Genesis 13-14,Narrative,Needs editorial review
+STORY-0015,Old Testament,Genesis,Covenant with Abram,Genesis 15,Narrative,Needs editorial review
+STORY-0016,Old Testament,Genesis,Hagar and Ishmael,Genesis 16,Narrative,Needs editorial review
+STORY-0017,Old Testament,Genesis,Covenant of circumcision,Genesis 17,Narrative,Needs editorial review
+STORY-0018,Old Testament,Genesis,Three visitors and promise of Isaac,Genesis 18:1-15,Narrative,Needs editorial review
+STORY-0019,Old Testament,Genesis,Abraham intercedes for Sodom,Genesis 18:16-33,Narrative,Needs editorial review
+STORY-0020,Old Testament,Genesis,Destruction of Sodom and Gomorrah,Genesis 19:1-29,Narrative,Needs editorial review
+STORY-0021,Old Testament,Genesis,Lot and his daughters,Genesis 19:30-38,Narrative,Needs editorial review
+STORY-0022,Old Testament,Genesis,Abraham and Abimelech,Genesis 20,Narrative,Needs editorial review
+STORY-0023,Old Testament,Genesis,Birth of Isaac,Genesis 21:1-7,Narrative,Needs editorial review
+STORY-0024,Old Testament,Genesis,Hagar and Ishmael sent away,Genesis 21:8-21,Narrative,Needs editorial review
+STORY-0025,Old Testament,Genesis,Abraham tested with Isaac,Genesis 22:1-19,Narrative,Needs editorial review
+STORY-0026,Old Testament,Genesis,Death and burial of Sarah,Genesis 23,Narrative,Needs editorial review
+STORY-0027,Old Testament,Genesis,Rebekah chosen for Isaac,Genesis 24,Narrative,Needs editorial review
+STORY-0028,Old Testament,Genesis,Birth of Esau and Jacob,Genesis 25:19-34,Narrative,Needs editorial review
+STORY-0029,Old Testament,Genesis,Isaac and Abimelech,Genesis 26,Narrative,Needs editorial review
+STORY-0030,Old Testament,Genesis,Jacob receives Isaac's blessing,Genesis 27,Narrative,Needs editorial review
+STORY-0031,Old Testament,Genesis,Jacob's dream at Bethel,Genesis 28,Narrative,Needs editorial review
+STORY-0032,Old Testament,Genesis,Jacob meets Rachel and marries,Genesis 29,Narrative,Needs editorial review
+STORY-0033,Old Testament,Genesis,Jacob's children,Genesis 29:31-30:24,Narrative,Needs editorial review
+STORY-0034,Old Testament,Genesis,Jacob prospers and departs,Genesis 30:25-31:55,Narrative,Needs editorial review
+STORY-0035,Old Testament,Genesis,Jacob wrestles with God,Genesis 32,Narrative,Needs editorial review
+STORY-0036,Old Testament,Genesis,Jacob and Esau reconcile,Genesis 33,Narrative,Needs editorial review
+STORY-0037,Old Testament,Genesis,Dinah and Shechem,Genesis 34,Narrative,Needs editorial review
+STORY-0038,Old Testament,Genesis,Return to Bethel and Rachel's death,Genesis 35,Narrative,Needs editorial review
+STORY-0039,Old Testament,Genesis,Joseph's dreams and betrayal,Genesis 37,Narrative,Needs editorial review
+STORY-0040,Old Testament,Genesis,Judah and Tamar,Genesis 38,Narrative,Needs editorial review
+STORY-0041,Old Testament,Genesis,Joseph and Potiphar's wife,Genesis 39,Narrative,Needs editorial review
+STORY-0042,Old Testament,Genesis,Joseph interprets prison dreams,Genesis 40,Narrative,Needs editorial review
+STORY-0043,Old Testament,Genesis,Joseph interprets Pharaoh's dreams,Genesis 41,Narrative,Needs editorial review
+STORY-0044,Old Testament,Genesis,Joseph's brothers travel to Egypt,Genesis 42,Narrative,Needs editorial review
+STORY-0045,Old Testament,Genesis,Benjamin goes to Egypt,Genesis 43,Narrative,Needs editorial review
+STORY-0046,Old Testament,Genesis,Joseph tests his brothers,Genesis 44,Narrative,Needs editorial review
+STORY-0047,Old Testament,Genesis,Joseph reveals his identity,Genesis 45,Narrative,Needs editorial review
+STORY-0048,Old Testament,Genesis,Jacob's family moves to Egypt,Genesis 46-47,Narrative,Needs editorial review
+STORY-0049,Old Testament,Genesis,Jacob blesses Ephraim and Manasseh,Genesis 48,Narrative,Needs editorial review
+STORY-0050,Old Testament,Genesis,Jacob blesses his sons,Genesis 49,Narrative,Needs editorial review
+STORY-0051,Old Testament,Genesis,Death of Jacob and Joseph,Genesis 50,Narrative,Needs editorial review
+STORY-0052,Old Testament,Exodus,Israel oppressed in Egypt,Exodus 1,Narrative,Needs editorial review
+STORY-0053,Old Testament,Exodus,Birth and rescue of Moses,Exodus 2:1-10,Narrative,Needs editorial review
+STORY-0054,Old Testament,Exodus,Moses flees to Midian,Exodus 2:11-25,Narrative,Needs editorial review
+STORY-0055,Old Testament,Exodus,Burning bush,Exodus 3-4,Narrative,Needs editorial review
+STORY-0056,Old Testament,Exodus,Moses confronts Pharaoh,Exodus 5-7:13,Narrative,Needs editorial review
+STORY-0057,Old Testament,Exodus,Plagues of Egypt,Exodus 7:14-11:10,Narrative,Needs editorial review
+STORY-0058,Old Testament,Exodus,First Passover,Exodus 12:1-28,Narrative,Needs editorial review
+STORY-0059,Old Testament,Exodus,Exodus from Egypt,Exodus 12:29-42,Narrative,Needs editorial review
+STORY-0060,Old Testament,Exodus,Consecration and guidance,Exodus 13,Narrative,Needs editorial review
+STORY-0061,Old Testament,Exodus,Crossing the Red Sea,Exodus 14,Narrative,Needs editorial review
+STORY-0062,Old Testament,Exodus,Song of Moses and Miriam,Exodus 15:1-21,Narrative,Needs editorial review
+STORY-0063,Old Testament,Exodus,Bitter water made sweet,Exodus 15:22-27,Narrative,Needs editorial review
+STORY-0064,Old Testament,Exodus,Manna and quail,Exodus 16,Narrative,Needs editorial review
+STORY-0065,Old Testament,Exodus,Water from the rock,Exodus 17:1-7,Narrative,Needs editorial review
+STORY-0066,Old Testament,Exodus,Battle with Amalek,Exodus 17:8-16,Narrative,Needs editorial review
+STORY-0067,Old Testament,Exodus,Jethro advises Moses,Exodus 18,Narrative,Needs editorial review
+STORY-0068,Old Testament,Exodus,God at Mount Sinai,Exodus 19,Narrative,Needs editorial review
+STORY-0069,Old Testament,Exodus,Ten Commandments,Exodus 20:1-21,Narrative,Needs editorial review
+STORY-0070,Old Testament,Exodus,Covenant confirmed,Exodus 24,Narrative,Needs editorial review
+STORY-0071,Old Testament,Exodus,Tabernacle instructions,Exodus 25-31,Narrative,Needs editorial review
+STORY-0072,Old Testament,Exodus,Golden calf,Exodus 32,Narrative,Needs editorial review
+STORY-0073,Old Testament,Exodus,Moses intercedes and sees God's glory,Exodus 33-34,Narrative,Needs editorial review
+STORY-0074,Old Testament,Exodus,Building the tabernacle,Exodus 35-40,Narrative,Needs editorial review
+STORY-0075,Old Testament,Leviticus,Ordination of Aaron and sons,Leviticus 8,Narrative,Needs editorial review
+STORY-0076,Old Testament,Leviticus,First priestly offerings,Leviticus 9,Narrative,Needs editorial review
+STORY-0077,Old Testament,Leviticus,Nadab and Abihu,Leviticus 10,Narrative,Needs editorial review
+STORY-0078,Old Testament,Leviticus,Day of Atonement instructions,Leviticus 16,Narrative,Needs editorial review
+STORY-0079,Old Testament,Leviticus,Holiness and covenant blessings,Leviticus 17-26,Narrative,Needs editorial review
+STORY-0080,Old Testament,Numbers,Israel's camp and census,Numbers 1-4,Narrative,Needs editorial review
+STORY-0081,Old Testament,Numbers,Dedication of the tabernacle,Numbers 7,Narrative,Needs editorial review
+STORY-0082,Old Testament,Numbers,Departure from Sinai,Numbers 9:15-10:36,Narrative,Needs editorial review
+STORY-0083,Old Testament,Numbers,Complaints and quail,Numbers 11,Narrative,Needs editorial review
+STORY-0084,Old Testament,Numbers,Miriam and Aaron oppose Moses,Numbers 12,Narrative,Needs editorial review
+STORY-0085,Old Testament,Numbers,Twelve spies in Canaan,Numbers 13,Narrative,Needs editorial review
+STORY-0086,Old Testament,Numbers,Israel refuses to enter,Numbers 14,Narrative,Needs editorial review
+STORY-0087,Old Testament,Numbers,Korah's rebellion,Numbers 16,Narrative,Needs editorial review
+STORY-0088,Old Testament,Numbers,Aaron's budding staff,Numbers 17,Narrative,Needs editorial review
+STORY-0089,Old Testament,Numbers,Moses strikes the rock,Numbers 20:1-13,Narrative,Needs editorial review
+STORY-0090,Old Testament,Numbers,Death of Aaron,Numbers 20:22-29,Narrative,Needs editorial review
+STORY-0091,Old Testament,Numbers,Bronze serpent,Numbers 21:4-9,Narrative,Needs editorial review
+STORY-0092,Old Testament,Numbers,Balaam and Balak,Numbers 22-24,Narrative,Needs editorial review
+STORY-0093,Old Testament,Numbers,Sin at Peor and Phinehas,Numbers 25,Narrative,Needs editorial review
+STORY-0094,Old Testament,Numbers,Daughters of Zelophehad,Numbers 27:1-11,Narrative,Needs editorial review
+STORY-0095,Old Testament,Numbers,Joshua commissioned,Numbers 27:12-23,Narrative,Needs editorial review
+STORY-0096,Old Testament,Numbers,War against Midian,Numbers 31,Narrative,Needs editorial review
+STORY-0097,Old Testament,Numbers,Reuben and Gad settle east of Jordan,Numbers 32,Narrative,Needs editorial review
+STORY-0098,Old Testament,Deuteronomy,Moses recalls the wilderness,Deuteronomy 1-3,Narrative,Needs editorial review
+STORY-0099,Old Testament,Deuteronomy,The Shema and covenant teaching,Deuteronomy 6,Narrative,Needs editorial review
+STORY-0100,Old Testament,Deuteronomy,Blessings and curses,Deuteronomy 27-30,Narrative,Needs editorial review
+STORY-0101,Old Testament,Deuteronomy,Joshua succeeds Moses,Deuteronomy 31,Narrative,Needs editorial review
+STORY-0102,Old Testament,Deuteronomy,Song of Moses,Deuteronomy 32,Narrative,Needs editorial review
+STORY-0103,Old Testament,Deuteronomy,Moses blesses the tribes,Deuteronomy 33,Narrative,Needs editorial review
+STORY-0104,Old Testament,Deuteronomy,Death of Moses,Deuteronomy 34,Narrative,Needs editorial review
+STORY-0105,Old Testament,Joshua,Joshua commissioned,Joshua 1,Narrative,Needs editorial review
+STORY-0106,Old Testament,Joshua,Rahab and the spies,Joshua 2,Narrative,Needs editorial review
+STORY-0107,Old Testament,Joshua,Crossing the Jordan,Joshua 3-4,Narrative,Needs editorial review
+STORY-0108,Old Testament,Joshua,Circumcision and Passover at Gilgal,Joshua 5:1-12,Narrative,Needs editorial review
+STORY-0109,Old Testament,Joshua,Fall of Jericho,Joshua 5:13-6:27,Narrative,Needs editorial review
+STORY-0110,Old Testament,Joshua,Achan's sin and defeat at Ai,Joshua 7,Narrative,Needs editorial review
+STORY-0111,Old Testament,Joshua,Victory at Ai,Joshua 8,Narrative,Needs editorial review
+STORY-0112,Old Testament,Joshua,Gibeonite deception,Joshua 9,Narrative,Needs editorial review
+STORY-0113,Old Testament,Joshua,Sun stands still and southern campaign,Joshua 10,Narrative,Needs editorial review
+STORY-0114,Old Testament,Joshua,Northern campaign,Joshua 11,Narrative,Needs editorial review
+STORY-0115,Old Testament,Joshua,Division of the land,Joshua 13-21,Narrative,Needs editorial review
+STORY-0116,Old Testament,Joshua,Eastern tribes' altar,Joshua 22,Narrative,Needs editorial review
+STORY-0117,Old Testament,Joshua,Joshua's farewell and covenant renewal,Joshua 23-24,Narrative,Needs editorial review
+STORY-0118,Old Testament,Judges,Incomplete conquest,Judges 1-2,Narrative,Needs editorial review
+STORY-0119,Old Testament,Judges,Othniel delivers Israel,Judges 3:7-11,Narrative,Needs editorial review
+STORY-0120,Old Testament,Judges,Ehud and Eglon,Judges 3:12-30,Narrative,Needs editorial review
+STORY-0121,Old Testament,Judges,Shamgar,Judges 3:31,Narrative,Needs editorial review
+STORY-0122,Old Testament,Judges,Deborah and Barak,Judges 4-5,Narrative,Needs editorial review
+STORY-0123,Old Testament,Judges,Gideon's call,Judges 6,Narrative,Needs editorial review
+STORY-0124,Old Testament,Judges,Gideon's 300,Judges 7,Narrative,Needs editorial review
+STORY-0125,Old Testament,Judges,Gideon's aftermath,Judges 8,Narrative,Needs editorial review
+STORY-0126,Old Testament,Judges,Abimelech's rise and fall,Judges 9,Narrative,Needs editorial review
+STORY-0127,Old Testament,Judges,Tola and Jair,Judges 10:1-5,Narrative,Needs editorial review
+STORY-0128,Old Testament,Judges,Jephthah and his vow,Judges 10:6-12:7,Narrative,Needs editorial review
+STORY-0129,Old Testament,Judges,Ibzan Elon and Abdon,Judges 12:8-15,Narrative,Needs editorial review
+STORY-0130,Old Testament,Judges,Birth of Samson,Judges 13,Narrative,Needs editorial review
+STORY-0131,Old Testament,Judges,Samson's marriage and riddle,Judges 14,Narrative,Needs editorial review
+STORY-0132,Old Testament,Judges,Samson's conflicts with Philistines,Judges 15,Narrative,Needs editorial review
+STORY-0133,Old Testament,Judges,Samson and Delilah,Judges 16,Narrative,Needs editorial review
+STORY-0134,Old Testament,Judges,Micah's idol and Danite migration,Judges 17-18,Narrative,Needs editorial review
+STORY-0135,Old Testament,Judges,Levite's concubine and civil war,Judges 19-21,Narrative,Needs editorial review
+STORY-0136,Old Testament,Ruth,Naomi and Ruth return to Bethlehem,Ruth 1,Narrative,Needs editorial review
+STORY-0137,Old Testament,Ruth,Ruth meets Boaz,Ruth 2,Narrative,Needs editorial review
+STORY-0138,Old Testament,Ruth,Ruth at the threshing floor,Ruth 3,Narrative,Needs editorial review
+STORY-0139,Old Testament,Ruth,Boaz redeems Ruth,Ruth 4,Narrative,Needs editorial review
+STORY-0140,Old Testament,1 Samuel,Hannah's prayer and Samuel's birth,1 Samuel 1-2:11,Narrative,Needs editorial review
+STORY-0141,Old Testament,1 Samuel,Eli's sons and judgment,1 Samuel 2:12-36,Narrative,Needs editorial review
+STORY-0142,Old Testament,1 Samuel,Samuel hears God's call,1 Samuel 3,Narrative,Needs editorial review
+STORY-0143,Old Testament,1 Samuel,Ark captured by Philistines,1 Samuel 4,Narrative,Needs editorial review
+STORY-0144,Old Testament,1 Samuel,Ark among the Philistines,1 Samuel 5-6,Narrative,Needs editorial review
+STORY-0145,Old Testament,1 Samuel,Samuel leads Israel to repentance,1 Samuel 7,Narrative,Needs editorial review
+STORY-0146,Old Testament,1 Samuel,Israel demands a king,1 Samuel 8,Narrative,Needs editorial review
+STORY-0147,Old Testament,1 Samuel,Saul chosen and anointed,1 Samuel 9-10,Narrative,Needs editorial review
+STORY-0148,Old Testament,1 Samuel,Saul rescues Jabesh-gilead,1 Samuel 11,Narrative,Needs editorial review
+STORY-0149,Old Testament,1 Samuel,Saul's unlawful sacrifice,1 Samuel 13,Narrative,Needs editorial review
+STORY-0150,Old Testament,1 Samuel,Jonathan attacks Philistines,1 Samuel 14,Narrative,Needs editorial review
+STORY-0151,Old Testament,1 Samuel,Saul disobeys God,1 Samuel 15,Narrative,Needs editorial review
+STORY-0152,Old Testament,1 Samuel,David anointed,1 Samuel 16:1-13,Narrative,Needs editorial review
+STORY-0153,Old Testament,1 Samuel,David serves Saul,1 Samuel 16:14-23,Narrative,Needs editorial review
+STORY-0154,Old Testament,1 Samuel,David and Goliath,1 Samuel 17,Narrative,Needs editorial review
+STORY-0155,Old Testament,1 Samuel,David and Jonathan's friendship,1 Samuel 18-20,Narrative,Needs editorial review
+STORY-0156,Old Testament,1 Samuel,David flees to Nob and Gath,1 Samuel 21,Narrative,Needs editorial review
+STORY-0157,Old Testament,1 Samuel,Massacre of priests at Nob,1 Samuel 22,Narrative,Needs editorial review
+STORY-0158,Old Testament,1 Samuel,David rescues Keilah,1 Samuel 23,Narrative,Needs editorial review
+STORY-0159,Old Testament,1 Samuel,David spares Saul in the cave,1 Samuel 24,Narrative,Needs editorial review
+STORY-0160,Old Testament,1 Samuel,Abigail and Nabal,1 Samuel 25,Narrative,Needs editorial review
+STORY-0161,Old Testament,1 Samuel,David spares Saul again,1 Samuel 26,Narrative,Needs editorial review
+STORY-0162,Old Testament,1 Samuel,David among Philistines,1 Samuel 27-29,Narrative,Needs editorial review
+STORY-0163,Old Testament,1 Samuel,David recovers captives at Ziklag,1 Samuel 30,Narrative,Needs editorial review
+STORY-0164,Old Testament,1 Samuel,Saul and the medium at Endor,1 Samuel 28,Narrative,Needs editorial review
+STORY-0165,Old Testament,1 Samuel,Death of Saul and Jonathan,1 Samuel 31,Narrative,Needs editorial review
+STORY-0166,Old Testament,2 Samuel,David mourns Saul and Jonathan,2 Samuel 1,Narrative,Needs editorial review
+STORY-0167,Old Testament,2 Samuel,David becomes king over Judah,2 Samuel 2,Narrative,Needs editorial review
+STORY-0168,Old Testament,2 Samuel,Civil war with Ish-bosheth,2 Samuel 2-4,Narrative,Needs editorial review
+STORY-0169,Old Testament,2 Samuel,David king over all Israel,2 Samuel 5:1-5,Narrative,Needs editorial review
+STORY-0170,Old Testament,2 Samuel,David captures Jerusalem,2 Samuel 5:6-16,Narrative,Needs editorial review
+STORY-0171,Old Testament,2 Samuel,Ark brought to Jerusalem,2 Samuel 6,Narrative,Needs editorial review
+STORY-0172,Old Testament,2 Samuel,Davidic covenant,2 Samuel 7,Narrative,Needs editorial review
+STORY-0173,Old Testament,2 Samuel,David's victories,2 Samuel 8-10,Narrative,Needs editorial review
+STORY-0174,Old Testament,2 Samuel,David and Bathsheba,2 Samuel 11,Narrative,Needs editorial review
+STORY-0175,Old Testament,2 Samuel,Nathan confronts David,2 Samuel 12:1-25,Narrative,Needs editorial review
+STORY-0176,Old Testament,2 Samuel,Amnon and Tamar,2 Samuel 13,Narrative,Needs editorial review
+STORY-0177,Old Testament,2 Samuel,Absalom returns,2 Samuel 14,Narrative,Needs editorial review
+STORY-0178,Old Testament,2 Samuel,Absalom's rebellion,2 Samuel 15-17,Narrative,Needs editorial review
+STORY-0179,Old Testament,2 Samuel,Death of Absalom,2 Samuel 18,Narrative,Needs editorial review
+STORY-0180,Old Testament,2 Samuel,David's grief and return,2 Samuel 19,Narrative,Needs editorial review
+STORY-0181,Old Testament,2 Samuel,Sheba's rebellion,2 Samuel 20,Narrative,Needs editorial review
+STORY-0182,Old Testament,2 Samuel,David's census and plague,2 Samuel 24,Narrative,Needs editorial review
+STORY-0183,Old Testament,1 Kings,Adonijah seeks the throne,1 Kings 1,Narrative,Needs editorial review
+STORY-0184,Old Testament,1 Kings,Solomon becomes king,1 Kings 1-2,Narrative,Needs editorial review
+STORY-0185,Old Testament,1 Kings,Solomon asks for wisdom,1 Kings 3:1-15,Narrative,Needs editorial review
+STORY-0186,Old Testament,1 Kings,Solomon judges two mothers,1 Kings 3:16-28,Narrative,Needs editorial review
+STORY-0187,Old Testament,1 Kings,Building the temple,1 Kings 5-7,Narrative,Needs editorial review
+STORY-0188,Old Testament,1 Kings,Temple dedication,1 Kings 8,Narrative,Needs editorial review
+STORY-0189,Old Testament,1 Kings,God appears to Solomon,1 Kings 9,Narrative,Needs editorial review
+STORY-0190,Old Testament,1 Kings,Queen of Sheba,1 Kings 10,Narrative,Needs editorial review
+STORY-0191,Old Testament,1 Kings,Solomon's downfall,1 Kings 11,Narrative,Needs editorial review
+STORY-0192,Old Testament,1 Kings,Kingdom divided under Rehoboam,1 Kings 12,Narrative,Needs editorial review
+STORY-0193,Old Testament,1 Kings,Jeroboam's golden calves,1 Kings 12:25-33,Narrative,Needs editorial review
+STORY-0194,Old Testament,1 Kings,Prophet and altar at Bethel,1 Kings 13,Narrative,Needs editorial review
+STORY-0195,Old Testament,1 Kings,Judgment on Jeroboam's house,1 Kings 14,Narrative,Needs editorial review
+STORY-0196,Old Testament,1 Kings,Kings of Judah and Israel,1 Kings 15-16,Narrative,Needs editorial review
+STORY-0197,Old Testament,1 Kings,Elijah announces drought,1 Kings 17:1-7,Narrative,Needs editorial review
+STORY-0198,Old Testament,1 Kings,Elijah and widow of Zarephath,1 Kings 17:8-24,Narrative,Needs editorial review
+STORY-0199,Old Testament,1 Kings,Elijah on Mount Carmel,1 Kings 18,Narrative,Needs editorial review
+STORY-0200,Old Testament,1 Kings,Elijah flees to Horeb,1 Kings 19,Narrative,Needs editorial review
+STORY-0201,Old Testament,1 Kings,Ahab defeats Ben-hadad,1 Kings 20,Narrative,Needs editorial review
+STORY-0202,Old Testament,1 Kings,Naboth's vineyard,1 Kings 21,Narrative,Needs editorial review
+STORY-0203,Old Testament,1 Kings,Micaiah and Ahab's death,1 Kings 22,Narrative,Needs editorial review
+STORY-0204,Old Testament,2 Kings,Elijah confronts Ahaziah,2 Kings 1,Narrative,Needs editorial review
+STORY-0205,Old Testament,2 Kings,Elijah taken to heaven,2 Kings 2:1-18,Narrative,Needs editorial review
+STORY-0206,Old Testament,2 Kings,Elisha heals Jericho's water,2 Kings 2:19-22,Narrative,Needs editorial review
+STORY-0207,Old Testament,2 Kings,Elisha and the mocking youths,2 Kings 2:23-25,Narrative,Needs editorial review
+STORY-0208,Old Testament,2 Kings,Moab's rebellion,2 Kings 3,Narrative,Needs editorial review
+STORY-0209,Old Testament,2 Kings,Widow's oil multiplied,2 Kings 4:1-7,Narrative,Needs editorial review
+STORY-0210,Old Testament,2 Kings,Shunammite woman's son,2 Kings 4:8-37,Narrative,Needs editorial review
+STORY-0211,Old Testament,2 Kings,Poisoned stew and multiplied bread,2 Kings 4:38-44,Narrative,Needs editorial review
+STORY-0212,Old Testament,2 Kings,Naaman healed of leprosy,2 Kings 5,Narrative,Needs editorial review
+STORY-0213,Old Testament,2 Kings,Floating axe head,2 Kings 6:1-7,Narrative,Needs editorial review
+STORY-0214,Old Testament,2 Kings,Elisha and heavenly army,2 Kings 6:8-23,Narrative,Needs editorial review
+STORY-0215,Old Testament,2 Kings,Siege and deliverance of Samaria,2 Kings 6:24-7:20,Narrative,Needs editorial review
+STORY-0216,Old Testament,2 Kings,Jehu destroys Ahab's house,2 Kings 9-10,Narrative,Needs editorial review
+STORY-0217,Old Testament,2 Kings,Joash rescued and crowned,2 Kings 11,Narrative,Needs editorial review
+STORY-0218,Old Testament,2 Kings,Joash repairs temple,2 Kings 12,Narrative,Needs editorial review
+STORY-0219,Old Testament,2 Kings,Death of Elisha,2 Kings 13:14-21,Narrative,Needs editorial review
+STORY-0220,Old Testament,2 Kings,Fall of northern Israel,2 Kings 17,Narrative,Needs editorial review
+STORY-0221,Old Testament,2 Kings,Hezekiah's reforms,2 Kings 18:1-12,Narrative,Needs editorial review
+STORY-0222,Old Testament,2 Kings,Assyrian siege of Jerusalem,2 Kings 18:13-19:37,Narrative,Needs editorial review
+STORY-0223,Old Testament,2 Kings,Hezekiah's illness,2 Kings 20:1-11,Narrative,Needs editorial review
+STORY-0224,Old Testament,2 Kings,Babylonian envoys,2 Kings 20:12-21,Narrative,Needs editorial review
+STORY-0225,Old Testament,2 Kings,Manasseh and Amon,2 Kings 21,Narrative,Needs editorial review
+STORY-0226,Old Testament,2 Kings,Josiah finds Book of the Law,2 Kings 22,Narrative,Needs editorial review
+STORY-0227,Old Testament,2 Kings,Josiah's reforms and Passover,2 Kings 23:1-30,Narrative,Needs editorial review
+STORY-0228,Old Testament,2 Kings,Fall of Jerusalem,2 Kings 24-25,Narrative,Needs editorial review
+STORY-0229,Old Testament,1 Chronicles,Genealogies from Adam to Israel,1 Chronicles 1-9,Narrative,Needs editorial review
+STORY-0230,Old Testament,1 Chronicles,Death of Saul,1 Chronicles 10,Narrative,Needs editorial review
+STORY-0231,Old Testament,1 Chronicles,David's warriors,1 Chronicles 11-12,Narrative,Needs editorial review
+STORY-0232,Old Testament,1 Chronicles,Ark brought to Jerusalem,1 Chronicles 13-16,Narrative,Needs editorial review
+STORY-0233,Old Testament,1 Chronicles,Davidic covenant retold,1 Chronicles 17,Narrative,Needs editorial review
+STORY-0234,Old Testament,1 Chronicles,David's census,1 Chronicles 21,Narrative,Needs editorial review
+STORY-0235,Old Testament,1 Chronicles,Preparations for temple,1 Chronicles 22-29,Narrative,Needs editorial review
+STORY-0236,Old Testament,2 Chronicles,Solomon requests wisdom,2 Chronicles 1,Narrative,Needs editorial review
+STORY-0237,Old Testament,2 Chronicles,Temple construction,2 Chronicles 2-5,Narrative,Needs editorial review
+STORY-0238,Old Testament,2 Chronicles,Temple dedication,2 Chronicles 6-7,Narrative,Needs editorial review
+STORY-0239,Old Testament,2 Chronicles,Queen of Sheba,2 Chronicles 9,Narrative,Needs editorial review
+STORY-0240,Old Testament,2 Chronicles,Kingdom division,2 Chronicles 10,Narrative,Needs editorial review
+STORY-0241,Old Testament,2 Chronicles,Asa's reforms,2 Chronicles 14-16,Narrative,Needs editorial review
+STORY-0242,Old Testament,2 Chronicles,Jehoshaphat and the singers,2 Chronicles 17-20,Narrative,Needs editorial review
+STORY-0243,Old Testament,2 Chronicles,Joash and temple restoration,2 Chronicles 22-24,Narrative,Needs editorial review
+STORY-0244,Old Testament,2 Chronicles,Uzziah's pride,2 Chronicles 26,Narrative,Needs editorial review
+STORY-0245,Old Testament,2 Chronicles,Hezekiah's Passover,2 Chronicles 29-31,Narrative,Needs editorial review
+STORY-0246,Old Testament,2 Chronicles,Sennacherib defeated,2 Chronicles 32,Narrative,Needs editorial review
+STORY-0247,Old Testament,2 Chronicles,Manasseh repents,2 Chronicles 33,Narrative,Needs editorial review
+STORY-0248,Old Testament,2 Chronicles,Josiah's reforms,2 Chronicles 34-35,Narrative,Needs editorial review
+STORY-0249,Old Testament,2 Chronicles,Exile and Cyrus decree,2 Chronicles 36,Narrative,Needs editorial review
+STORY-0250,Old Testament,Ezra,Cyrus permits return,Ezra 1,Narrative,Needs editorial review
+STORY-0251,Old Testament,Ezra,Exiles return,Ezra 2,Narrative,Needs editorial review
+STORY-0252,Old Testament,Ezra,Altar rebuilt,Ezra 3:1-6,Narrative,Needs editorial review
+STORY-0253,Old Testament,Ezra,Temple foundation laid,Ezra 3:7-13,Narrative,Needs editorial review
+STORY-0254,Old Testament,Ezra,Opposition to rebuilding,Ezra 4,Narrative,Needs editorial review
+STORY-0255,Old Testament,Ezra,Haggai and Zechariah encourage builders,Ezra 5,Narrative,Needs editorial review
+STORY-0256,Old Testament,Ezra,Temple completed,Ezra 6,Narrative,Needs editorial review
+STORY-0257,Old Testament,Ezra,Ezra journeys to Jerusalem,Ezra 7-8,Narrative,Needs editorial review
+STORY-0258,Old Testament,Ezra,Ezra confronts intermarriage,Ezra 9-10,Narrative,Needs editorial review
+STORY-0259,Old Testament,Nehemiah,Nehemiah hears Jerusalem's plight,Nehemiah 1,Narrative,Needs editorial review
+STORY-0260,Old Testament,Nehemiah,Nehemiah sent to Jerusalem,Nehemiah 2,Narrative,Needs editorial review
+STORY-0261,Old Testament,Nehemiah,Walls rebuilt amid opposition,Nehemiah 3-4,Narrative,Needs editorial review
+STORY-0262,Old Testament,Nehemiah,Nehemiah confronts exploitation,Nehemiah 5,Narrative,Needs editorial review
+STORY-0263,Old Testament,Nehemiah,Wall completed,Nehemiah 6,Narrative,Needs editorial review
+STORY-0264,Old Testament,Nehemiah,Ezra reads the Law,Nehemiah 8,Narrative,Needs editorial review
+STORY-0265,Old Testament,Nehemiah,People confess and renew covenant,Nehemiah 9-10,Narrative,Needs editorial review
+STORY-0266,Old Testament,Nehemiah,Dedication of the wall,Nehemiah 12,Narrative,Needs editorial review
+STORY-0267,Old Testament,Nehemiah,Nehemiah's reforms,Nehemiah 13,Narrative,Needs editorial review
+STORY-0268,Old Testament,Esther,Vashti removed and Esther chosen,Esther 1-2,Narrative,Needs editorial review
+STORY-0269,Old Testament,Esther,Mordecai uncovers plot,Esther 2:19-23,Narrative,Needs editorial review
+STORY-0270,Old Testament,Esther,Haman's decree,Esther 3,Narrative,Needs editorial review
+STORY-0271,Old Testament,Esther,Esther resolves to intervene,Esther 4,Narrative,Needs editorial review
+STORY-0272,Old Testament,Esther,Esther's first banquet,Esther 5,Narrative,Needs editorial review
+STORY-0273,Old Testament,Esther,Mordecai honored,Esther 6,Narrative,Needs editorial review
+STORY-0274,Old Testament,Esther,Haman exposed,Esther 7,Narrative,Needs editorial review
+STORY-0275,Old Testament,Esther,Jews delivered,Esther 8-9,Narrative,Needs editorial review
+STORY-0276,Old Testament,Esther,Purim established,Esther 9:20-32,Narrative,Needs editorial review
+STORY-0277,Old Testament,Job,Job's prosperity and testing,Job 1-2,Narrative,Needs editorial review
+STORY-0278,Old Testament,Job,Job's lament and friends' speeches,Job 3-31,Narrative,Needs editorial review
+STORY-0279,Old Testament,Job,Elihu speaks,Job 32-37,Narrative,Needs editorial review
+STORY-0280,Old Testament,Job,God answers from whirlwind,Job 38-41,Narrative,Needs editorial review
+STORY-0281,Old Testament,Job,Job humbled and restored,Job 42,Narrative,Needs editorial review
+STORY-0282,Old Testament,Psalms,The blessed way,Psalms 1,Teaching/Poetry,Needs editorial review
+STORY-0283,Old Testament,Psalms,The shepherd psalm,Psalms 23,Teaching/Poetry,Needs editorial review
+STORY-0284,Old Testament,Psalms,Prayer of repentance,Psalms 51,Teaching/Poetry,Needs editorial review
+STORY-0285,Old Testament,Psalms,God's protection,Psalms 91,Teaching/Poetry,Needs editorial review
+STORY-0286,Old Testament,Psalms,Praise for creation,Psalms 104,Teaching/Poetry,Needs editorial review
+STORY-0287,Old Testament,Psalms,God's steadfast love,Psalms 136,Teaching/Poetry,Needs editorial review
+STORY-0288,Old Testament,Psalms,The Word as a lamp,Psalms 119,Teaching/Poetry,Needs editorial review
+STORY-0289,Old Testament,Proverbs,Wisdom calls,Proverbs 1:20-33,Teaching/Poetry,Needs editorial review
+STORY-0290,Old Testament,Proverbs,Trust in the Lord,Proverbs 3:1-12,Teaching/Poetry,Needs editorial review
+STORY-0291,Old Testament,Proverbs,Wisdom versus folly,Proverbs 8-9,Teaching/Poetry,Needs editorial review
+STORY-0292,Old Testament,Proverbs,The virtuous woman,Proverbs 31:10-31,Teaching/Poetry,Needs editorial review
+STORY-0293,Old Testament,Ecclesiastes,The search for meaning,Ecclesiastes 1-2,Teaching/Poetry,Needs editorial review
+STORY-0294,Old Testament,Ecclesiastes,A time for everything,Ecclesiastes 3,Teaching/Poetry,Needs editorial review
+STORY-0295,Old Testament,Ecclesiastes,Remember your Creator,Ecclesiastes 11-12,Teaching/Poetry,Needs editorial review
+STORY-0296,Old Testament,Song of Songs,Love and longing,Song of Songs 1-2,Teaching/Poetry,Needs editorial review
+STORY-0297,Old Testament,Song of Songs,Seeking the beloved,Song of Songs 3,Teaching/Poetry,Needs editorial review
+STORY-0298,Old Testament,Song of Songs,Celebration of love,Song of Songs 4-5,Teaching/Poetry,Needs editorial review
+STORY-0299,Old Testament,Song of Songs,Love's enduring power,Song of Songs 6-8,Teaching/Poetry,Needs editorial review
+STORY-0300,Old Testament,Isaiah,Isaiah's call and vision,Isaiah 6,Narrative,Needs editorial review
+STORY-0301,Old Testament,Isaiah,Sign of Immanuel,Isaiah 7,Narrative,Needs editorial review
+STORY-0302,Old Testament,Isaiah,Prince of Peace prophecy,Isaiah 9:1-7,Narrative,Needs editorial review
+STORY-0303,Old Testament,Isaiah,Judgment and restoration,Isaiah 11,Narrative,Needs editorial review
+STORY-0304,Old Testament,Isaiah,Hezekiah and Assyria,Isaiah 36-37,Narrative,Needs editorial review
+STORY-0305,Old Testament,Isaiah,Hezekiah's illness,Isaiah 38-39,Narrative,Needs editorial review
+STORY-0306,Old Testament,Isaiah,Comfort for God's people,Isaiah 40,Narrative,Needs editorial review
+STORY-0307,Old Testament,Isaiah,Suffering servant,Isaiah 52:13-53:12,Narrative,Needs editorial review
+STORY-0308,Old Testament,Isaiah,Invitation to abundant life,Isaiah 55,Narrative,Needs editorial review
+STORY-0309,Old Testament,Isaiah,New heavens and new earth,Isaiah 65-66,Narrative,Needs editorial review
+STORY-0310,Old Testament,Jeremiah,Jeremiah's call,Jeremiah 1,Narrative,Needs editorial review
+STORY-0311,Old Testament,Jeremiah,Temple sermon,Jeremiah 7,Narrative,Needs editorial review
+STORY-0312,Old Testament,Jeremiah,Potter's house,Jeremiah 18,Narrative,Needs editorial review
+STORY-0313,Old Testament,Jeremiah,Broken jar,Jeremiah 19,Narrative,Needs editorial review
+STORY-0314,Old Testament,Jeremiah,Jeremiah persecuted,Jeremiah 20,Narrative,Needs editorial review
+STORY-0315,Old Testament,Jeremiah,Good and bad figs,Jeremiah 24,Narrative,Needs editorial review
+STORY-0316,Old Testament,Jeremiah,Seventy years prophecy,Jeremiah 25,Narrative,Needs editorial review
+STORY-0317,Old Testament,Jeremiah,Jeremiah's scroll burned,Jeremiah 36,Narrative,Needs editorial review
+STORY-0318,Old Testament,Jeremiah,Jeremiah imprisoned,Jeremiah 37-38,Narrative,Needs editorial review
+STORY-0319,Old Testament,Jeremiah,Fall of Jerusalem,Jeremiah 39,Narrative,Needs editorial review
+STORY-0320,Old Testament,Jeremiah,Gedaliah assassinated,Jeremiah 40-41,Narrative,Needs editorial review
+STORY-0321,Old Testament,Jeremiah,Flight to Egypt,Jeremiah 42-44,Narrative,Needs editorial review
+STORY-0322,Old Testament,Jeremiah,New covenant promised,Jeremiah 31:31-40,Narrative,Needs editorial review
+STORY-0323,Old Testament,Lamentations,Jerusalem's destruction lamented,Lamentations 1-2,Narrative,Needs editorial review
+STORY-0324,Old Testament,Lamentations,Hope amid grief,Lamentations 3,Narrative,Needs editorial review
+STORY-0325,Old Testament,Lamentations,The city's devastation,Lamentations 4-5,Narrative,Needs editorial review
+STORY-0326,Old Testament,Ezekiel,Vision of God's glory,Ezekiel 1,Narrative,Needs editorial review
+STORY-0327,Old Testament,Ezekiel,Ezekiel commissioned,Ezekiel 2-3,Narrative,Needs editorial review
+STORY-0328,Old Testament,Ezekiel,Symbolic siege of Jerusalem,Ezekiel 4-5,Narrative,Needs editorial review
+STORY-0329,Old Testament,Ezekiel,Glory departs temple,Ezekiel 8-11,Narrative,Needs editorial review
+STORY-0330,Old Testament,Ezekiel,Ezekiel's enacted exile,Ezekiel 12,Narrative,Needs editorial review
+STORY-0331,Old Testament,Ezekiel,The watchman,Ezekiel 33,Narrative,Needs editorial review
+STORY-0332,Old Testament,Ezekiel,God the shepherd,Ezekiel 34,Narrative,Needs editorial review
+STORY-0333,Old Testament,Ezekiel,Valley of dry bones,Ezekiel 37:1-14,Narrative,Needs editorial review
+STORY-0334,Old Testament,Ezekiel,Two sticks united,Ezekiel 37:15-28,Narrative,Needs editorial review
+STORY-0335,Old Testament,Ezekiel,Gog and Magog,Ezekiel 38-39,Narrative,Needs editorial review
+STORY-0336,Old Testament,Ezekiel,Vision of restored temple,Ezekiel 40-48,Narrative,Needs editorial review
+STORY-0337,Old Testament,Daniel,Daniel and friends refuse royal food,Daniel 1,Narrative,Needs editorial review
+STORY-0338,Old Testament,Daniel,Nebuchadnezzar's dream,Daniel 2,Narrative,Needs editorial review
+STORY-0339,Old Testament,Daniel,Fiery furnace,Daniel 3,Narrative,Needs editorial review
+STORY-0340,Old Testament,Daniel,King's humbling,Daniel 4,Narrative,Needs editorial review
+STORY-0341,Old Testament,Daniel,Writing on the wall,Daniel 5,Narrative,Needs editorial review
+STORY-0342,Old Testament,Daniel,Daniel in lions' den,Daniel 6,Narrative,Needs editorial review
+STORY-0343,Old Testament,Daniel,Four beasts vision,Daniel 7,Narrative,Needs editorial review
+STORY-0344,Old Testament,Daniel,Ram and goat vision,Daniel 8,Narrative,Needs editorial review
+STORY-0345,Old Testament,Daniel,Daniel's prayer and seventy weeks,Daniel 9,Narrative,Needs editorial review
+STORY-0346,Old Testament,Daniel,Vision by the river,Daniel 10-12,Narrative,Needs editorial review
+STORY-0347,Old Testament,Hosea,Hosea's marriage as prophetic sign,Hosea 1-3,Narrative,Needs editorial review
+STORY-0348,Old Testament,Hosea,Israel's unfaithfulness and God's appeal,Hosea 4-14,Narrative,Needs editorial review
+STORY-0349,Old Testament,Joel,Locust plague and call to repent,Joel 1-2:17,Narrative,Needs editorial review
+STORY-0350,Old Testament,Joel,Promise of God's Spirit,Joel 2:18-32,Narrative,Needs editorial review
+STORY-0351,Old Testament,Joel,Day of the Lord,Joel 3,Narrative,Needs editorial review
+STORY-0352,Old Testament,Amos,Judgments on nations,Amos 1-2,Narrative,Needs editorial review
+STORY-0353,Old Testament,Amos,Call to justice,Amos 3-6,Narrative,Needs editorial review
+STORY-0354,Old Testament,Amos,Visions of judgment,Amos 7-9,Narrative,Needs editorial review
+STORY-0355,Old Testament,Obadiah,Judgment of Edom and restoration of Zion,Obadiah 1,Narrative,Needs editorial review
+STORY-0356,Old Testament,Jonah,Jonah flees from God,Jonah 1,Narrative,Needs editorial review
+STORY-0357,Old Testament,Jonah,Jonah and the great fish,Jonah 2,Narrative,Needs editorial review
+STORY-0358,Old Testament,Jonah,Nineveh repents,Jonah 3,Narrative,Needs editorial review
+STORY-0359,Old Testament,Jonah,Jonah learns about mercy,Jonah 4,Narrative,Needs editorial review
+STORY-0360,Old Testament,Micah,Judgment of corrupt leaders,Micah 1-3,Narrative,Needs editorial review
+STORY-0361,Old Testament,Micah,Ruler from Bethlehem,Micah 5,Narrative,Needs editorial review
+STORY-0362,Old Testament,Micah,What the Lord requires,Micah 6,Narrative,Needs editorial review
+STORY-0363,Old Testament,Micah,Hope and restoration,Micah 7,Narrative,Needs editorial review
+STORY-0364,Old Testament,Nahum,Prophecy against Nineveh,Nahum 1-3,Narrative,Needs editorial review
+STORY-0365,Old Testament,Habakkuk,Prophet questions injustice,Habakkuk 1,Narrative,Needs editorial review
+STORY-0366,Old Testament,Habakkuk,The righteous live by faith,Habakkuk 2,Narrative,Needs editorial review
+STORY-0367,Old Testament,Habakkuk,Habakkuk's prayer,Habakkuk 3,Narrative,Needs editorial review
+STORY-0368,Old Testament,Zephaniah,Day of the Lord and restoration,Zephaniah 1-3,Narrative,Needs editorial review
+STORY-0369,Old Testament,Haggai,Call to rebuild temple,Haggai 1,Narrative,Needs editorial review
+STORY-0370,Old Testament,Haggai,Glory of future temple,Haggai 2,Narrative,Needs editorial review
+STORY-0371,Old Testament,Zechariah,Night visions,Zechariah 1-6,Narrative,Needs editorial review
+STORY-0372,Old Testament,Zechariah,Joshua the high priest cleansed,Zechariah 3,Narrative,Needs editorial review
+STORY-0373,Old Testament,Zechariah,King coming on donkey,Zechariah 9:9-17,Narrative,Needs editorial review
+STORY-0374,Old Testament,Zechariah,Shepherd imagery,Zechariah 11-13,Narrative,Needs editorial review
+STORY-0375,Old Testament,Zechariah,Lord's future reign,Zechariah 14,Narrative,Needs editorial review
+STORY-0376,Old Testament,Malachi,God's love and priestly rebuke,Malachi 1-2,Narrative,Needs editorial review
+STORY-0377,Old Testament,Malachi,Refiner and covenant messenger,Malachi 3,Narrative,Needs editorial review
+STORY-0378,Old Testament,Malachi,Day of the Lord,Malachi 4,Narrative,Needs editorial review
+STORY-0379,New Testament,Matthew,Genealogy and birth of Jesus,Matthew 1,Narrative,Needs editorial review
+STORY-0380,New Testament,Matthew,Magi visit Jesus,Matthew 2:1-12,Narrative,Needs editorial review
+STORY-0381,New Testament,Matthew,Flight to Egypt and return,Matthew 2:13-23,Narrative,Needs editorial review
+STORY-0382,New Testament,Matthew,John the Baptist prepares the way,Matthew 3:1-12,Narrative,Needs editorial review
+STORY-0383,New Testament,Matthew,Baptism of Jesus,Matthew 3:13-17,Narrative,Needs editorial review
+STORY-0384,New Testament,Matthew,Temptation in wilderness,Matthew 4:1-11,Narrative,Needs editorial review
+STORY-0385,New Testament,Matthew,Calling first disciples,Matthew 4:18-22,Narrative,Needs editorial review
+STORY-0386,New Testament,Matthew,Sermon on the Mount,Matthew 5-7,Narrative,Needs editorial review
+STORY-0387,New Testament,Matthew,Leper cleansed,Matthew 8:1-4,Narrative,Needs editorial review
+STORY-0388,New Testament,Matthew,Centurion's servant healed,Matthew 8:5-13,Narrative,Needs editorial review
+STORY-0389,New Testament,Matthew,Storm calmed,Matthew 8:23-27,Narrative,Needs editorial review
+STORY-0390,New Testament,Matthew,Demoniacs healed,Matthew 8:28-34,Narrative,Needs editorial review
+STORY-0391,New Testament,Matthew,Paralytic forgiven and healed,Matthew 9:1-8,Narrative,Needs editorial review
+STORY-0392,New Testament,Matthew,Matthew called,Matthew 9:9-13,Narrative,Needs editorial review
+STORY-0393,New Testament,Matthew,Woman healed and Jairus's daughter raised,Matthew 9:18-26,Narrative,Needs editorial review
+STORY-0394,New Testament,Matthew,Twelve apostles sent,Matthew 10,Narrative,Needs editorial review
+STORY-0395,New Testament,Matthew,John's question to Jesus,Matthew 11:1-19,Narrative,Needs editorial review
+STORY-0396,New Testament,Matthew,Sabbath controversies,Matthew 12:1-14,Narrative,Needs editorial review
+STORY-0397,New Testament,Matthew,Parable of sower,Matthew 13:1-23,Narrative,Needs editorial review
+STORY-0398,New Testament,Matthew,Wheat and weeds,"Matthew 13:24-30,36-43",Narrative,Needs editorial review
+STORY-0399,New Testament,Matthew,Mustard seed and leaven,Matthew 13:31-35,Narrative,Needs editorial review
+STORY-0400,New Testament,Matthew,Hidden treasure and pearl,Matthew 13:44-46,Narrative,Needs editorial review
+STORY-0401,New Testament,Matthew,Net parable,Matthew 13:47-50,Narrative,Needs editorial review
+STORY-0402,New Testament,Matthew,John the Baptist beheaded,Matthew 14:1-12,Narrative,Needs editorial review
+STORY-0403,New Testament,Matthew,Feeding five thousand,Matthew 14:13-21,Narrative,Needs editorial review
+STORY-0404,New Testament,Matthew,Jesus walks on water,Matthew 14:22-33,Narrative,Needs editorial review
+STORY-0405,New Testament,Matthew,Canaanite woman's faith,Matthew 15:21-28,Narrative,Needs editorial review
+STORY-0406,New Testament,Matthew,Feeding four thousand,Matthew 15:32-39,Narrative,Needs editorial review
+STORY-0407,New Testament,Matthew,Peter confesses Jesus,Matthew 16:13-20,Narrative,Needs editorial review
+STORY-0408,New Testament,Matthew,Transfiguration,Matthew 17:1-13,Narrative,Needs editorial review
+STORY-0409,New Testament,Matthew,Coin in fish's mouth,Matthew 17:24-27,Narrative,Needs editorial review
+STORY-0410,New Testament,Matthew,Lost sheep parable,Matthew 18:10-14,Narrative,Needs editorial review
+STORY-0411,New Testament,Matthew,Unforgiving servant,Matthew 18:21-35,Narrative,Needs editorial review
+STORY-0412,New Testament,Matthew,Rich young ruler,Matthew 19:16-30,Narrative,Needs editorial review
+STORY-0413,New Testament,Matthew,Workers in vineyard,Matthew 20:1-16,Narrative,Needs editorial review
+STORY-0414,New Testament,Matthew,Two blind men healed,Matthew 20:29-34,Narrative,Needs editorial review
+STORY-0415,New Testament,Matthew,Triumphal entry,Matthew 21:1-11,Narrative,Needs editorial review
+STORY-0416,New Testament,Matthew,Temple cleansed,Matthew 21:12-17,Narrative,Needs editorial review
+STORY-0417,New Testament,Matthew,Fig tree cursed,Matthew 21:18-22,Narrative,Needs editorial review
+STORY-0418,New Testament,Matthew,Two sons parable,Matthew 21:28-32,Narrative,Needs editorial review
+STORY-0419,New Testament,Matthew,Wicked tenants,Matthew 21:33-46,Narrative,Needs editorial review
+STORY-0420,New Testament,Matthew,Wedding banquet,Matthew 22:1-14,Narrative,Needs editorial review
+STORY-0421,New Testament,Matthew,Greatest commandment,Matthew 22:34-40,Narrative,Needs editorial review
+STORY-0422,New Testament,Matthew,Woes against scribes and Pharisees,Matthew 23,Narrative,Needs editorial review
+STORY-0423,New Testament,Matthew,Olivet discourse,Matthew 24-25,Narrative,Needs editorial review
+STORY-0424,New Testament,Matthew,Ten virgins,Matthew 25:1-13,Narrative,Needs editorial review
+STORY-0425,New Testament,Matthew,Talents,Matthew 25:14-30,Narrative,Needs editorial review
+STORY-0426,New Testament,Matthew,Sheep and goats,Matthew 25:31-46,Narrative,Needs editorial review
+STORY-0427,New Testament,Matthew,Anointing at Bethany,Matthew 26:6-13,Narrative,Needs editorial review
+STORY-0428,New Testament,Matthew,Last Supper,Matthew 26:17-30,Narrative,Needs editorial review
+STORY-0429,New Testament,Matthew,Gethsemane,Matthew 26:36-46,Narrative,Needs editorial review
+STORY-0430,New Testament,Matthew,Arrest of Jesus,Matthew 26:47-56,Narrative,Needs editorial review
+STORY-0431,New Testament,Matthew,Peter denies Jesus,Matthew 26:69-75,Narrative,Needs editorial review
+STORY-0432,New Testament,Matthew,Judas's death,Matthew 27:1-10,Narrative,Needs editorial review
+STORY-0433,New Testament,Matthew,Jesus before Pilate,Matthew 27:11-26,Narrative,Needs editorial review
+STORY-0434,New Testament,Matthew,Crucifixion and death,Matthew 27:27-56,Narrative,Needs editorial review
+STORY-0435,New Testament,Matthew,Burial of Jesus,Matthew 27:57-66,Narrative,Needs editorial review
+STORY-0436,New Testament,Matthew,Resurrection,Matthew 28:1-15,Narrative,Needs editorial review
+STORY-0437,New Testament,Matthew,Great Commission,Matthew 28:16-20,Narrative,Needs editorial review
+STORY-0438,New Testament,Mark,Jesus begins ministry,Mark 1,Narrative,Needs editorial review
+STORY-0439,New Testament,Mark,Healing of paralytic,Mark 2:1-12,Narrative,Needs editorial review
+STORY-0440,New Testament,Mark,Calling Levi,Mark 2:13-17,Narrative,Needs editorial review
+STORY-0441,New Testament,Mark,Parable of growing seed,Mark 4:26-29,Narrative,Needs editorial review
+STORY-0442,New Testament,Mark,Storm calmed,Mark 4:35-41,Narrative,Needs editorial review
+STORY-0443,New Testament,Mark,Gerasene demoniac,Mark 5:1-20,Narrative,Needs editorial review
+STORY-0444,New Testament,Mark,Jairus's daughter and woman healed,Mark 5:21-43,Narrative,Needs editorial review
+STORY-0445,New Testament,Mark,Jesus rejected at Nazareth,Mark 6:1-6,Narrative,Needs editorial review
+STORY-0446,New Testament,Mark,Feeding five thousand,Mark 6:30-44,Narrative,Needs editorial review
+STORY-0447,New Testament,Mark,Jesus walks on water,Mark 6:45-52,Narrative,Needs editorial review
+STORY-0448,New Testament,Mark,Deaf man healed,Mark 7:31-37,Narrative,Needs editorial review
+STORY-0449,New Testament,Mark,Blind man healed at Bethsaida,Mark 8:22-26,Narrative,Needs editorial review
+STORY-0450,New Testament,Mark,Peter confesses Christ,Mark 8:27-30,Narrative,Needs editorial review
+STORY-0451,New Testament,Mark,Transfiguration,Mark 9:2-13,Narrative,Needs editorial review
+STORY-0452,New Testament,Mark,Boy with unclean spirit,Mark 9:14-29,Narrative,Needs editorial review
+STORY-0453,New Testament,Mark,Rich man and discipleship,Mark 10:17-31,Narrative,Needs editorial review
+STORY-0454,New Testament,Mark,Blind Bartimaeus,Mark 10:46-52,Narrative,Needs editorial review
+STORY-0455,New Testament,Mark,Triumphal entry,Mark 11:1-11,Narrative,Needs editorial review
+STORY-0456,New Testament,Mark,Widow's offering,Mark 12:41-44,Narrative,Needs editorial review
+STORY-0457,New Testament,Mark,Anointing at Bethany,Mark 14:3-9,Narrative,Needs editorial review
+STORY-0458,New Testament,Mark,Last Supper,Mark 14:12-26,Narrative,Needs editorial review
+STORY-0459,New Testament,Mark,Gethsemane and arrest,Mark 14:32-52,Narrative,Needs editorial review
+STORY-0460,New Testament,Mark,Peter's denial,Mark 14:66-72,Narrative,Needs editorial review
+STORY-0461,New Testament,Mark,Trial and crucifixion,Mark 15:1-41,Narrative,Needs editorial review
+STORY-0462,New Testament,Mark,Burial,Mark 15:42-47,Narrative,Needs editorial review
+STORY-0463,New Testament,Mark,Empty tomb,Mark 16:1-8,Narrative,Needs editorial review
+STORY-0464,New Testament,Luke,Angel announces John's birth,Luke 1:5-25,Narrative,Needs editorial review
+STORY-0465,New Testament,Luke,Gabriel visits Mary,Luke 1:26-38,Narrative,Needs editorial review
+STORY-0466,New Testament,Luke,Mary visits Elizabeth,Luke 1:39-56,Narrative,Needs editorial review
+STORY-0467,New Testament,Luke,John the Baptist born,Luke 1:57-80,Narrative,Needs editorial review
+STORY-0468,New Testament,Luke,Birth of Jesus and shepherds,Luke 2:1-20,Narrative,Needs editorial review
+STORY-0469,New Testament,Luke,Jesus presented in temple,Luke 2:21-40,Narrative,Needs editorial review
+STORY-0470,New Testament,Luke,Boy Jesus in temple,Luke 2:41-52,Narrative,Needs editorial review
+STORY-0471,New Testament,Luke,John prepares the way,Luke 3:1-20,Narrative,Needs editorial review
+STORY-0472,New Testament,Luke,Jesus baptized,Luke 3:21-22,Narrative,Needs editorial review
+STORY-0473,New Testament,Luke,Temptation,Luke 4:1-13,Narrative,Needs editorial review
+STORY-0474,New Testament,Luke,Jesus at Nazareth synagogue,Luke 4:16-30,Narrative,Needs editorial review
+STORY-0475,New Testament,Luke,Miraculous catch of fish,Luke 5:1-11,Narrative,Needs editorial review
+STORY-0476,New Testament,Luke,Widow's son raised at Nain,Luke 7:11-17,Narrative,Needs editorial review
+STORY-0477,New Testament,Luke,Sinful woman anoints Jesus,Luke 7:36-50,Narrative,Needs editorial review
+STORY-0478,New Testament,Luke,Women supporting Jesus,Luke 8:1-3,Narrative,Needs editorial review
+STORY-0479,New Testament,Luke,Good Samaritan,Luke 10:25-37,Narrative,Needs editorial review
+STORY-0480,New Testament,Luke,Mary and Martha,Luke 10:38-42,Narrative,Needs editorial review
+STORY-0481,New Testament,Luke,Friend at midnight,Luke 11:5-13,Narrative,Needs editorial review
+STORY-0482,New Testament,Luke,Rich fool,Luke 12:13-21,Narrative,Needs editorial review
+STORY-0483,New Testament,Luke,Barren fig tree,Luke 13:6-9,Narrative,Needs editorial review
+STORY-0484,New Testament,Luke,Bent woman healed,Luke 13:10-17,Narrative,Needs editorial review
+STORY-0485,New Testament,Luke,Great banquet,Luke 14:15-24,Narrative,Needs editorial review
+STORY-0486,New Testament,Luke,Lost sheep,Luke 15:1-7,Narrative,Needs editorial review
+STORY-0487,New Testament,Luke,Lost coin,Luke 15:8-10,Narrative,Needs editorial review
+STORY-0488,New Testament,Luke,Prodigal son,Luke 15:11-32,Narrative,Needs editorial review
+STORY-0489,New Testament,Luke,Shrewd manager,Luke 16:1-13,Narrative,Needs editorial review
+STORY-0490,New Testament,Luke,Rich man and Lazarus,Luke 16:19-31,Narrative,Needs editorial review
+STORY-0491,New Testament,Luke,Ten lepers healed,Luke 17:11-19,Narrative,Needs editorial review
+STORY-0492,New Testament,Luke,Persistent widow,Luke 18:1-8,Narrative,Needs editorial review
+STORY-0493,New Testament,Luke,Pharisee and tax collector,Luke 18:9-14,Narrative,Needs editorial review
+STORY-0494,New Testament,Luke,Zacchaeus,Luke 19:1-10,Narrative,Needs editorial review
+STORY-0495,New Testament,Luke,Ten minas,Luke 19:11-27,Narrative,Needs editorial review
+STORY-0496,New Testament,Luke,Jesus weeps over Jerusalem,Luke 19:41-44,Narrative,Needs editorial review
+STORY-0497,New Testament,Luke,Last Supper,Luke 22:7-38,Narrative,Needs editorial review
+STORY-0498,New Testament,Luke,Jesus before Herod,Luke 23:6-12,Narrative,Needs editorial review
+STORY-0499,New Testament,Luke,Crucifixion,Luke 23:26-49,Narrative,Needs editorial review
+STORY-0500,New Testament,Luke,Resurrection,Luke 24:1-12,Narrative,Needs editorial review
+STORY-0501,New Testament,Luke,Road to Emmaus,Luke 24:13-35,Narrative,Needs editorial review
+STORY-0502,New Testament,Luke,Jesus appears to disciples,Luke 24:36-49,Narrative,Needs editorial review
+STORY-0503,New Testament,Luke,Ascension,Luke 24:50-53,Narrative,Needs editorial review
+STORY-0504,New Testament,John,The Word became flesh,John 1:1-18,Narrative,Needs editorial review
+STORY-0505,New Testament,John,John identifies Jesus,John 1:19-34,Narrative,Needs editorial review
+STORY-0506,New Testament,John,First disciples,John 1:35-51,Narrative,Needs editorial review
+STORY-0507,New Testament,John,Wedding at Cana,John 2:1-12,Narrative,Needs editorial review
+STORY-0508,New Testament,John,Temple cleansing,John 2:13-25,Narrative,Needs editorial review
+STORY-0509,New Testament,John,Jesus and Nicodemus,John 3:1-21,Narrative,Needs editorial review
+STORY-0510,New Testament,John,Jesus and Samaritan woman,John 4:1-42,Narrative,Needs editorial review
+STORY-0511,New Testament,John,Official's son healed,John 4:43-54,Narrative,Needs editorial review
+STORY-0512,New Testament,John,Healing at Bethesda,John 5:1-15,Narrative,Needs editorial review
+STORY-0513,New Testament,John,Feeding five thousand,John 6:1-15,Narrative,Needs editorial review
+STORY-0514,New Testament,John,Walking on sea,John 6:16-21,Narrative,Needs editorial review
+STORY-0515,New Testament,John,Bread of life discourse,John 6:22-71,Narrative,Needs editorial review
+STORY-0516,New Testament,John,Jesus at Feast of Tabernacles,John 7,Narrative,Needs editorial review
+STORY-0517,New Testament,John,Woman caught in adultery (textual variant),John 7:53-8:11,Narrative,Needs editorial review
+STORY-0518,New Testament,John,Light of the world,John 8:12-30,Narrative,Needs editorial review
+STORY-0519,New Testament,John,Man born blind healed,John 9,Narrative,Needs editorial review
+STORY-0520,New Testament,John,Good Shepherd,John 10:1-21,Narrative,Needs editorial review
+STORY-0521,New Testament,John,Raising Lazarus,John 11:1-44,Narrative,Needs editorial review
+STORY-0522,New Testament,John,Mary anoints Jesus,John 12:1-8,Narrative,Needs editorial review
+STORY-0523,New Testament,John,Triumphal entry,John 12:12-19,Narrative,Needs editorial review
+STORY-0524,New Testament,John,Jesus washes disciples' feet,John 13:1-17,Narrative,Needs editorial review
+STORY-0525,New Testament,John,Farewell discourse,John 13-16,Narrative,Needs editorial review
+STORY-0526,New Testament,John,Jesus prays for disciples,John 17,Narrative,Needs editorial review
+STORY-0527,New Testament,John,Arrest in garden,John 18:1-11,Narrative,Needs editorial review
+STORY-0528,New Testament,John,Jesus before Pilate,John 18:28-19:16,Narrative,Needs editorial review
+STORY-0529,New Testament,John,Crucifixion,John 19:17-37,Narrative,Needs editorial review
+STORY-0530,New Testament,John,Burial,John 19:38-42,Narrative,Needs editorial review
+STORY-0531,New Testament,John,Mary Magdalene at empty tomb,John 20:1-18,Narrative,Needs editorial review
+STORY-0532,New Testament,John,Jesus appears to disciples,John 20:19-23,Narrative,Needs editorial review
+STORY-0533,New Testament,John,Thomas believes,John 20:24-29,Narrative,Needs editorial review
+STORY-0534,New Testament,John,Catch of 153 fish,John 21:1-14,Narrative,Needs editorial review
+STORY-0535,New Testament,John,Peter restored,John 21:15-25,Narrative,Needs editorial review
+STORY-0536,New Testament,Acts,Ascension and Matthias chosen,Acts 1,Narrative,Needs editorial review
+STORY-0537,New Testament,Acts,Pentecost,Acts 2,Narrative,Needs editorial review
+STORY-0538,New Testament,Acts,Lame man healed at temple,Acts 3,Narrative,Needs editorial review
+STORY-0539,New Testament,Acts,Peter and John before council,Acts 4:1-31,Narrative,Needs editorial review
+STORY-0540,New Testament,Acts,Believers share possessions,Acts 4:32-37,Narrative,Needs editorial review
+STORY-0541,New Testament,Acts,Ananias and Sapphira,Acts 5:1-11,Narrative,Needs editorial review
+STORY-0542,New Testament,Acts,Apostles imprisoned and freed,Acts 5:12-42,Narrative,Needs editorial review
+STORY-0543,New Testament,Acts,Seven chosen,Acts 6:1-7,Narrative,Needs editorial review
+STORY-0544,New Testament,Acts,Stephen's speech and martyrdom,Acts 6:8-7:60,Narrative,Needs editorial review
+STORY-0545,New Testament,Acts,Philip in Samaria,Acts 8:4-25,Narrative,Needs editorial review
+STORY-0546,New Testament,Acts,Philip and Ethiopian official,Acts 8:26-40,Narrative,Needs editorial review
+STORY-0547,New Testament,Acts,Saul's conversion,Acts 9:1-31,Narrative,Needs editorial review
+STORY-0548,New Testament,Acts,Aeneas healed and Tabitha raised,Acts 9:32-43,Narrative,Needs editorial review
+STORY-0549,New Testament,Acts,Cornelius and Peter,Acts 10-11:18,Narrative,Needs editorial review
+STORY-0550,New Testament,Acts,Church at Antioch,Acts 11:19-30,Narrative,Needs editorial review
+STORY-0551,New Testament,Acts,James killed and Peter rescued,Acts 12,Narrative,Needs editorial review
+STORY-0552,New Testament,Acts,Paul's first missionary journey,Acts 13-14,Narrative,Needs editorial review
+STORY-0553,New Testament,Acts,Jerusalem council,Acts 15:1-35,Narrative,Needs editorial review
+STORY-0554,New Testament,Acts,Paul and Barnabas separate,Acts 15:36-41,Narrative,Needs editorial review
+STORY-0555,New Testament,Acts,Timothy joins Paul,Acts 16:1-5,Narrative,Needs editorial review
+STORY-0556,New Testament,Acts,Macedonian vision,Acts 16:6-10,Narrative,Needs editorial review
+STORY-0557,New Testament,Acts,Lydia converted,Acts 16:11-15,Narrative,Needs editorial review
+STORY-0558,New Testament,Acts,Philippian jailer,Acts 16:16-40,Narrative,Needs editorial review
+STORY-0559,New Testament,Acts,Paul at Thessalonica and Berea,Acts 17:1-15,Narrative,Needs editorial review
+STORY-0560,New Testament,Acts,Paul at Athens,Acts 17:16-34,Narrative,Needs editorial review
+STORY-0561,New Testament,Acts,Paul in Corinth,Acts 18:1-17,Narrative,Needs editorial review
+STORY-0562,New Testament,Acts,Apollos instructed,Acts 18:24-28,Narrative,Needs editorial review
+STORY-0563,New Testament,Acts,Paul in Ephesus,Acts 19:1-20,Narrative,Needs editorial review
+STORY-0564,New Testament,Acts,Riot in Ephesus,Acts 19:21-41,Narrative,Needs editorial review
+STORY-0565,New Testament,Acts,Eutychus raised,Acts 20:7-12,Narrative,Needs editorial review
+STORY-0566,New Testament,Acts,Paul's farewell to Ephesian elders,Acts 20:17-38,Narrative,Needs editorial review
+STORY-0567,New Testament,Acts,Agabus predicts imprisonment,Acts 21:1-14,Narrative,Needs editorial review
+STORY-0568,New Testament,Acts,Paul arrested in Jerusalem,Acts 21:15-23:11,Narrative,Needs editorial review
+STORY-0569,New Testament,Acts,Plot against Paul,Acts 23:12-35,Narrative,Needs editorial review
+STORY-0570,New Testament,Acts,Paul before Felix,Acts 24,Narrative,Needs editorial review
+STORY-0571,New Testament,Acts,Paul before Festus and Agrippa,Acts 25-26,Narrative,Needs editorial review
+STORY-0572,New Testament,Acts,Shipwreck on Malta,Acts 27,Narrative,Needs editorial review
+STORY-0573,New Testament,Acts,Paul survives snakebite,Acts 28:1-10,Narrative,Needs editorial review
+STORY-0574,New Testament,Acts,Paul arrives in Rome,Acts 28:11-31,Narrative,Needs editorial review
+STORY-0575,New Testament,Romans,Humanity's need for righteousness,Romans 1-3,Teaching/Poetry,Needs editorial review
+STORY-0576,New Testament,Romans,Justification by faith,Romans 3-5,Teaching/Poetry,Needs editorial review
+STORY-0577,New Testament,Romans,New life in Christ,Romans 6-8,Teaching/Poetry,Needs editorial review
+STORY-0578,New Testament,Romans,Israel and God's promises,Romans 9-11,Teaching/Poetry,Needs editorial review
+STORY-0579,New Testament,Romans,Living sacrifice and Christian conduct,Romans 12-15,Teaching/Poetry,Needs editorial review
+STORY-0580,New Testament,1 Corinthians,Divisions in Corinth,1 Corinthians 1-4,Teaching/Poetry,Needs editorial review
+STORY-0581,New Testament,1 Corinthians,Church discipline and holiness,1 Corinthians 5-6,Teaching/Poetry,Needs editorial review
+STORY-0582,New Testament,1 Corinthians,Marriage and singleness,1 Corinthians 7,Teaching/Poetry,Needs editorial review
+STORY-0583,New Testament,1 Corinthians,Love and spiritual gifts,1 Corinthians 12-14,Teaching/Poetry,Needs editorial review
+STORY-0584,New Testament,1 Corinthians,Resurrection of Christ and believers,1 Corinthians 15,Teaching/Poetry,Needs editorial review
+STORY-0585,New Testament,2 Corinthians,Comfort in suffering,2 Corinthians 1,Teaching/Poetry,Needs editorial review
+STORY-0586,New Testament,2 Corinthians,Forgiveness and reconciliation,2 Corinthians 2,Teaching/Poetry,Needs editorial review
+STORY-0587,New Testament,2 Corinthians,Treasure in jars of clay,2 Corinthians 4,Teaching/Poetry,Needs editorial review
+STORY-0588,New Testament,2 Corinthians,Generosity and giving,2 Corinthians 8-9,Teaching/Poetry,Needs editorial review
+STORY-0589,New Testament,2 Corinthians,Paul's weakness and God's strength,2 Corinthians 12,Teaching/Poetry,Needs editorial review
+STORY-0590,New Testament,Galatians,Paul defends gospel,Galatians 1-2,Teaching/Poetry,Needs editorial review
+STORY-0591,New Testament,Galatians,Faith and promise,Galatians 3-4,Teaching/Poetry,Needs editorial review
+STORY-0592,New Testament,Galatians,Freedom and fruit of Spirit,Galatians 5-6,Teaching/Poetry,Needs editorial review
+STORY-0593,New Testament,Ephesians,Spiritual blessings in Christ,Ephesians 1,Teaching/Poetry,Needs editorial review
+STORY-0594,New Testament,Ephesians,Saved by grace,Ephesians 2,Teaching/Poetry,Needs editorial review
+STORY-0595,New Testament,Ephesians,Unity in body of Christ,Ephesians 4,Teaching/Poetry,Needs editorial review
+STORY-0596,New Testament,Ephesians,Armor of God,Ephesians 6:10-20,Teaching/Poetry,Needs editorial review
+STORY-0597,New Testament,Philippians,Joy in imprisonment,Philippians 1,Teaching/Poetry,Needs editorial review
+STORY-0598,New Testament,Philippians,Christ's humility,Philippians 2:1-11,Teaching/Poetry,Needs editorial review
+STORY-0599,New Testament,Philippians,Pressing toward goal,Philippians 3,Teaching/Poetry,Needs editorial review
+STORY-0600,New Testament,Philippians,Peace and contentment,Philippians 4,Teaching/Poetry,Needs editorial review
+STORY-0601,New Testament,Colossians,Supremacy of Christ,Colossians 1,Teaching/Poetry,Needs editorial review
+STORY-0602,New Testament,Colossians,New life in Christ,Colossians 3,Teaching/Poetry,Needs editorial review
+STORY-0603,New Testament,1 Thessalonians,Faith and endurance,1 Thessalonians 1-3,Teaching/Poetry,Needs editorial review
+STORY-0604,New Testament,1 Thessalonians,Hope of Christ's return,1 Thessalonians 4-5,Teaching/Poetry,Needs editorial review
+STORY-0605,New Testament,2 Thessalonians,Perseverance and day of Lord,2 Thessalonians 1-2,Teaching/Poetry,Needs editorial review
+STORY-0606,New Testament,2 Thessalonians,Responsible living,2 Thessalonians 3,Teaching/Poetry,Needs editorial review
+STORY-0607,New Testament,1 Timothy,Church leadership and sound teaching,1 Timothy 1-3,Teaching/Poetry,Needs editorial review
+STORY-0608,New Testament,1 Timothy,Godliness and pastoral care,1 Timothy 4-6,Teaching/Poetry,Needs editorial review
+STORY-0609,New Testament,2 Timothy,Guard the gospel,2 Timothy 1,Teaching/Poetry,Needs editorial review
+STORY-0610,New Testament,2 Timothy,Entrust teaching to faithful people,2 Timothy 2,Teaching/Poetry,Needs editorial review
+STORY-0611,New Testament,2 Timothy,Scripture and perseverance,2 Timothy 3-4,Teaching/Poetry,Needs editorial review
+STORY-0612,New Testament,Titus,Appointing elders and sound doctrine,Titus 1,Teaching/Poetry,Needs editorial review
+STORY-0613,New Testament,Titus,Grace and good works,Titus 2-3,Teaching/Poetry,Needs editorial review
+STORY-0614,New Testament,Philemon,Paul appeals for Onesimus,Philemon 1,Teaching/Poetry,Needs editorial review
+STORY-0615,New Testament,Hebrews,Christ superior to angels and Moses,Hebrews 1-3,Teaching/Poetry,Needs editorial review
+STORY-0616,New Testament,Hebrews,Jesus our high priest,Hebrews 4-7,Teaching/Poetry,Needs editorial review
+STORY-0617,New Testament,Hebrews,New covenant,Hebrews 8-10,Teaching/Poetry,Needs editorial review
+STORY-0618,New Testament,Hebrews,Heroes of faith,Hebrews 11,Teaching/Poetry,Needs editorial review
+STORY-0619,New Testament,Hebrews,Run with endurance,Hebrews 12,Teaching/Poetry,Needs editorial review
+STORY-0620,New Testament,James,Trials and wisdom,James 1,Teaching/Poetry,Needs editorial review
+STORY-0621,New Testament,James,Faith and works,James 2,Teaching/Poetry,Needs editorial review
+STORY-0622,New Testament,James,Power of tongue,James 3,Teaching/Poetry,Needs editorial review
+STORY-0623,New Testament,James,Prayer and patience,James 5,Teaching/Poetry,Needs editorial review
+STORY-0624,New Testament,1 Peter,Living hope amid suffering,1 Peter 1-2,Teaching/Poetry,Needs editorial review
+STORY-0625,New Testament,1 Peter,Suffering for righteousness,1 Peter 3-4,Teaching/Poetry,Needs editorial review
+STORY-0626,New Testament,1 Peter,Shepherding and humility,1 Peter 5,Teaching/Poetry,Needs editorial review
+STORY-0627,New Testament,2 Peter,Growing in godliness,2 Peter 1,Teaching/Poetry,Needs editorial review
+STORY-0628,New Testament,2 Peter,Warning against false teachers,2 Peter 2,Teaching/Poetry,Needs editorial review
+STORY-0629,New Testament,2 Peter,Promise of Lord's return,2 Peter 3,Teaching/Poetry,Needs editorial review
+STORY-0630,New Testament,1 John,Walking in the light,1 John 1-2,Teaching/Poetry,Needs editorial review
+STORY-0631,New Testament,1 John,Love one another,1 John 3-4,Teaching/Poetry,Needs editorial review
+STORY-0632,New Testament,1 John,Assurance of eternal life,1 John 5,Teaching/Poetry,Needs editorial review
+STORY-0633,New Testament,2 John,Truth love and discernment,2 John 1,Teaching/Poetry,Needs editorial review
+STORY-0634,New Testament,3 John,Gaius Diotrephes and Demetrius,3 John 1,Teaching/Poetry,Needs editorial review
+STORY-0635,New Testament,Jude,Contend for the faith,Jude 1,Teaching/Poetry,Needs editorial review
+STORY-0636,New Testament,Revelation,Vision of risen Christ,Revelation 1,Narrative,Needs editorial review
+STORY-0637,New Testament,Revelation,Letters to seven churches,Revelation 2-3,Narrative,Needs editorial review
+STORY-0638,New Testament,Revelation,Throne room of heaven,Revelation 4,Narrative,Needs editorial review
+STORY-0639,New Testament,Revelation,Scroll and Lamb,Revelation 5,Narrative,Needs editorial review
+STORY-0640,New Testament,Revelation,Seven seals,Revelation 6-8:5,Narrative,Needs editorial review
+STORY-0641,New Testament,Revelation,Seven trumpets,Revelation 8:6-11:19,Narrative,Needs editorial review
+STORY-0642,New Testament,Revelation,Woman dragon and child,Revelation 12,Narrative,Needs editorial review
+STORY-0643,New Testament,Revelation,Beasts from sea and earth,Revelation 13,Narrative,Needs editorial review
+STORY-0644,New Testament,Revelation,Lamb and 144000,Revelation 14,Narrative,Needs editorial review
+STORY-0645,New Testament,Revelation,Seven bowls,Revelation 15-16,Narrative,Needs editorial review
+STORY-0646,New Testament,Revelation,Fall of Babylon,Revelation 17-18,Narrative,Needs editorial review
+STORY-0647,New Testament,Revelation,Heaven rejoices,Revelation 19:1-10,Narrative,Needs editorial review
+STORY-0648,New Testament,Revelation,Rider on white horse,Revelation 19:11-21,Narrative,Needs editorial review
+STORY-0649,New Testament,Revelation,Millennium and final judgment,Revelation 20,Narrative,Needs editorial review
+STORY-0650,New Testament,Revelation,New heaven and new earth,Revelation 21:1-8,Narrative,Needs editorial review
+STORY-0651,New Testament,Revelation,New Jerusalem,Revelation 21:9-27,Narrative,Needs editorial review
+STORY-0652,New Testament,Revelation,River of life and final invitation,Revelation 22,Narrative,Needs editorial review

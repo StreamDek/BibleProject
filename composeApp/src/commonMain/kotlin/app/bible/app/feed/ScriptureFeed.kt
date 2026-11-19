@@ -1,6 +1,8 @@
 package app.bible.app.feed
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
@@ -15,6 +17,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.PagerSnapDistance
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
@@ -61,6 +66,7 @@ fun ScriptureFeed(vm: FeedViewModel, translation: String) {
             }
             VerticalPager(
                 state = pager,
+                flingBehavior = flickFlingBehavior(pager),
                 beyondViewportPageCount = 1, // compose the neighbours so swipes never show a blank card
                 key = { state.cards[it].key },
                 modifier = Modifier.fillMaxSize(),
@@ -98,6 +104,18 @@ fun ScriptureFeed(vm: FeedViewModel, translation: String) {
 }
 
 private enum class Sheet { Settings, Jump }
+
+/**
+ * A flick turns the card: a short, slow drag past 15% of the screen also counts (the default needs half the
+ * screen), any fling moves exactly one card, and the settle animation is quick and does not bounce.
+ */
+@Composable
+private fun flickFlingBehavior(pager: PagerState) = PagerDefaults.flingBehavior(
+    state = pager,
+    pagerSnapDistance = PagerSnapDistance.atMost(1),
+    snapAnimationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMedium),
+    snapPositionalThreshold = 0.15f,
+)
 
 @Composable
 private fun Chrome(title: String, progress: Float, onOpenJump: () -> Unit, onOpenSettings: () -> Unit) {

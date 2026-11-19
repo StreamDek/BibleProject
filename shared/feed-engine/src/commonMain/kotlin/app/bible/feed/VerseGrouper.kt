@@ -44,7 +44,8 @@ data class CardSpan(val first: Int, val last: Int, val continues: Boolean = fals
  * Splits a run of verses into cards.
  *
  * Rules, in priority order:
- *  1. A card never crosses a chapter boundary ([Boundary.CHAPTER]).
+ *  1. A card never crosses a chapter or section boundary ([Boundary.SECTION] and above), so a new story
+ *     always starts on a new card.
  *  2. A card aims to fit [charBudget] characters. It may grow up to [hardBudget] only to reach the end of a
  *     sentence (the UI then sets the text slightly smaller). A single verse longer than that stands alone.
  *  3. A card does not end mid-sentence unless no sentence boundary exists within reach.
@@ -62,10 +63,10 @@ class VerseGrouper(
     fun group(units: List<VerseUnit>, density: Density): List<CardSpan> {
         if (units.isEmpty()) return emptyList()
         val cards = ArrayList<CardSpan>()
-        // Hard segments end at chapter boundaries (and the end of the list).
+        // Hard segments end at section and chapter boundaries (and the end of the list).
         var segStart = 0
         for (i in units.indices) {
-            if (units[i].weightAfter >= Boundary.CHAPTER || i == units.lastIndex) {
+            if (units[i].weightAfter >= Boundary.SECTION || i == units.lastIndex) {
                 groupSegment(units, segStart, i, density, cards)
                 segStart = i + 1
             }

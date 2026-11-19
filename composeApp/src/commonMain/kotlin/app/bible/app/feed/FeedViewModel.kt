@@ -77,7 +77,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
     val marksRevision: StateFlow<Int> = user.revision
 
     private var units: List<VerseUnit> = emptyList()
-    private val textCache = LinkedHashMap<Int, List<VerseText>>()
+    private val textCache = LinkedHashMap<VerseRange, List<VerseText>>()
     private var saveJob: Job? = null
 
     init {
@@ -100,7 +100,8 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
     fun onPageSettled(page: Int) {
         val card = state.value.cards.getOrNull(page) ?: return
         if (card.first == state.value.anchor) return
-        _state.update { it.copy(anchor = card.first) }
+        // initialPage follows the reader, so the feed reopens on this card after visiting another screen.
+        _state.update { it.copy(anchor = card.first, initialPage = page) }
         savePositionSoon()
     }
 
@@ -168,8 +169,8 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
     // ---- content ------------------------------------------------------------------------------------
 
     suspend fun textFor(card: FeedCard): List<VerseText> =
-        textCache[card.key] ?: bible.verses(card.first, card.last).also {
-            textCache[card.key] = it
+        textCache[card.range] ?: bible.verses(card.first, card.last).also {
+            textCache[card.range] = it
             if (textCache.size > 40) textCache.remove(textCache.keys.first())
         }
 
@@ -233,8 +234,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
         if (units.isEmpty()) return
         textCache.clear() // cards change shape when density or font size changes
         val prefs = _state.value.prefs
-        val base = (VerseGrouper.DEFAULT_CHAR_BUDGET / (prefs.fontScale * prefs.fontScale)).toInt()
-        val spans: List<CardSpan> = VerseGrouper.forDensity(prefs.density, base).group(units, prefs.density)
+        val spans: List<CardSpan> = grouperFor(prefs).group(units, prefs.density)
         val cards = spans.map { s ->
             FeedCard(units[s.first].id.value, units[s.first].id, units[s.last].id, s.continues)
         }
@@ -275,11 +275,17 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
         return lo.coerceIn(0, cards.lastIndex.coerceAtLeast(0))
     }
 
-    private companion object {
-        const val KEY_DENSITY = "reading.density"
-        const val KEY_FONT_SCALE = "reading.font_scale"
-        const val KEY_DARK = "reading.dark"
-        const val KEY_RED_LETTERS = "reading.red_letters"
-        const val KEY_IMMERSIVE = "reading.immersive"
+    companion object {
+        /** The card grouper for the reader's density and text size (larger type fits fewer characters). */
+        fun grouperFor(prefs: ReadingPrefs): VerseGrouper {
+            val base = (VerseGrouper.DEFAULT_CHAR_BUDGET / (prefs.fontScale * prefs.fontScale)).toInt()
+            return VerseGrouper.forDensity(prefs.density, base)
+        }
+
+        private const val KEY_DENSITY = "reading.density"
+        private const val KEY_FONT_SCALE = "reading.font_scale"
+        private const val KEY_DARK = "reading.dark"
+        private const val KEY_RED_LETTERS = "reading.red_letters"
+        private const val KEY_IMMERSIVE = "reading.immersive"
     }
 }

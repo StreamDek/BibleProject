@@ -1,0 +1,192 @@
+# Story curation: how the 652 rows of content/catalogue/bible_story_catalogue.csv become stories.
+# Read by ./gradlew :pipeline:buildStories, which writes composeApp/.../files/stories.json.
+#
+# Columns are separated by TAB. Blank lines and lines starting with # are ignored.
+# Every catalogue row becomes a one-step story of its own unless a "story" below takes it.
+# Stories hold references only, never Bible text. Parallel accounts stay separate (one tab each), never merged.
+#
+#   story	<slug>	<title>	<catalogue ids taken, comma-separated>
+#       A story built by hand. The "step" and "related" lines after it belong to it.
+#   step	<step title, or - for none>	<reference> | <reference> | ...
+#       One step of the narrative. Each reference is one account (a tab); the first is the primary account.
+#   related	<reference>	<prophecy|parallel|echo|background>	<optional note>
+#   rename	<catalogue id>	<title>
+#   category	<miracle|parable|featured>	<catalogue ids or story slugs, comma-separated>
+#
+# A story's period comes from its first account; its order in "Journey through the Bible" from its first
+# catalogue row.
+
+# ---- Multi-step stories (arranged in order by our editors) --------------------------------------------------
+
+story	birth-of-jesus	The Birth of Jesus	STORY-0379,STORY-0465,STORY-0468,STORY-0380
+step	The family line of Jesus	Matthew 1:1-17 | Luke 3:23-38
+step	The angel visits Mary	Luke 1:26-38
+step	Joseph's dream	Matthew 1:18-25
+step	Born in Bethlehem	Luke 2:1-7
+step	Shepherds and angels	Luke 2:8-20
+step	Wise men from the east	Matthew 2:1-12
+related	Isaiah 7:14	prophecy	A virgin shall conceive
+related	Micah 5:2	prophecy	A ruler out of Bethlehem
+
+# ---- Gospel parallels: one story, one tab per Gospel ---------------------------------------------------------
+
+story	john-prepares-the-way	John the Baptist prepares the way	STORY-0382,STORY-0471
+step	-	Matthew 3:1-12 | Mark 1:1-8 | Luke 3:1-20
+related	Isaiah 40:3-5	prophecy	The voice of him that crieth in the wilderness
+
+story	baptism-of-jesus	The baptism of Jesus	STORY-0383,STORY-0472
+step	-	Matthew 3:13-17 | Mark 1:9-11 | Luke 3:21-22
+
+story	temptation-of-jesus	Jesus tempted in the wilderness	STORY-0384,STORY-0473
+step	-	Matthew 4:1-11 | Mark 1:12-13 | Luke 4:1-13
+related	Deuteronomy 8:3	background	Man doth not live by bread only
+
+story	jesus-heals-a-paralysed-man	Jesus heals a man sick of the palsy	STORY-0391,STORY-0439
+step	-	Mark 2:1-12 | Matthew 9:1-8 | Luke 5:17-26
+
+story	calling-of-matthew	Jesus calls Matthew (Levi)	STORY-0392,STORY-0440
+step	-	Matthew 9:9-13 | Mark 2:13-17 | Luke 5:27-32
+
+story	storm-calmed	Jesus calms the storm	STORY-0389,STORY-0442
+step	-	Mark 4:35-41 | Matthew 8:23-27 | Luke 8:22-25
+related	Psalms 107:23-30	echo	He maketh the storm a calm
+
+story	gadarene-demoniac	The man with the legion of devils	STORY-0390,STORY-0443
+step	-	Mark 5:1-20 | Matthew 8:28-34 | Luke 8:26-39
+
+story	jairus-daughter	Jairus's daughter and the woman who touched his garment	STORY-0393,STORY-0444
+step	-	Mark 5:21-43 | Matthew 9:18-26 | Luke 8:40-56
+
+story	feeding-five-thousand	Feeding the five thousand	STORY-0403,STORY-0446,STORY-0513
+step	-	Matthew 14:13-21 | Mark 6:30-44 | Luke 9:10-17 | John 6:1-15
+
+story	jesus-walks-on-water	Jesus walks on the water	STORY-0404,STORY-0447,STORY-0514
+step	-	Matthew 14:22-33 | Mark 6:45-52 | John 6:16-21
+
+story	peter-confesses-jesus	Peter confesses Jesus as the Christ	STORY-0407,STORY-0450
+step	-	Matthew 16:13-20 | Mark 8:27-30 | Luke 9:18-21
+
+story	transfiguration	The Transfiguration	STORY-0408,STORY-0451
+step	-	Matthew 17:1-13 | Mark 9:2-13 | Luke 9:28-36
+
+story	rich-young-ruler	The rich young ruler	STORY-0412,STORY-0453
+step	-	Matthew 19:16-30 | Mark 10:17-31 | Luke 18:18-30
+
+story	blind-men-near-jericho	Blind Bartimaeus and the blind men near Jericho	STORY-0414,STORY-0454
+step	-	Mark 10:46-52 | Matthew 20:29-34 | Luke 18:35-43
+
+story	triumphal-entry	The triumphal entry into Jerusalem	STORY-0415,STORY-0455,STORY-0523
+step	-	Matthew 21:1-11 | Mark 11:1-11 | Luke 19:28-40 | John 12:12-19
+related	Zechariah 9:9	prophecy	Thy King cometh unto thee, lowly, and riding upon an ass
+
+story	temple-cleansed	Jesus cleanses the temple	STORY-0416
+step	-	Matthew 21:12-17 | Mark 11:15-19 | Luke 19:45-48
+related	Isaiah 56:7	background	An house of prayer for all people
+related	John 2:13-25	parallel	John tells of Jesus cleansing the temple at a Passover early in his ministry
+
+story	lost-sheep	The parable of the lost sheep	STORY-0410,STORY-0486
+step	-	Luke 15:1-7 | Matthew 18:10-14
+related	Ezekiel 34:11-16	echo	I will seek that which was lost
+
+story	anointing-at-bethany	Jesus anointed at Bethany	STORY-0427,STORY-0457,STORY-0522
+step	-	Matthew 26:6-13 | Mark 14:3-9 | John 12:1-8
+
+story	last-supper	The Last Supper	STORY-0428,STORY-0458,STORY-0497
+step	-	Matthew 26:17-30 | Mark 14:12-26 | Luke 22:7-38
+related	1 Corinthians 11:23-26	parallel	Paul hands on what he received about the Lord's supper
+related	Exodus 12:1-14	background	The first Passover
+
+story	gethsemane	Jesus prays in Gethsemane	STORY-0429,STORY-0459
+step	-	Matthew 26:36-46 | Mark 14:32-42 | Luke 22:39-46
+
+story	arrest-of-jesus	The arrest of Jesus	STORY-0430,STORY-0527
+step	-	Matthew 26:47-56 | Mark 14:43-52 | Luke 22:47-53 | John 18:1-11
+
+story	peter-denies-jesus	Peter denies Jesus	STORY-0431,STORY-0460
+step	-	Matthew 26:69-75 | Mark 14:66-72 | Luke 22:54-62 | John 18:15-27
+
+story	jesus-before-pilate	Jesus before Pilate	STORY-0433,STORY-0528
+step	-	Matthew 27:11-26 | Mark 15:1-15 | Luke 23:1-25 | John 18:28-19:16
+
+story	crucifixion	The Crucifixion	STORY-0434,STORY-0461,STORY-0499,STORY-0529
+step	-	Matthew 27:27-56 | Mark 15:16-41 | Luke 23:26-49 | John 19:17-37
+related	Isaiah 52:13-53:12	prophecy	He was wounded for our transgressions
+related	Psalms 22	echo	My God, my God, why hast thou forsaken me?
+
+story	burial-of-jesus	The burial of Jesus	STORY-0435,STORY-0462,STORY-0530
+step	-	Matthew 27:57-66 | Mark 15:42-47 | Luke 23:50-56 | John 19:38-42
+
+story	resurrection	The Resurrection	STORY-0436,STORY-0463,STORY-0500,STORY-0531
+step	-	Matthew 28:1-15 | Mark 16:1-8 | Luke 24:1-12 | John 20:1-18
+related	1 Corinthians 15:3-8	background	He rose again the third day according to the scriptures
+
+story	jesus-appears-to-disciples	Jesus appears to his disciples	STORY-0502,STORY-0532
+step	-	Luke 24:36-49 | John 20:19-23
+
+# ---- Old Testament parallels (Samuel and Kings with Chronicles and the prophets) -----------------------------
+
+story	death-of-saul	The death of Saul and Jonathan	STORY-0165,STORY-0230
+step	-	1 Samuel 31 | 1 Chronicles 10
+
+story	ark-brought-to-jerusalem	The ark brought to Jerusalem	STORY-0171,STORY-0232
+step	-	2 Samuel 6 | 1 Chronicles 13-16
+
+story	davidic-covenant	God's covenant with David	STORY-0172,STORY-0233
+step	-	2 Samuel 7 | 1 Chronicles 17
+
+story	davids-census	David's census and the plague	STORY-0182,STORY-0234
+step	-	2 Samuel 24 | 1 Chronicles 21
+
+story	solomon-asks-for-wisdom	Solomon asks for wisdom	STORY-0185,STORY-0236
+step	-	1 Kings 3:1-15 | 2 Chronicles 1
+
+story	building-the-temple	Building the temple	STORY-0187,STORY-0237
+step	-	1 Kings 5-7 | 2 Chronicles 2-5
+
+story	temple-dedication	The temple dedicated	STORY-0188,STORY-0238
+step	-	1 Kings 8 | 2 Chronicles 6-7
+
+story	queen-of-sheba	The queen of Sheba	STORY-0190,STORY-0239
+step	-	1 Kings 10 | 2 Chronicles 9
+
+story	kingdom-divided	The kingdom divided under Rehoboam	STORY-0192,STORY-0240
+step	-	1 Kings 12 | 2 Chronicles 10
+
+story	joash-the-boy-king	Joash, the boy king	STORY-0217,STORY-0218,STORY-0243
+step	-	2 Kings 11-12 | 2 Chronicles 22-24
+
+story	hezekiahs-reforms	Hezekiah's reforms	STORY-0221,STORY-0245
+step	-	2 Kings 18:1-12 | 2 Chronicles 29-31
+
+story	assyrian-siege	The Assyrian siege of Jerusalem	STORY-0222,STORY-0246,STORY-0304
+step	-	2 Kings 18:13-19:37 | 2 Chronicles 32 | Isaiah 36-37
+
+story	hezekiahs-illness	Hezekiah's illness and the envoys from Babylon	STORY-0223,STORY-0224,STORY-0305
+step	-	2 Kings 20 | Isaiah 38-39
+
+story	manasseh	Manasseh	STORY-0225,STORY-0247
+step	-	2 Kings 21 | 2 Chronicles 33
+
+story	josiah	Josiah and the book of the law	STORY-0226,STORY-0227,STORY-0248
+step	-	2 Kings 22:1-23:30 | 2 Chronicles 34-35
+
+story	fall-of-jerusalem	The fall of Jerusalem	STORY-0228,STORY-0319
+step	-	2 Kings 24-25 | Jeremiah 39
+related	Lamentations 1	echo	How doth the city sit solitary
+
+# ---- Titles that would otherwise repeat -----------------------------------------------------------------------
+
+rename	STORY-0095	Moses asks for a shepherd for Israel
+rename	STORY-0105	The Lord commissions Joshua
+rename	STORY-0351	The valley of decision
+rename	STORY-0378	The Sun of righteousness
+rename	STORY-0577	Dead to sin, alive to God
+rename	STORY-0602	Life hid with Christ
+
+# ---- Shelves --------------------------------------------------------------------------------------------------
+
+category	featured	STORY-0001,STORY-0007,STORY-0025,STORY-0047,STORY-0061,STORY-0154,STORY-0342,STORY-0356,birth-of-jesus,feeding-five-thousand,STORY-0488,STORY-0479,crucifixion,resurrection,STORY-0537,STORY-0547
+
+category	parable	STORY-0397,STORY-0398,STORY-0399,STORY-0400,STORY-0401,lost-sheep,STORY-0411,STORY-0413,STORY-0418,STORY-0419,STORY-0420,STORY-0424,STORY-0425,STORY-0426,STORY-0441,STORY-0479,STORY-0481,STORY-0482,STORY-0483,STORY-0485,STORY-0487,STORY-0488,STORY-0489,STORY-0490,STORY-0492,STORY-0493,STORY-0495
+
+category	miracle	STORY-0061,STORY-0063,STORY-0064,STORY-0065,STORY-0088,STORY-0089,STORY-0091,STORY-0107,STORY-0109,STORY-0113,STORY-0198,STORY-0199,STORY-0205,STORY-0206,STORY-0209,STORY-0210,STORY-0211,STORY-0212,STORY-0213,STORY-0214,STORY-0219,STORY-0339,STORY-0342,STORY-0357,STORY-0387,STORY-0388,storm-calmed,gadarene-demoniac,jesus-heals-a-paralysed-man,jairus-daughter,feeding-five-thousand,jesus-walks-on-water,STORY-0405,STORY-0406,STORY-0409,blind-men-near-jericho,STORY-0417,STORY-0448,STORY-0449,STORY-0452,STORY-0475,STORY-0476,STORY-0484,STORY-0491,STORY-0507,STORY-0511,STORY-0512,STORY-0519,STORY-0521,STORY-0534,STORY-0538,STORY-0548,STORY-0565,STORY-0573

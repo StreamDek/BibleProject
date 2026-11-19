@@ -27,8 +27,19 @@ fun main(args: Array<String>) {
             BibleDbWriter.writeStamp(db, File(db.parentFile, db.nameWithoutExtension + ".stamp"))
             args.getOrNull(3)?.let { UnitsFixture.write(verses, File(it)); println("Wrote fixture $it") }
         }
+        "build-stories" -> {
+            require(args.size == 5) { "usage: build-stories <catalogue.csv> <curation.tsv> <editorial.tsv> <out.json>" }
+            val catalogue = StoriesBuilder.build(File(args[1]), File(args[2]), File(args[3]))
+            File(args[4]).writeText(catalogue.encode())
+            val s = catalogue.stories
+            println(
+                "Wrote ${s.size} stories to ${args[4]}: ${s.count { it.hasParallels }} with parallel accounts, " +
+                    "${s.count { it.steps.size > 1 }} in several steps, ${s.count { it.intro != null }} introductions, " +
+                    "${s.count { it.summary != null }} summaries",
+            )
+        }
         else -> {
-            System.err.println("Commands: import-kjv <osis.xml> <out.db> [units.tsv] [editorial-dir], extract-paragraphs <usfx.xml> <out.txt>")
+            System.err.println("Commands: import-kjv <osis.xml> <out.db> [units.tsv] [editorial-dir], extract-paragraphs <usfx.xml> <out.txt>, build-stories <catalogue.csv> <curation.tsv> <editorial.tsv> <out.json>")
             exitProcess(2)
         }
     }

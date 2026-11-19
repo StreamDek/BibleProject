@@ -1,0 +1,56 @@
+-- One read-only database per translation, e.g. bible-kjv.db, built by :pipeline.
+-- Verse IDs are canonical (BBCCCVVV, KJV versification), see app.bible.core.VerseId.
+-- Full-text search (verse_fts, FTS5) is created by the pipeline with raw SQL and queried in BibleRepository.
+
+CREATE TABLE meta (
+    key TEXT NOT NULL PRIMARY KEY,
+    value TEXT NOT NULL
+);
+
+CREATE TABLE verse (
+    id INTEGER NOT NULL PRIMARY KEY,
+    -- Exact translation text. Never edited, re-flowed or generated.
+    text TEXT NOT NULL,
+    -- Words supplied by the translators (KJV italics), as "start:end;start:end" character offsets, or NULL.
+    italics TEXT,
+    -- Bit 0: starts a paragraph. Bit 1: poetry line.
+    flags INTEGER NOT NULL,
+    -- Strength of the boundary after this verse: 0 mid-sentence, 1 sentence end, 2 paragraph,
+    -- 3 section (pericope), 4 chapter end. Used by the verse grouper.
+    weight_after INTEGER NOT NULL
+);
+
+-- Psalm superscriptions and similar canonical headings, keyed by chapter (BBCCC000).
+CREATE TABLE heading (
+    chapter_id INTEGER NOT NULL PRIMARY KEY,
+    kind TEXT NOT NULL,
+    text TEXT NOT NULL
+);
+
+insertMeta:
+INSERT OR REPLACE INTO meta(key, value) VALUES (?, ?);
+
+insertVerse:
+INSERT INTO verse(id, text, italics, flags, weight_after) VALUES (?, ?, ?, ?, ?);
+
+insertHeading:
+INSERT INTO heading(chapter_id, kind, text) VALUES (?, ?, ?);
+
+metaValue:
+SELECT value FROM meta WHERE key = ?;
+
+versesBetween:
+SELECT id, text, italics, flags, weight_after FROM verse WHERE id BETWEEN ? AND ? ORDER BY id;
+
+verseById:
+SELECT id, text, italics, flags, weight_after FROM verse WHERE id = ?;
+
+-- Lightweight rows for the grouper: no text, just length and boundary weight.
+unitsBetween:
+SELECT id, length(text) AS chars, weight_after FROM verse WHERE id BETWEEN ? AND ? ORDER BY id;
+
+headingsBetween:
+SELECT chapter_id, kind, text FROM heading WHERE chapter_id BETWEEN ? AND ? ORDER BY chapter_id;
+
+verseCount:
+SELECT count(*) FROM verse;

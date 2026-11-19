@@ -28,7 +28,7 @@ sealed interface Density {
 
     companion object {
         val Default: Density = Fixed(5)
-        val Options: List<Density> = listOf(Fixed(1), Fixed(3), Fixed(5), Fixed(10), Auto)
+        val Options: List<Density> = listOf(Fixed(1), Fixed(3), Fixed(5), Fixed(7), Fixed(10), Auto)
     }
 }
 

@@ -1,9 +1,10 @@
 # Editor corrections to the planned art briefs (content/art/briefs.jsonl). TAB-separated: slug, field, value.
-# Fields: scene, setting, depiction (direct, historical, symbolic, atmospheric), divine_figure (none, light_silhouette),
+# Fields: scene, setting, depiction (direct, historical, symbolic, atmospheric), divine_figure (none, light_silhouette, faceless_hand),
 #         people (yes, no), must_show, must_not_show, keep_vague (lists separated by ;), style, skip (yes).
 # After editing, run ./gradlew :pipeline:artPlan. A changed brief gets a new hash, so it can be generated again.
 
 creation-of-heavens-and-earth	scene	Light breaking over dark primeval waters at the dawn of creation, the first light dividing from darkness
+creation-of-heavens-and-earth	divine_figure	faceless_hand
 creation-of-heavens-and-earth	must_show	the sun, moon and stars; birds, land animals and the first man and woman
 creation-of-adam-and-eve	scene	A lush garden in Eden with rivers and trees in soft morning light; the first man and woman seen small and at a distance among the foliage
 creation-of-adam-and-eve	divine_figure	none

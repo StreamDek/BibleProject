@@ -53,9 +53,16 @@ object BibleDbWriter {
                 "text_sha256" to textHash,
             ).forEach { (k, v) -> q.insertMeta(k, v) }
         }
-        // Full-text search over the verse text (FTS5, external content: no duplicate copy of the text).
-        driver.execute(null, "CREATE VIRTUAL TABLE verse_fts USING fts5(text, content='verse', content_rowid='id', tokenize='unicode61 remove_diacritics 2')", 0)
-        driver.execute(null, "INSERT INTO verse_fts(verse_fts) VALUES('rebuild')", 0)
+        // Full-text search over the verse text. FTS4, not FTS5: Android's built-in SQLite has no FTS5 module, and
+        // querying an FTS5 table there throws "no such module: fts5". The index is contentless (content=""), so the
+        // text is not stored twice; queries join back to verse on docid. Curly apostrophes and dashes are
+        // normalised so the simple tokenizer (available on every platform) splits "LORD’S" into "lord" + "s".
+        driver.execute(null, "CREATE VIRTUAL TABLE verse_fts USING fts4(content=\"\", text, tokenize=simple)", 0)
+        driver.execute(
+            null,
+            "INSERT INTO verse_fts(docid, text) SELECT id, replace(replace(text, '’', ''''), '—', ' ') FROM verse",
+            0,
+        )
         driver.execute(null, "INSERT INTO verse_fts(verse_fts) VALUES('optimize')", 0)
         // user_version must equal the SQLDelight schema version, or platform drivers try to migrate the file.
         // The pack format version lives in meta.schema_version instead.

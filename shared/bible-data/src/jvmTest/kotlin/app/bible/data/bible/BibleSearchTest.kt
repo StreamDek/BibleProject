@@ -50,8 +50,21 @@ class BibleSearchTest {
     @Test fun hostileInputIsQuotedAndSafe() {
         assertNull(BibleSearch.ftsQuery("  "))
         assertNull(BibleSearch.ftsQuery("3 16"))
-        assertEquals("\"NEAR\"* \"OR\" \"x\"", BibleSearch.ftsQuery("NEAR( OR x*"))
+        assertEquals("\"NEAR*\" \"OR\" \"x\"", BibleSearch.ftsQuery("NEAR( OR x*"))
         search.search("\"unterminated") // must not throw
         search.search("a:b OR -c ^d")
+    }
+
+    @Test fun indexIsFts4SoAndroidCanReadIt() {
+        // Android's built-in SQLite has no FTS5; an FTS5 index crashes search there.
+        val sql = driver.executeQuery(null, "SELECT sql FROM sqlite_master WHERE name = 'verse_fts'", { c ->
+            app.cash.sqldelight.db.QueryResult.Value(if (c.next().value) c.getString(0) else null)
+        }, 0).value
+        assertTrue(sql != null && "fts4" in sql.lowercase() && "fts5" !in sql.lowercase(), "verse_fts: $sql")
+    }
+
+    @Test fun curlyApostrophesAreSearchable() {
+        // The text has "LORD’S"; typing a straight apostrophe must still find it.
+        assertTrue(search.search("earth is the lord's").hits.any { it.verse == VerseId.of(19, 24, 1) })
     }
 }

@@ -19,7 +19,8 @@ data class SearchResult(
 
 /**
  * Offline search over a bible-<translation>.db: by reference, by words (every word must appear, and the last
- * word may be a prefix while typing) or by "an exact phrase". Uses the FTS5 index the pipeline builds.
+ * word may be a prefix while typing) or by "an exact phrase". Uses the FTS4 index the pipeline builds
+ * (FTS4 because Android's built-in SQLite has no FTS5).
  */
 class BibleSearch(private val driver: SqlDriver) {
 
@@ -28,12 +29,21 @@ class BibleSearch(private val driver: SqlDriver) {
         if (text.isEmpty()) return SearchResult()
         val reference = parseReference(text)
         val match = ftsQuery(text) ?: return SearchResult(reference)
+        // A search problem must never take the app down: show the reference (if any) and no word hits.
+        return try {
+            wordSearch(reference, match, limit)
+        } catch (e: Exception) {
+            SearchResult(reference)
+        }
+    }
+
+    private fun wordSearch(reference: Passage?, match: String, limit: Int): SearchResult {
         val total = driver.executeQuery(null, "SELECT count(*) FROM verse_fts WHERE verse_fts MATCH ?", { c ->
             QueryResult.Value(if (c.next().value) c.getLong(0)!!.toInt() else 0)
         }, 1) { bindString(0, match) }.value
         val hits = driver.executeQuery(
             null,
-            "SELECT v.id, v.text FROM verse_fts f JOIN verse v ON v.id = f.rowid WHERE verse_fts MATCH ? ORDER BY v.id LIMIT ?",
+            "SELECT v.id, v.text FROM verse_fts f JOIN verse v ON v.id = f.docid WHERE verse_fts MATCH ? ORDER BY v.id LIMIT ?",
             { c ->
                 val out = ArrayList<SearchHit>()
                 while (c.next().value) out += SearchHit(VerseId(c.getLong(0)!!.toInt()), c.getString(1)!!)
@@ -47,7 +57,7 @@ class BibleSearch(private val driver: SqlDriver) {
     companion object {
         private val WORD = Regex("[\\p{L}\\p{N}’']+")
 
-        /** Builds a safe FTS5 query: user text never reaches FTS5 syntax unquoted. Null when nothing to search. */
+        /** Builds a safe FTS4 query: user text never reaches FTS5 syntax unquoted. Null when nothing to search. */
         fun ftsQuery(input: String): String? {
             val t = input.trim()
             if (t.length >= 2 && t.startsWith('"') && t.endsWith('"')) {
@@ -58,7 +68,7 @@ class BibleSearch(private val driver: SqlDriver) {
             if (words.isEmpty() || words.all { it.all(Char::isDigit) }) return null
             // Longer words also match their endings ("shepherd" finds "shepherds"); the last word is a prefix
             // while typing.
-            return words.mapIndexed { i, w -> if (w.length >= 4 || (i == words.lastIndex && w.length >= 2)) "\"$w\"*" else "\"$w\"" }
+            return words.mapIndexed { i, w -> if (w.length >= 4 || (i == words.lastIndex && w.length >= 2)) "\"$w*\"" else "\"$w\"" }
                 .joinToString(" ")
         }
 

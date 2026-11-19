@@ -299,6 +299,15 @@ private fun IntroCard(story: Story, pages: List<StoryPage>, onTap: () -> Unit) {
                     color = colors.secondary,
                 )
             }
+            publishedArt(story)?.let { art ->
+                // Imagery policy §5: say what the picture is.
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    "Image: AI-generated illustration · ${art.depiction.label} · Reviewed by our editors",
+                    fontSize = 12.sp,
+                    color = colors.secondary,
+                )
+            }
             story.intro?.let { intro ->
                 Spacer(Modifier.height(24.dp))
                 EditorialBody("Introduction", intro)

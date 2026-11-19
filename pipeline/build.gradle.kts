@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.kotlinSerialization)
     application
 }
 
@@ -15,6 +16,7 @@ dependencies {
     implementation(project(":shared:stories"))
     implementation(libs.sqldelight.sqlite.driver)
     implementation(libs.sqlite.jdbc)
+    implementation(libs.kotlinx.serialization.json)
     testImplementation(kotlin("test"))
 }
 
@@ -65,5 +67,72 @@ tasks.register<JavaExec>("buildStories") {
         repoRoot.file("composeApp/src/commonMain/composeResources/files/stories.json").asFile.path,
     )
 }
+
+// ---- Story art (docs/story-art.md) -------------------------------------------------------------------------
+// Briefs, overrides, the review log and the manifest are in content/art (git). Candidates are in art-work/ (not in
+// git; override with -PartWork=<dir>). Provider keys and R2 credentials come from environment variables only.
+
+val artFiles = listOf(
+    repoRoot.file("content/art/briefs.jsonl").asFile.path,
+    repoRoot.file("content/art/review.tsv").asFile.path,
+    repoRoot.file("content/art/manifest.json").asFile.path,
+    ((project.findProperty("artWork") as String?) ?: repoRoot.dir("art-work").asFile.path),
+)
+
+fun artTask(name: String, desc: String, vararg args: () -> String) = tasks.register<JavaExec>(name) {
+    group = "art"
+    description = desc
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("app.bible.pipeline.MainKt")
+    argumentProviders.add(CommandLineArgumentProvider { args.map { it() } })
+}
+
+// ./gradlew :pipeline:artPlan  →  content/art/briefs.jsonl from stories.json and content/art/overrides.tsv
+tasks.register<JavaExec>("artPlan") {
+    group = "art"
+    description = "Plans one cover brief per story into content/art/briefs.jsonl"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("app.bible.pipeline.MainKt")
+    args(
+        "art-plan",
+        repoRoot.file("composeApp/src/commonMain/composeResources/files/stories.json").asFile.path,
+        repoRoot.file("content/art/overrides.tsv").asFile.path,
+        artFiles[0],
+    )
+}
+
+// ./gradlew :pipeline:artGenerate -Pprovider=fal -Plimit=10 [-Pmodel=fal-ai/flux/dev] [-Ponly=slug1,slug2]
+// Costs money with a real provider. -Pprovider=dry-run makes free placeholders to try the workflow.
+artTask(
+    "artGenerate", "Generates 4 candidates for stories that need art (once per brief)",
+    { "art-generate" }, { artFiles[0] }, { artFiles[1] }, { artFiles[2] }, { artFiles[3] },
+    { (project.findProperty("provider") as String?) ?: error("Pass -Pprovider=fal, openai or dry-run") },
+    { (project.findProperty("model") as String?) ?: "-" },
+    { (project.findProperty("limit") as String?) ?: "10" },
+    { (project.findProperty("only") as String?) ?: "-" },
+)
+
+// ./gradlew :pipeline:artReview  →  art-work/review.html
+artTask("artReview", "Writes the review page for candidates awaiting a decision",
+    { "art-review" }, { artFiles[0] }, { artFiles[1] }, { artFiles[2] }, { artFiles[3] })
+
+// ./gradlew :pipeline:artApplyReview -Pdecisions=~/Downloads/decisions.tsv -Previewer=Henry
+artTask(
+    "artApplyReview", "Adds downloaded review decisions to content/art/review.tsv",
+    { "art-apply-review" }, { artFiles[0] }, { artFiles[1] }, { artFiles[2] }, { artFiles[3] },
+    { (project.findProperty("decisions") as String?) ?: error("Pass -Pdecisions=<decisions.tsv>") },
+    { (project.findProperty("reviewer") as String?) ?: error("Pass -Previewer=<your name>") },
+)
+
+// ./gradlew :pipeline:artPublish -Pbase=https://cdn.example.com      (R2 credentials from the environment)
+// ./gradlew :pipeline:artPublish -Plocal=/tmp/art-out                 (writes files to a folder instead)
+artTask(
+    "artPublish", "Publishes approved images and writes the manifest the app reads",
+    { "art-publish" }, { artFiles[0] }, { artFiles[1] }, { artFiles[2] }, { artFiles[3] },
+    { repoRoot.file("composeApp/src/commonMain/composeResources/files/art.json").asFile.path },
+    { (project.findProperty("base") as String?) ?: System.getenv("ART_CDN_BASE") ?: "-" },
+    { (project.findProperty("local") as String?) ?: "r2" },
+    { if (project.hasProperty("allowDryRun")) "true" else "false" },
+)
 
 tasks.test { workingDir = repoRoot.asFile }

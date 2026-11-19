@@ -8,6 +8,7 @@ import app.bible.app.feed.ReadingPrefs
 import app.bible.app.resources.Res
 import app.bible.core.VerseId
 import app.bible.data.user.UserStore
+import app.bible.stories.ArtManifest
 import app.bible.stories.Story
 import app.bible.stories.StoryCatalogue
 import app.bible.stories.StoryLibrary
@@ -29,6 +30,8 @@ data class StoriesHomeState(
     /** The story the reader opened last, for the Continue card. */
     val last: Story? = null,
     val finished: Set<String> = emptySet(),
+    /** Published story art (bundled manifest; empty until images are published). */
+    val art: ArtManifest = ArtManifest(),
 )
 
 data class StoryReaderState(
@@ -67,12 +70,18 @@ class StoriesViewModel(private val bible: BibleRepository, private val user: Use
             val library = withContext(Dispatchers.Default) { StoryLibrary(StoryCatalogue.decode(loadCatalogue())) }
             val finished = user.setting(KEY_FINISHED)?.split(',')?.filter { it.isNotEmpty() }?.toSet() ?: emptySet()
             val last = user.setting(KEY_LAST)?.let { library[it] }
-            _home.value = StoriesHomeState(library, last, finished)
+            val art = loadArt()
+            _home.value = StoriesHomeState(library, last, finished, art)
         }
     }
 
     @OptIn(ExperimentalResourceApi::class)
     private suspend fun loadCatalogue(): String = Res.readBytes("files/stories.json").decodeToString()
+
+    /** The bundled art manifest. A broken or missing manifest only means placeholder art. */
+    @OptIn(ExperimentalResourceApi::class)
+    private suspend fun loadArt(): ArtManifest =
+        runCatching { ArtManifest.decode(Res.readBytes("files/art.json").decodeToString()) }.getOrDefault(ArtManifest())
 
     /** The story to offer while reading [verse] in the Bible ("Part of: ..."). */
     fun storyFor(verse: VerseId): Story? = home.value.library?.storyFor(verse)

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +26,7 @@ import app.bible.app.resources.verseup_wordmark
 import app.bible.app.feed.Reader
 import app.bible.app.feed.StoryLinks
 import app.bible.app.platform.PlatformBackHandler
+import app.bible.app.stories.LocalStoryArt
 import app.bible.app.stories.StoriesScreen
 import app.bible.app.stories.StoriesViewModel
 import app.bible.app.stories.StoryReader
@@ -32,6 +34,10 @@ import app.bible.core.VerseId
 import app.bible.app.ui.BibleTheme
 import app.bible.data.user.UserDatabase
 import app.bible.data.user.UserStore
+import coil3.ImageLoader
+import coil3.compose.setSingletonImageLoaderFactory
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import coil3.request.crossfade
 import org.jetbrains.compose.resources.painterResource
 
 /** The app's long-lived data sources, opened once at start-up. */
@@ -39,6 +45,10 @@ private class AppData(val bible: BibleRepository, val user: UserStore)
 
 @Composable
 fun App() {
+    // Story art is fetched from the CDN and kept in Coil's memory and disk caches.
+    setSingletonImageLoaderFactory { context ->
+        ImageLoader.Builder(context).components { add(KtorNetworkFetcherFactory()) }.crossfade(true).build()
+    }
     var data by remember { mutableStateOf<AppData?>(null) }
     LaunchedEffect(Unit) {
         data = AppData(BibleRepository(openBundledBibleDriver()), UserStore(UserDatabase(openUserDriver())))
@@ -71,6 +81,7 @@ fun App() {
     val translation = d.bible.translationCode
 
     BibleTheme(dark = state.prefs.dark) {
+      CompositionLocalProvider(LocalStoryArt provides home.art) {
         when (val top = stack.last()) {
             Screen.Bible -> {
                 val from = (stack.getOrNull(stack.lastIndex - 1) as? Screen.Story)?.let { home.library?.get(it.slug) }
@@ -106,6 +117,7 @@ fun App() {
                 onOpenStory = { openStory(it.slug) },
             )
         }
+      }
     }
 }
 

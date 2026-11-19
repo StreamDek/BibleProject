@@ -65,7 +65,7 @@ compose.desktop {
         mainClass = "app.bible.app.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "Bible"
+            packageName = "VerseUp"
             packageVersion = "1.0.0"
         }
     }

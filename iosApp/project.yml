@@ -17,13 +17,14 @@ targets:
     info:
       path: iosApp/Info.plist
       properties:
-        CFBundleDisplayName: Bible
+        CFBundleDisplayName: VerseUp
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         CADisableMinimumFrameDurationOnPhone: true   # allow 120 Hz on ProMotion devices
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: app.bible.ios
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         FRAMEWORK_SEARCH_PATHS: "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"
         OTHER_LDFLAGS: ["$(inherited)", "-framework", "ComposeApp", "-lsqlite3"]
         ENABLE_USER_SCRIPT_SANDBOXING: NO

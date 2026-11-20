@@ -272,7 +272,10 @@ private fun Chrome(
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
-                SettingsButton(onClick = { onOpenSheet(Sheet.Settings) })
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextButton(onClick = { onOpenSheet(Sheet.Settings) }) { Text("Aa", color = colors.onBackground) }
+                    SettingsButton()
+                }
             }
             // Story -> Bible: a way back to the story. Bible -> Story: the story this passage belongs to.
             val back = links?.backTo

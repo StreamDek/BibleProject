@@ -106,19 +106,66 @@ fun ReadingSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -
                 }
                 Switch(checked = prefs.immersive, onCheckedChange = { vm.setImmersive(it) })
             }
-            Spacer(Modifier.height(4.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text("Story image as background", style = MaterialTheme.typography.titleSmall)
-                    Text("In stories, the story's image softly blurred behind the text", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
-                }
-                Switch(checked = prefs.storyArtBackground, onCheckedChange = { vm.setStoryArtBackground(it) })
-            }
+
             if (appIconSupported()) {
                 Spacer(Modifier.height(20.dp))
                 AppIconPicker()
             }
         }
+    }
+}
+
+/**
+ * The app's Settings, opened from the gear beside "Aa" on any screen: appearance, reading and story options and
+ * the app icon. ("Aa" keeps the quick text settings while reading.)
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Unit) {
+    ModalBottomSheet(onDismissRequest = onDismiss) {
+        Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
+            Text("Settings", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+            Spacer(Modifier.height(16.dp))
+            SettingsGroup("Appearance")
+            SettingSwitch("Dark", null, prefs.dark) { vm.toggleDark() }
+            SettingSwitch("Immersive view", "Hide the status bar for a full-screen view", prefs.immersive) { vm.setImmersive(it) }
+            Spacer(Modifier.height(12.dp))
+            SettingsGroup("Reading")
+            SettingSwitch("Words of Jesus in red", "As marked in the KJV source text", prefs.redLetters) { vm.setRedLetters(it) }
+            Spacer(Modifier.height(12.dp))
+            SettingsGroup("Stories")
+            SettingSwitch(
+                "Story image as background",
+                "The story's image, softly blurred, behind the text while you read",
+                prefs.storyArtBackground,
+            ) { vm.setStoryArtBackground(it) }
+            if (appIconSupported()) {
+                Spacer(Modifier.height(20.dp))
+                AppIconPicker()
+            }
+        }
+    }
+}
+
+@Composable
+private fun SettingsGroup(title: String) {
+    Text(
+        title.uppercase(),
+        style = MaterialTheme.typography.labelMedium,
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(bottom = 4.dp),
+    )
+}
+
+@Composable
+private fun SettingSwitch(title: String, subtitle: String?, checked: Boolean, onChange: (Boolean) -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            subtitle?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary) }
+        }
+        Switch(checked = checked, onCheckedChange = onChange)
     }
 }
 

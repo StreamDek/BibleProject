@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.bible.app.platform.PlatformBackHandler
 import app.bible.app.ui.topSafePadding
+import app.bible.app.ui.SettingsButton
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.runtime.mutableIntStateOf
@@ -166,6 +167,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                     TextButton(onClick = { journey = false }) { Text("‹ Stories", color = colors.onBackground) }
                     Spacer(Modifier.weight(1f))
                     TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+                    SettingsButton()
                 }
                 Text(
                     "Journey through the Bible",
@@ -187,6 +189,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                         modifier = Modifier.weight(1f),
                     )
                     TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+                    SettingsButton()
                 }
             }
             if (library != null && !journey) {

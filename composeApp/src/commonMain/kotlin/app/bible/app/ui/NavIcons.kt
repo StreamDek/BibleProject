@@ -18,6 +18,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,10 +51,14 @@ fun NavItem(icon: ImageVector, label: String, onClick: () -> Unit, modifier: Mod
     }
 }
 
-/** The reading settings button (it replaced "Aa"). [overArt] draws it white with a soft shadow, for use on images. */
+/** Opens the app's Settings, from any screen. Provided once at the top of the app. */
+val LocalOpenSettings = staticCompositionLocalOf<() -> Unit> { {} }
+
+/** The Settings button (a gear), beside "Aa". [overArt] draws it white with a soft shadow, for use on images. */
 @Composable
-fun SettingsButton(onClick: () -> Unit, overArt: Boolean = false) {
-    IconButton(onClick = onClick) {
+fun SettingsButton(overArt: Boolean = false) {
+    val open = LocalOpenSettings.current
+    IconButton(onClick = open) {
         if (overArt) {
             // A blurred dark copy underneath stands in for a text shadow.
             Icon(NavIcons.Settings, null, tint = Color.Black.copy(alpha = 0.35f), modifier = Modifier.size(24.dp).padding(top = 1.dp))

@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import app.bible.app.feed.AppSettingsSheet
+import app.bible.app.ui.LocalOpenSettings
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -80,8 +82,10 @@ fun App() {
     PlatformBackHandler(enabled = stack.size > 1) { stack = stack.dropLast(1) }
     val translation = d.bible.translationCode
 
+    var settingsOpen by remember { mutableStateOf(false) }
+
     BibleTheme(dark = state.prefs.dark) {
-      CompositionLocalProvider(LocalStoryArt provides home.art) {
+      CompositionLocalProvider(LocalStoryArt provides home.art, LocalOpenSettings provides { settingsOpen = true }) {
         when (val top = stack.last()) {
             Screen.Bible -> {
                 val from = (stack.getOrNull(stack.lastIndex - 1) as? Screen.Story)?.let { home.library?.get(it.slug) }
@@ -117,6 +121,7 @@ fun App() {
                 onOpenStory = { openStory(it.slug) },
             )
         }
+        if (settingsOpen) AppSettingsSheet(state.prefs, vm, onDismiss = { settingsOpen = false })
       }
     }
 }

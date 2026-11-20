@@ -1,6 +1,10 @@
 package app.bible.app.feed
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontStyle
+import app.bible.app.platform.PlatformBackHandler
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Button
 import androidx.compose.foundation.verticalScroll
@@ -258,12 +262,19 @@ fun SavedSheet(vm: FeedViewModel, onPick: (VerseId) -> Unit, onDismiss: () -> Un
     var tab by remember { mutableStateOf(0) }
     var bookmarks by remember { mutableStateOf<List<Pair<VerseId, String>>>(emptyList()) }
     var notes by remember { mutableStateOf<List<SavedNote>>(emptyList()) }
+    // The note being read, opened from the Notes list.
+    var reading by remember { mutableStateOf<SavedNote?>(null) }
     val revision by vm.marksRevision.collectAsStateWithLifecycle()
     LaunchedEffect(revision) {
         bookmarks = vm.bookmarks().map { it to (vm.verse(it)?.text ?: "") }
         notes = vm.notes()
     }
     ModalBottomSheet(onDismissRequest = onDismiss) {
+        val note = reading
+        if (note != null) {
+            NoteReader(vm, note, onBack = { reading = null }, onOpenVerse = { onPick(note.verse) })
+            return@ModalBottomSheet
+        }
         Column(Modifier.padding(bottom = 16.dp)) {
             TabRow(selectedTabIndex = tab) {
                 Tab(selected = tab == 0, onClick = { tab = 0 }, text = { Text("Bookmarks") })
@@ -281,11 +292,56 @@ fun SavedSheet(vm: FeedViewModel, onPick: (VerseId) -> Unit, onDismiss: () -> Un
             LazyColumn(Modifier.fillMaxWidth().heightIn(max = 520.dp)) {
                 if (tab == 0) items(bookmarks, key = { it.first.value }) { (verse, text) ->
                     SavedRow(verse.display(), text) { onPick(verse) }
-                } else items(notes, key = { it.verse.value }) { note ->
-                    SavedRow(note.verse.display(), note.body) { onPick(note.verse) }
+                } else items(notes, key = { it.verse.value }) { n ->
+                    // Tapping a note opens it to read in full; from there it can be opened in the Bible.
+                    NoteRow(n) { reading = n }
                 }
             }
         }
+    }
+}
+
+/** One note in the Notes list, on its own tinted card. */
+@Composable
+private fun NoteRow(note: SavedNote, onClick: () -> Unit) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 5.dp)
+            .clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick),
+    ) {
+        Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+            Text(note.verse.display(), style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.primary)
+            Spacer(Modifier.height(4.dp))
+            Text(note.body, style = MaterialTheme.typography.bodyMedium, maxLines = 3, overflow = TextOverflow.Ellipsis)
+        }
+    }
+}
+
+/** A note opened from the Notes list: the verse it is on, then the whole note, with a way to that verse. */
+@Composable
+private fun NoteReader(vm: FeedViewModel, note: SavedNote, onBack: () -> Unit, onOpenVerse: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    var verse by remember(note.verse) { mutableStateOf<String?>(null) }
+    LaunchedEffect(note.verse) { verse = vm.verse(note.verse)?.text }
+    PlatformBackHandler(enabled = true, onBack = onBack)
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
+        TextButton(onClick = onBack, contentPadding = PaddingValues(0.dp)) { Text("‹ Notes") }
+        Text(note.verse.display(), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        verse?.let {
+            Spacer(Modifier.height(8.dp))
+            Text(it, style = MaterialTheme.typography.bodyLarge, color = colors.onSurface.copy(alpha = 0.75f), fontStyle = FontStyle.Italic)
+        }
+        Spacer(Modifier.height(16.dp))
+        Surface(shape = RoundedCornerShape(16.dp), color = colors.primary.copy(alpha = 0.08f), modifier = Modifier.fillMaxWidth()) {
+            Column(Modifier.padding(16.dp)) {
+                Text("Your note", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.SemiBold, color = colors.primary)
+                Spacer(Modifier.height(6.dp))
+                Text(note.body, style = MaterialTheme.typography.bodyLarge)
+            }
+        }
+        Spacer(Modifier.height(16.dp))
+        Button(onClick = onOpenVerse, modifier = Modifier.align(Alignment.End)) { Text("Open in Bible") }
     }
 }
 

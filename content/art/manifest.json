@@ -13,12 +13,56 @@
             "ext": "jpg",
             "bundled": true
         },
+        "baptism-of-jesus": {
+            "hash": "a85c978e936eef4cdf958db59b7c280192efdf03da5308de0ce0efbc30488a10",
+            "widths": [
+                720
+            ],
+            "blurhash": "TRIgie0LSe%hROV@?bIUaf^*IVR*",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "birth-of-jesus": {
             "hash": "2b564f8b1f1626e89a678846eaef25747a17a447b1e2e84867c38c7286dfed37",
             "widths": [
                 720
             ],
             "blurhash": "TBGG^J$bK85uv_T117#h?G_34:9~",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "cain-and-abel": {
+            "hash": "14f12b367b19210e2ab6159a1981b07b3f63934343750a4b1c0baf775890d21a",
+            "widths": [
+                720
+            ],
+            "blurhash": "TOHKOY9a%1~VM|oex]j[Ip?FIoWB",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "calling-first-disciples": {
+            "hash": "d15323f0d30d098e439f61739f55ab1330a00a06b1c1c63db9b944315179f86e",
+            "widths": [
+                720
+            ],
+            "blurhash": "TeGbVS%1R4.TR+IU%hM{bHx^a}Wr",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "centurions-servant-healed": {
+            "hash": "66f64ccec66b8684aedd970d595530e96c5071013dad89d37b0492f20e28ce9e",
+            "widths": [
+                720
+            ],
+            "blurhash": "TNFX-dT1r;~q%NMxt-%MM{x^xunh",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -101,6 +145,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "gadarene-demoniac": {
+            "hash": "e0fe3f1c0d71fb38f67b28a5e662134353668a159735c5f0a85ef6d26bb8699a",
+            "widths": [
+                720
+            ],
+            "blurhash": "TGH1rU-p4TyFJDnOyDNKNGtm?aIU",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "good-samaritan": {
             "hash": "4928439e35c14fd4b8eb48dab9b83c66d89c385a7cdd4731899e167be260ed49",
             "widths": [
@@ -140,6 +195,17 @@
                 720
             ],
             "blurhash": "TGIf;ts:xZ~VkXxt?ax[Rj-o%Lae",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "leper-cleansed": {
+            "hash": "3ad77c7a870f24092dcba1a2beade372e9985b6395458f0d005768dff0434305",
+            "widths": [
+                720
+            ],
+            "blurhash": "TCG84OveD+_N4nb0TyD$?G?cwG%1",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -195,6 +261,50 @@
                 720
             ],
             "blurhash": "TVM6hh0Lxu_ND*S$.SRkE3p0ofxa",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "sermon-on-the-mount": {
+            "hash": "243b84fa1bfceac9888f095f6c390cd28684c8a72169b363609cc2b527dad469",
+            "widths": [
+                720
+            ],
+            "blurhash": "TUINpqRN9b.TMwn~yXM_o2-;RjR+",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "storm-calmed": {
+            "hash": "99b3901899fdf071560f30325c468fdeae39ba15e5f9f5ebb10a92f660fd21f8",
+            "widths": [
+                720
+            ],
+            "blurhash": "TJE-]j0M%L%0NexCJBods8NH-UoL",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "temptation-of-jesus": {
+            "hash": "39a50934c70ba098be1bd58cd190039c9f4780d1a36f72be935a740cc6705978",
+            "widths": [
+                720
+            ],
+            "blurhash": "TKIWWC0gxX-:D*s+%LWB$$%2NHa_",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "tower-of-babel": {
+            "hash": "79dc5b8a79a81187ac6cdfff30999ab90902a4b1a80680fa14fd7b20b2390b97",
+            "widths": [
+                720
+            ],
+            "blurhash": "TRHT,CoJ5T~qxZNL%hxsNetms.R+",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",

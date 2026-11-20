@@ -108,7 +108,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                         if (s.period != period) {
                             period = s.period
                             val title = s.period.title
-                            item(key = "h-$title") { SectionHeader(title) }
+                            item(key = "h-$title") { PeriodHeader(title) }
                         }
                         item(key = s.slug) { StoryRow(s, s.slug in home.finished, onUnmark = { vm.unmarkFinished(s) }) { onOpen(s) } }
                     }
@@ -157,19 +157,37 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
             Modifier.fillMaxWidth().onSizeChanged { headerHeight = it.height }.glass(glass, glassVisibility)
                 .topSafePadding().padding(bottom = 12.dp),
         ) {
-            Row(
-                Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                if (journey) TextButton(onClick = { journey = false }) { Text("‹ Stories", color = colors.onBackground) }
+            if (journey) {
+                // Journey: the way back at the top left, then the page's title below it as a heading.
+                Row(
+                    Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    TextButton(onClick = { journey = false }) { Text("‹ Stories", color = colors.onBackground) }
+                    Spacer(Modifier.weight(1f))
+                    TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+                }
                 Text(
-                    if (journey) "Journey through the Bible" else "Stories",
-                    style = if (journey) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    "Journey through the Bible",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
                     color = colors.onBackground,
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 4.dp),
                 )
-                TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+            } else {
+                Row(
+                    Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        "Stories",
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = colors.onBackground,
+                        modifier = Modifier.weight(1f),
+                    )
+                    TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+                }
             }
             if (library != null && !journey) {
                 OutlinedTextField(
@@ -183,6 +201,19 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
             }
         }
     }
+}
+
+/** A period heading in "Journey through the Bible": larger and bold, so each era stands out. */
+@Composable
+private fun PeriodHeader(title: String) {
+    val colors = MaterialTheme.colorScheme
+    Text(
+        title,
+        style = MaterialTheme.typography.titleLarge,
+        fontWeight = FontWeight.Bold,
+        color = colors.onBackground,
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 28.dp, bottom = 8.dp),
+    )
 }
 
 @Composable

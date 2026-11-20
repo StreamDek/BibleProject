@@ -16,6 +16,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -195,18 +203,37 @@ fun JumpSheet(current: VerseId? = null, onPick: (VerseId) -> Unit, onDismiss: ()
                 }
             }
         } else {
-            Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
-                TextButton(onClick = { book = null }) { Text("‹ ${b.name}") }
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    for (c in 1..b.chapterCount) {
-                        val isCurrent = current != null && current.book == b.number && current.chapter == c
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = if (isCurrent) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
-                            tonalElevation = 2.dp,
-                            modifier = Modifier.size(48.dp).clickable { onPick(VerseId.of(b.number, c, 1)) },
-                        ) {
-                            Text("$c", Modifier.padding(top = 14.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+            // Chapter numbers in an even grid: as many equal columns as fit, each square cell filling its share,
+            // so there is no leftover gap on the right. Long books open near the chapter being read.
+            val isCurrentBook = current != null && current.book == b.number
+            val gridState = rememberLazyGridState(
+                initialFirstVisibleItemIndex = if (isCurrentBook && current!!.chapter > 40) current.chapter - 10 else 0,
+            )
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(minSize = 52.dp),
+                state = gridState,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+                contentPadding = PaddingValues(bottom = 32.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Box { TextButton(onClick = { book = null }) { Text("‹ ${b.name}") } }
+                }
+                items((1..b.chapterCount).toList(), key = { it }) { c ->
+                    val isCurrent = isCurrentBook && current!!.chapter == c
+                    Surface(
+                        shape = RoundedCornerShape(10.dp),
+                        color = if (isCurrent) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
+                        tonalElevation = 2.dp,
+                        modifier = Modifier.aspectRatio(1f).clip(RoundedCornerShape(10.dp)).clickable { onPick(VerseId.of(b.number, c, 1)) },
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Text(
+                                "$c",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = if (isCurrent) FontWeight.Bold else FontWeight.Normal,
+                            )
                         }
                     }
                 }

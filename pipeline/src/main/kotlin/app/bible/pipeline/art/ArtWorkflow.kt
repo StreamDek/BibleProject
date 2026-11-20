@@ -161,8 +161,9 @@ class ArtWorkflow(
             val hash = sha256Hex(original)
             if (images[b.slug]?.let { it.hash == hash && it.bundled == bundle } == true) continue
             val img = ImageIO.read(ByteArrayInputStream(original)) ?: throw IllegalStateException("${b.slug}: cannot read ${source.name}")
-            // Portrait images keep their own shape (the app crops to fit); anything wider than 3:4 is cropped to 3:4.
-            val art = if (img.width * 4 > img.height * 3) cropTo(img, 3, 4) else img
+            // Portrait and square images keep their own shape, so nothing at their edges is lost here (the app crops
+            // to fit each frame, keeping the top, where faces usually are). Landscape images are cropped to 3:4.
+            val art = if (img.width > img.height) cropTo(img, 3, 4) else img
             val widths = if (bundle) listOf(BUNDLED_WIDTH) else WIDTHS
             for (w in widths) {
                 val key = if (bundle) "art/$hash.$w.jpg" else "img/$hash.$w.jpg"

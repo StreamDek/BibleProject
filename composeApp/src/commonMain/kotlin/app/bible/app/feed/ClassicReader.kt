@@ -13,11 +13,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import app.bible.app.ui.topSafePadding
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.runtime.mutableIntStateOf
+import app.bible.app.ui.glass
+import app.bible.app.ui.glassSource
+import app.bible.app.ui.rememberGlassState
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -91,21 +98,16 @@ fun ClassicReader(
     val colors = MaterialTheme.colorScheme
     val currentChapter = rows.drop(listState.firstVisibleItemIndex).firstNotNullOfOrNull { (it as? ClassicRow.Verse)?.id }?.chapter ?: start.chapter
 
-    Column(Modifier.fillMaxSize().background(colors.background)) {
-        Row(
-            Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 8.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            TextButton(onClick = onClose) { Text("Cards", color = colors.primary) }
-            Spacer(Modifier.weight(1f))
-            TextButton(onClick = onJump) { Text("${book.name} $currentChapter ▾", color = colors.onBackground) }
-            Spacer(Modifier.weight(1f))
-            TextButton(onClick = onSettings) { Text("Aa", color = colors.onBackground) }
-        }
-        HorizontalDivider(color = colors.onBackground.copy(alpha = 0.08f))
+    val glass = rememberGlassState()
+    val density = LocalDensity.current
+    var headerHeight by remember { mutableIntStateOf(0) }
+
+    Box(Modifier.fillMaxSize().background(colors.background)) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().glassSource(glass),
+            // The text starts below the glass header and scrolls under it.
+            contentPadding = PaddingValues(top = with(density) { headerHeight.toDp() }),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             items(rows, key = { it.key }) { row ->
@@ -127,6 +129,19 @@ fun ClassicReader(
                     }
                 }
             }
+        }
+        Row(
+            Modifier.fillMaxWidth().onSizeChanged { headerHeight = it.height }.glass(glass)
+                .topSafePadding().padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            TextButton(onClick = onClose) { Text("Cards", color = colors.primary) }
+            Spacer(Modifier.weight(1f))
+            TextButton(onClick = onJump) {
+                Text("${book.name} $currentChapter ▾", color = colors.onBackground, fontWeight = FontWeight.Bold)
+            }
+            Spacer(Modifier.weight(1f))
+            TextButton(onClick = onSettings) { Text("Aa", color = colors.onBackground) }
         }
     }
 }

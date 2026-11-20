@@ -365,6 +365,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "jairus-daughter": {
+            "hash": "8b37b44a0112a2599393ba37894e2bc268b40c2c046fdd00775df390fe9cbc8d",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFEw]t9bENxDozs.0#={$$t7oexG",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "jesus-heals-a-paralysed-man": {
             "hash": "be0729353c6aa032f3af7880046b5348f59d7e0b4658ff491d8f7c9b4661e4cf",
             "widths": [
@@ -393,6 +404,28 @@
                 720
             ],
             "blurhash": "TKIzYME0Dj_NMxRP%iIUs+-=M_Ri",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "john-the-baptist-beheaded": {
+            "hash": "caf46437ae61745d840194b762d23e33ac8c7d119e348d1e6a2929cdf90145b4",
+            "widths": [
+                720
+            ],
+            "blurhash": "TBF;Zf0gE2Rk~Axa?FjabIw{xZxZ",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "johns-question-to-jesus": {
+            "hash": "d0a5ad886dda5fee737d0820b0c2ab9478b713180ad77d1454829f2bbea5eabe",
+            "widths": [
+                720
+            ],
+            "blurhash": "TEF}l;4.Mxt-xBVs_MMws+~pD%M{",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -629,6 +662,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "sabbath-controversies": {
+            "hash": "57a06d3e9d68d0e1eebed2a89e851618e59d27f23e8ac9f28157f737c6bfc062",
+            "widths": [
+                720
+            ],
+            "blurhash": "TDFEM*}=aet7NHo2J7xus:axxt-o",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "sauls-conversion": {
             "hash": "4ffeea4f6df2d92c5ff319ca2797eb2b21965745c18ba77192ebecd2a8fe3e55",
             "widths": [
@@ -778,6 +822,17 @@
                 720
             ],
             "blurhash": "TAGtvWx[E0_NIpM^~p?GRhpcI?r;",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "twelve-apostles-sent": {
+            "hash": "3d4bc4c456629ea056377b7d4fd92f93fa0aa1d231628118d58a1126bafb75e1",
+            "widths": [
+                720
+            ],
+            "blurhash": "TIGtpG}-$N%#D%Mz?uV?aL?bROM{",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",

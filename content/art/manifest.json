@@ -35,6 +35,61 @@
             "ext": "jpg",
             "bundled": true
         },
+        "crossing-the-red-sea": {
+            "hash": "fcdc34f2252c9c8142512f48dfcca77672eee782d268bbc71bfd7dbbb7215968",
+            "widths": [
+                720
+            ],
+            "blurhash": "TVHBe,9a0M%$M|R*-:R-S4nitRkB",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "crucifixion": {
+            "hash": "673aa9faf106bd2bcf8ea28e2fc5642103eaff2aac1d82db01e99ae768e3decb",
+            "widths": [
+                720
+            ],
+            "blurhash": "THGaUfEl58~BI@EOEKnhxa%Kr=M|",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "daniel-in-lions-den": {
+            "hash": "48d9314f9f724d352f070e5cd829e95625e5a712eb61d92af72e3b4a374d4c3a",
+            "widths": [
+                720
+            ],
+            "blurhash": "TIIMy9It0htkSiNLPAS6I[~AEkai",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "david-and-goliath": {
+            "hash": "b2f972e4f9ae0abd58d266c8f80e23d971dc72080319755b7fd5967002517c6e",
+            "widths": [
+                720
+            ],
+            "blurhash": "TpJtYq-;M_%%tSs8x^bHozt8Rjog",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "feeding-five-thousand": {
+            "hash": "f6cdc38a2750e61dc9a1459471a03cd1ba88ae160a241135f6f8bf860ff39585",
+            "widths": [
+                720
+            ],
+            "blurhash": "TKG*ZsE258*0enxtTyaK%1kVRjog",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "flight-to-egypt-and-return": {
             "hash": "7f5a06b907d566d78f057ff9915849072ffb50a46c7d71bc16c49be9e46e4edf",
             "widths": [
@@ -46,12 +101,34 @@
             "ext": "jpg",
             "bundled": true
         },
+        "good-samaritan": {
+            "hash": "4928439e35c14fd4b8eb48dab9b83c66d89c385a7cdd4731899e167be260ed49",
+            "widths": [
+                720
+            ],
+            "blurhash": "TGHdjL9EkX.TI9f,_NMwR,?bITn$",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "john-prepares-the-way": {
             "hash": "d7c6fc1d83d042948baf199e3468ce6dabb8fff954041770e644012354360b95",
             "widths": [
                 720
             ],
             "blurhash": "TKIzYME0Dj_NMxRP%iIUs+-=M_Ri",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "jonah-flees-from-god": {
+            "hash": "ee84eca8c3b34e81e2d1688c7c4f2d777206d7ccd60ea0a0ac7dda7df093a68d",
+            "widths": [
+                720
+            ],
+            "blurhash": "T9Cr[?Gd5@%$IqIUJBIpjE-SM{Rk",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -74,6 +151,50 @@
                 720
             ],
             "blurhash": "ThI|%cSiIo%%ozw[pekCs8-=s:WV",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "pentecost": {
+            "hash": "7e22f485a4b3af6c23eb20f5a47346e6624b344b210b2ed5348fda4bcde4e565",
+            "widths": [
+                720
+            ],
+            "blurhash": "TTJP6sjG0$=_s.M|X5j[EN$%azIq",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "prodigal-son": {
+            "hash": "77fb24905ff768ffa7046cb7e038d3a25684688107693daa0963a9aa3e107256",
+            "widths": [
+                720
+            ],
+            "blurhash": "TJHwS-g%o~~qyDX8pJt8IW%2bbIU",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "resurrection": {
+            "hash": "7fdaa3c00ee540a8f4b6fcb5597d00bc9759e29368d93abc312cf3696f8a0943",
+            "widths": [
+                720
+            ],
+            "blurhash": "TdM6hb0NIq?Gt6s.4;X9xtxZIqS5",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "sauls-conversion": {
+            "hash": "4ffeea4f6df2d92c5ff319ca2797eb2b21965745c18ba77192ebecd2a8fe3e55",
+            "widths": [
+                720
+            ],
+            "blurhash": "TVM6hh0Lxu_ND*S$.SRkE3p0ofxa",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",

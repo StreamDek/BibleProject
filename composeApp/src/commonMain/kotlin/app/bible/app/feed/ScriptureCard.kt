@@ -45,6 +45,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.bible.app.data.VerseText
@@ -74,6 +75,8 @@ fun ScriptureCard(
     label: String? = null,
     /** Tapping the reference, e.g. to open the passage in the Bible from a story. */
     onReferenceTap: (() -> Unit)? = null,
+    /** Room left at the top for the reader's controls. */
+    topInset: Dp = 72.dp,
 ) {
     var verses by remember(card) { mutableStateOf<List<VerseText>?>(null) }
     var heading by remember(card) { mutableStateOf<String?>(null) }
@@ -137,7 +140,7 @@ fun ScriptureCard(
                 .topSafePadding()
                 .navigationBarsPadding()
                 .padding(horizontal = 28.dp)
-                .padding(top = 72.dp, bottom = 96.dp)
+                .padding(top = topInset, bottom = 96.dp)
                 .verticalScroll(scroll, enabled = scroll.maxValue > 0),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,

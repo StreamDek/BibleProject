@@ -1,6 +1,8 @@
 package app.bible.app.stories
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,10 +36,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -162,7 +175,7 @@ private fun ContinueCard(story: Story, onClick: () -> Unit) {
         Box(Modifier.fillMaxSize().background(Brush.horizontalGradient(listOf(Color.Black.copy(alpha = 0.65f), Color.Transparent))))
         Column(Modifier.align(Alignment.CenterStart).padding(20.dp)) {
             Text("CONTINUE", fontSize = 11.sp, letterSpacing = 1.6.sp, color = Color.White.copy(alpha = 0.8f))
-            Text(story.title, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(story.title, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis, style = TextStyle(shadow = TitleShadow))
             Text(story.sourcesLine(), fontSize = 12.sp, color = Color.White.copy(alpha = 0.8f))
         }
     }
@@ -178,12 +191,12 @@ private fun StoryTile(story: Story, finished: Boolean, onClick: () -> Unit) {
             ),
         )
         if (finished) {
-            Text("✓", color = Color.White, fontSize = 14.sp, modifier = Modifier.align(Alignment.TopEnd).padding(10.dp))
+            FinishedBadge(Modifier.align(Alignment.TopEnd).padding(8.dp), size = 26.dp)
         }
         Column(Modifier.align(Alignment.BottomStart).padding(12.dp)) {
             Text(
                 story.title, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold,
-                maxLines = 3, overflow = TextOverflow.Ellipsis, lineHeight = 19.sp,
+                maxLines = 3, overflow = TextOverflow.Ellipsis, lineHeight = 19.sp, style = TextStyle(shadow = TitleShadow),
             )
             Spacer(Modifier.height(4.dp))
             Text(tileSubtitle(story), color = Color.White.copy(alpha = 0.75f), fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -213,6 +226,35 @@ private fun StoryRow(story: Story, finished: Boolean, onClick: () -> Unit) {
             Text(story.title, color = colors.onBackground, fontWeight = FontWeight.Medium, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Text(story.sourcesLine(), color = colors.secondary, fontSize = 12.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        if (finished) Text("✓", color = colors.primary)
+        if (finished) FinishedBadge(size = 24.dp)
     }
 }
+
+/** Green finished-story badge: a white check in a green circle, ringed and shadowed so it reads on any art. */
+@Composable
+private fun FinishedBadge(modifier: Modifier = Modifier, size: Dp = 24.dp) {
+    Box(
+        modifier
+            .size(size)
+            .shadow(3.dp, CircleShape)
+            .background(FinishedGreen, CircleShape)
+            .border(1.5.dp, Color.White, CircleShape)
+            .semantics { contentDescription = "Finished" },
+    ) {
+        Canvas(Modifier.fillMaxSize().padding(size * 0.26f)) {
+            val w = this.size.width
+            val h = this.size.height
+            val check = Path().apply {
+                moveTo(w * 0.04f, h * 0.54f)
+                lineTo(w * 0.38f, h * 0.86f)
+                lineTo(w * 0.96f, h * 0.16f)
+            }
+            drawPath(check, Color.White, style = Stroke(width = w * 0.2f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+        }
+    }
+}
+
+private val FinishedGreen = Color(0xFF22A355)
+
+/** A soft shadow under white titles laid over story art, so they read on bright images. */
+private val TitleShadow = Shadow(Color.Black.copy(alpha = 0.6f), Offset(0f, 1f), blurRadius = 6f)

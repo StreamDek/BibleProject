@@ -59,6 +59,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.bible.app.platform.PlatformBackHandler
 import app.bible.app.ui.topSafePadding
 import app.bible.app.ui.SettingsButton
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.grid.items as gridItems
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Route
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
@@ -91,8 +96,11 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
     val home by vm.home.collectAsStateWithLifecycle()
     var query by rememberSaveable { mutableStateOf("") }
     var journey by rememberSaveable { mutableStateOf(false) }
+    // A shelf opened in full ("View all"), by its title.
+    var section by rememberSaveable { mutableStateOf<String?>(null) }
     val colors = MaterialTheme.colorScheme
     PlatformBackHandler(enabled = journey) { journey = false }
+    PlatformBackHandler(enabled = section != null && !journey) { section = null }
 
     val glass = rememberGlassState()
     val density = LocalDensity.current
@@ -101,12 +109,15 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
     val homeList = rememberLazyListState()
     val searchList = rememberLazyListState()
     val journeyList = rememberLazyListState()
+    val sectionGrid = rememberLazyGridState()
+    val openShelf = remember(section, home.library) { section?.let { t -> home.library?.shelves()?.firstOrNull { it.title == t } } }
     val activeList = when {
         journey -> journeyList
         query.isNotBlank() -> searchList
         else -> homeList
     }
-    val glassVisibility by animateFloatAsState(if (activeList.canScrollBackward) 1f else 0f, label = "glass")
+    val scrolledUnder = if (openShelf != null && !journey) sectionGrid.canScrollBackward else activeList.canScrollBackward
+    val glassVisibility by animateFloatAsState(if (scrolledUnder) 1f else 0f, label = "glass")
     // Journey: the period each list row belongs to, so the current period's heading can stay pinned under the
     // page title while its stories scroll past.
     val journeyPeriods = remember(home.library) {
@@ -148,6 +159,21 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                         item(key = s.slug) { StoryRow(s, s.slug in home.finished, onUnmark = { vm.unmarkFinished(s) }) { onOpen(s) } }
                     }
                 }
+                openShelf != null -> LazyVerticalGrid(
+                    columns = GridCells.Adaptive(150.dp),
+                    modifier = listModifier,
+                    state = sectionGrid,
+                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = bottom.calculateTopPadding() + 8.dp, bottom = 32.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    gridItems(openShelf.stories, key = { it.slug }) { s ->
+                        StoryTile(
+                            s, s.slug in home.finished, onUnmark = { vm.unmarkFinished(s) },
+                            modifier = Modifier.fillMaxWidth().aspectRatio(2f / 3f),
+                        ) { onOpen(s) }
+                    }
+                }
                 query.isNotBlank() -> {
                     val results = remember(query, library) { library.search(query) }
                     LazyColumn(listModifier, state = searchList, contentPadding = bottom) {
@@ -171,7 +197,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                     for (shelf in library.shelves()) {
                         item(key = "shelf-${shelf.title}") {
                             Column {
-                                SectionHeader("${shelf.title}  ·  ${shelf.stories.size}")
+                                SectionHeader("${shelf.title}  ·  ${shelf.stories.size}", onViewAll = { section = shelf.title })
                                 LazyRow(
                                     contentPadding = PaddingValues(horizontal = 20.dp),
                                     horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -233,6 +259,30 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                         )
                     }
                 }
+            } else if (openShelf != null) {
+                // A shelf in full: the way back at the top left, then the shelf's name as the page heading.
+                Row(
+                    Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    TextButton(onClick = { section = null }) { Text("‹ Stories", color = colors.onBackground) }
+                    Spacer(Modifier.weight(1f))
+                    TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+                    SettingsButton()
+                }
+                Text(
+                    openShelf.title,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = colors.onBackground,
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp),
+                )
+                Text(
+                    "${openShelf.stories.size} stories",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colors.secondary,
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 4.dp),
+                )
             } else {
                 Row(
                     Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp),
@@ -249,7 +299,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                     SettingsButton()
                 }
             }
-            if (library != null && !journey) {
+            if (library != null && !journey && openShelf == null) {
                 OutlinedTextField(
                     value = query,
                     onValueChange = { query = it },
@@ -315,14 +365,30 @@ private fun PeriodHeader(title: String) {
 }
 
 @Composable
-private fun SectionHeader(title: String) {
-    Text(
-        title,
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 10.dp),
-    )
+private fun SectionHeader(title: String, onViewAll: (() -> Unit)? = null) {
+    val colors = MaterialTheme.colorScheme
+    Row(
+        Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 12.dp, bottom = 2.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            title,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = colors.onBackground,
+            modifier = Modifier.weight(1f).padding(vertical = 8.dp),
+        )
+        // Opens the whole shelf as a page, instead of swiping through a long row.
+        if (onViewAll != null) TextButton(onClick = onViewAll) {
+            Text("View all", color = colors.primary, style = MaterialTheme.typography.labelLarge)
+            Icon(
+                Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                contentDescription = null,
+                tint = colors.primary,
+                modifier = Modifier.size(18.dp),
+            )
+        }
+    }
 }
 
 @Composable
@@ -342,9 +408,15 @@ private fun ContinueCard(story: Story, onClick: () -> Unit) {
 }
 
 @Composable
-private fun StoryTile(story: Story, finished: Boolean, onUnmark: () -> Unit, onClick: () -> Unit) {
+private fun StoryTile(
+    story: Story,
+    finished: Boolean,
+    onUnmark: () -> Unit,
+    modifier: Modifier = Modifier.width(148.dp).height(222.dp),
+    onClick: () -> Unit,
+) {
     // Portrait posters at 2:3, a little taller than before. The art is anchored towards the top to keep faces in.
-    Box(Modifier.width(148.dp).height(222.dp).clip(RoundedCornerShape(14.dp)).clickable(onClick = onClick)) {
+    Box(modifier.clip(RoundedCornerShape(14.dp)).clickable(onClick = onClick)) {
         StoryArt(story, Modifier.fillMaxSize())
         Box(
             Modifier.fillMaxSize().background(

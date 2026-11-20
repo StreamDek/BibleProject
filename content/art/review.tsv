@@ -1,3 +1,5 @@
 # Story art review log (append only). Columns: slug, brief_hash, round, action, candidate, reviewer, time, note
 # action: approve (candidate is published), reject (the brief needs editing in overrides.tsv), regenerate (same brief, new seeds)
 creation-of-heavens-and-earth	08c4fcb54a34ce08	1	approve	c1.png	Henry	2026-11-19T18:21:57.219147261Z	Test image supplied by Henry
+noah-builds-the-ark	834a9a49d14e3297	1	approve	c1.png	Henry	2026-11-20T07:03:10.656851464Z	Image supplied by Henry
+abraham-tested-with-isaac	61b1f0750e705a00	1	approve	c1.png	Henry	2026-11-20T07:09:38.445437765Z	Image supplied by Henry

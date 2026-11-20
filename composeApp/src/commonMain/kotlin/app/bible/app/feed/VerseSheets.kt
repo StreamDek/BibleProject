@@ -1,6 +1,11 @@
 package app.bible.app.feed
 
 import androidx.compose.foundation.background
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Button
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -85,7 +90,8 @@ fun VerseActionsSheet(vm: FeedViewModel, target: VerseActionTarget, translation:
     val reference = describe(sorted)
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
-        Column(Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
+        // Scrolls, and stays above the keyboard, so Save is always reachable however long the note grows.
+        Column(Modifier.imePadding().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
             Text(reference, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             if (target.verses.size > 1) {
                 Spacer(Modifier.height(8.dp))
@@ -140,15 +146,33 @@ fun VerseActionsSheet(vm: FeedViewModel, target: VerseActionTarget, translation:
                     onValueChange = { noteText = it },
                     label = { Text("Note on ${primary.display()}") },
                     shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 120.dp),
+                    // A long note scrolls inside the field instead of pushing the buttons off the sheet.
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 120.dp, max = 220.dp),
                 )
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.End) {
                     if (primary in marks.notes) TextButton(onClick = { vm.saveNote(primary, ""); editingNote = false }) { Text("Delete") }
-                    TextButton(onClick = { vm.saveNote(primary, noteText); editingNote = false }) { Text("Save") }
+                    TextButton(onClick = { editingNote = false; noteText = marks.notes[primary] ?: "" }) { Text("Cancel") }
+                    Button(onClick = { vm.saveNote(primary, noteText); editingNote = false }) { Text("Save") }
                 }
             } else marks.notes[primary]?.let { note ->
-                Spacer(Modifier.height(12.dp))
-                Text(note, style = MaterialTheme.typography.bodyMedium)
+                // The saved note, set apart from the actions above on its own tinted card.
+                Spacer(Modifier.height(16.dp))
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.08f),
+                    modifier = Modifier.fillMaxWidth().clickable { editingNote = true; noteText = note },
+                ) {
+                    Column(Modifier.padding(16.dp)) {
+                        Text(
+                            "Your note · ${primary.display()}",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                        Spacer(Modifier.height(6.dp))
+                        Text(note, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
+                    }
+                }
             }
         }
     }

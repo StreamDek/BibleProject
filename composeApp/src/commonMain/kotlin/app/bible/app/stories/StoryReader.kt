@@ -99,6 +99,7 @@ import app.bible.app.feed.VerseActionsSheet
 import app.bible.app.feed.flickFlingBehavior
 import app.bible.app.platform.SystemBarsEffect
 import app.bible.app.ui.topSafePadding
+import app.bible.app.ui.SettingsButton
 import app.bible.core.Canon
 import app.bible.core.VerseId
 import app.bible.stories.EditorialBlock
@@ -283,9 +284,7 @@ private fun StoryChrome(
                     Text("‹ Stories", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
                 }
                 Spacer(Modifier.weight(1f))
-                TextButton(onClick = onSettings) {
-                    Text("Aa", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
-                }
+                SettingsButton(onClick = onSettings, overArt = overArt)
             }
             // The story's title as the page heading, under the way back to the stories. The intro and end cards
             // already show it large, so it is left off there.

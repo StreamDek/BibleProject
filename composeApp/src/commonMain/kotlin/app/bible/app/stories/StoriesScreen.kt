@@ -59,6 +59,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.bible.app.platform.PlatformBackHandler
 import app.bible.app.ui.topSafePadding
 import app.bible.app.ui.SettingsButton
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.runtime.mutableIntStateOf
@@ -93,11 +103,31 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
         else -> homeList
     }
     val glassVisibility by animateFloatAsState(if (activeList.canScrollBackward) 1f else 0f, label = "glass")
+    // Journey: the period each list row belongs to, so the current period's heading can stay pinned under the
+    // page title while its stories scroll past.
+    val journeyPeriods = remember(home.library) {
+        buildList {
+            var period: Period? = null
+            for (s in home.library?.stories.orEmpty()) {
+                if (s.period != period) { period = s.period; add(s.period.title) }
+                add(s.period.title)
+            }
+        }
+    }
+    val pinnedPeriod by remember(journeyPeriods) {
+        derivedStateOf {
+            val i = journeyList.firstVisibleItemIndex
+            // Pinned once the list has moved at all: the in-list heading is then under the header.
+            if (i == 0 && journeyList.firstVisibleItemScrollOffset == 0) null else journeyPeriods.getOrNull(i)
+        }
+    }
+    var pinnedHeight by remember { mutableIntStateOf(0) }
 
     Box(Modifier.fillMaxSize().background(colors.background)) {
         val library = home.library
         // The lists start below the glass header and scroll under it.
-        val bottom = PaddingValues(top = with(density) { headerHeight.toDp() }, bottom = 32.dp)
+        // The pinned period heading is not counted, so the list doesn't jump when it appears.
+        val bottom = PaddingValues(top = with(density) { (headerHeight - pinnedHeight).coerceAtLeast(0).toDp() }, bottom = 32.dp)
         val listModifier = Modifier.fillMaxSize().glassSource(glass).navigationBarsPadding()
         if (library == null) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
@@ -176,6 +206,31 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                     color = colors.onBackground,
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 4.dp),
                 )
+                // The current period's heading, held just below the title while you scroll through its stories.
+                var lastPinned by remember { mutableStateOf("") }
+                pinnedPeriod?.let { lastPinned = it }
+                AnimatedVisibility(
+                    visible = pinnedPeriod != null,
+                    enter = expandVertically() + fadeIn(),
+                    exit = shrinkVertically() + fadeOut(),
+                    modifier = Modifier.onSizeChanged { pinnedHeight = it.height },
+                ) {
+                    AnimatedContent(
+                        targetState = lastPinned,
+                        transitionSpec = {
+                            (slideInVertically { it / 2 } + fadeIn()) togetherWith (slideOutVertically { -it / 2 } + fadeOut())
+                        },
+                        label = "pinned period",
+                    ) { title ->
+                        Text(
+                            title,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = colors.onBackground,
+                            modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 2.dp),
+                        )
+                    }
+                }
             } else {
                 Row(
                     Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp),

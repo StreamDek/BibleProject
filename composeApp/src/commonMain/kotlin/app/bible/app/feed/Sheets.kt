@@ -70,56 +70,18 @@ import app.bible.feed.Density
 fun ReadingSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Unit) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
-            Text("Verses per card", style = MaterialTheme.typography.titleSmall)
-            Spacer(Modifier.height(8.dp))
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for (d in Density.Options) {
-                    FilterChip(
-                        selected = prefs.density == d,
-                        onClick = { vm.setDensity(d) },
-                        label = { Text(if (d is Density.Fixed) "${d.verses}" else "Auto") },
-                    )
-                }
-            }
-            Spacer(Modifier.height(20.dp))
             Text("Text size", style = MaterialTheme.typography.titleSmall)
             var scale by remember { mutableStateOf(prefs.fontScale) }
             Slider(value = scale, onValueChange = { scale = it }, onValueChangeFinished = { vm.setFontScale(scale) }, valueRange = 0.8f..1.6f, steps = 7)
-            Spacer(Modifier.height(12.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Dark", Modifier.weight(1f), style = MaterialTheme.typography.titleSmall)
-                Switch(checked = prefs.dark, onCheckedChange = { vm.toggleDark() })
-            }
-            Spacer(Modifier.height(4.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text("Words of Jesus in red", style = MaterialTheme.typography.titleSmall)
-                    Text("As marked in the KJV source text", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
-                }
-                Switch(checked = prefs.redLetters, onCheckedChange = { vm.setRedLetters(it) })
-            }
-            Spacer(Modifier.height(4.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text("Immersive view", style = MaterialTheme.typography.titleSmall)
-                    Text("Hide the status bar for a full-screen view", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
-                }
-                Switch(checked = prefs.immersive, onCheckedChange = { vm.setImmersive(it) })
-            }
-
-            if (appIconSupported()) {
-                Spacer(Modifier.height(20.dp))
-                AppIconPicker()
-            }
         }
     }
 }
 
 /**
  * The app's Settings, opened from the gear beside "Aa" on any screen: appearance, reading and story options and
- * the app icon. ("Aa" keeps the quick text settings while reading.)
+ * the app icon. ("Aa" holds only the text size, for quick changes while reading.)
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 fun AppSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Unit) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
@@ -131,6 +93,17 @@ fun AppSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Un
             SettingSwitch("Immersive view", "Hide the status bar for a full-screen view", prefs.immersive) { vm.setImmersive(it) }
             Spacer(Modifier.height(12.dp))
             SettingsGroup("Reading")
+            Text("Verses per card", style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 6.dp))
+            Spacer(Modifier.height(8.dp))
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (d in Density.Options) {
+                    FilterChip(
+                        selected = prefs.density == d,
+                        onClick = { vm.setDensity(d) },
+                        label = { Text(if (d is Density.Fixed) "${d.verses}" else "Auto") },
+                    )
+                }
+            }
             SettingSwitch("Words of Jesus in red", "As marked in the KJV source text", prefs.redLetters) { vm.setRedLetters(it) }
             Spacer(Modifier.height(12.dp))
             SettingsGroup("Stories")

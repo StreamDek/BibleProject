@@ -1,6 +1,7 @@
 package app.bible.app.feed
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.rememberScrollState
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -23,17 +25,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.bible.app.platform.AppIcon
@@ -137,40 +143,66 @@ private fun AppIconPicker() {
     }
 }
 
-/** Jump to any book and chapter without scrolling through cards. */
+/**
+ * Jump to any book and chapter without scrolling through cards. The books are in two tabs, Old and New
+ * Testament; the list opens on the tab and book being read ([current]), and that book is marked.
+ */
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
-fun JumpSheet(onPick: (VerseId) -> Unit, onDismiss: () -> Unit) {
+fun JumpSheet(current: VerseId? = null, onPick: (VerseId) -> Unit, onDismiss: () -> Unit) {
     var book by remember { mutableStateOf<Book?>(null) }
+    val currentBook = current?.let { Canon.book(it.book) }
+    var testament by remember { mutableStateOf(currentBook?.testament ?: Testament.OLD) }
     ModalBottomSheet(onDismissRequest = onDismiss) {
         val b = book
         if (b == null) {
-            LazyColumn(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
-                for (t in Testament.entries) {
-                    item {
-                        Text(
-                            if (t == Testament.OLD) "Old Testament" else "New Testament",
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(start = 8.dp, top = 16.dp, bottom = 4.dp),
-                        )
-                    }
-                    items(Canon.books.filter { it.testament == t }, key = { it.number }) { bk ->
-                        Text(
-                            bk.name,
-                            Modifier.fillMaxWidth().clickable { if (bk.isSingleChapter) onPick(bk.firstVerse) else book = bk }.padding(12.dp),
-                        )
-                    }
+            val tabs = Testament.entries
+            TabRow(selectedTabIndex = tabs.indexOf(testament)) {
+                for (t in tabs) {
+                    Tab(
+                        selected = t == testament,
+                        onClick = { testament = t },
+                        text = {
+                            Text(
+                                if (t == Testament.OLD) "Old Testament" else "New Testament",
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold,
+                            )
+                        },
+                    )
+                }
+            }
+            val books = remember(testament) { Canon.books.filter { it.testament == testament } }
+            val startIndex = books.indexOfFirst { it.number == currentBook?.number }
+            // Each tab keeps its own list; the current book's tab starts scrolled to it (one row above, for context).
+            val listState = key(testament) {
+                rememberLazyListState(initialFirstVisibleItemIndex = if (startIndex > 0) startIndex - 1 else 0)
+            }
+            LazyColumn(state = listState, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+                items(books, key = { it.number }) { bk ->
+                    val isCurrent = bk.number == currentBook?.number
+                    Text(
+                        bk.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = if (isCurrent) FontWeight.Bold else FontWeight.Normal,
+                        color = if (isCurrent) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.fillMaxWidth()
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(if (isCurrent) MaterialTheme.colorScheme.primary.copy(alpha = 0.1f) else Color.Transparent)
+                            .clickable { if (bk.isSingleChapter) onPick(bk.firstVerse) else book = bk }
+                            .padding(horizontal = 12.dp, vertical = 14.dp),
+                    )
                 }
             }
         } else {
-            Column(Modifier.padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
+            Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
                 TextButton(onClick = { book = null }) { Text("‹ ${b.name}") }
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     for (c in 1..b.chapterCount) {
+                        val isCurrent = current != null && current.book == b.number && current.chapter == c
                         Surface(
                             shape = RoundedCornerShape(8.dp),
-                            color = MaterialTheme.colorScheme.surface,
+                            color = if (isCurrent) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
                             tonalElevation = 2.dp,
                             modifier = Modifier.size(48.dp).clickable { onPick(VerseId.of(b.number, c, 1)) },
                         ) {

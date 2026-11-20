@@ -2,12 +2,34 @@
     "version": 1,
     "base": "",
     "images": {
+        "abraham-tested-with-isaac": {
+            "hash": "613033eb889d62d79f329b07aa80b546d63ddcdeba40247c239679be314d6a0b",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFGtmGRo-:.TNLkC?cS5oe-=Ips+",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "creation-of-heavens-and-earth": {
             "hash": "010b0bd29d433bb741361adcb49e4392302c758149f45e910f5d579fcbe4171b",
             "widths": [
                 720
             ],
             "blurhash": "TIQmCm~qD%?H?aIUIU%MRjR+%MM{",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "noah-builds-the-ark": {
+            "hash": "463c7a4310f6a9ecca6e3066b65cfc277b2bb44b64fbc6ea4dbcb46aa67a8740",
+            "widths": [
+                720
+            ],
+            "blurhash": "TiJG[]NIIUyZW=s7Y7j]n#%hxZWW",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",

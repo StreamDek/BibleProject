@@ -28,6 +28,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import app.bible.app.ui.topSafePadding
+import app.bible.app.ui.NavIcons
+import app.bible.app.ui.NavItem
+import app.bible.app.ui.SettingsButton
 import app.bible.app.ui.GlassState
 import app.bible.app.ui.glass
 import app.bible.app.ui.glassSource
@@ -269,7 +272,7 @@ private fun Chrome(
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
-                TextButton(onClick = { onOpenSheet(Sheet.Settings) }) { Text("Aa", color = colors.onBackground) }
+                SettingsButton(onClick = { onOpenSheet(Sheet.Settings) })
             }
             // Story -> Bible: a way back to the story. Bible -> Story: the story this passage belongs to.
             val back = links?.backTo
@@ -289,11 +292,11 @@ private fun Chrome(
                 color = colors.primary.copy(alpha = 0.7f),
                 trackColor = colors.onBackground.copy(alpha = 0.12f),
             )
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                TextButton(onClick = { onOpenSheet(Sheet.Search) }) { Text("Search", color = colors.onBackground) }
-                TextButton(onClick = { onOpenSheet(Sheet.Saved) }) { Text("Saved", color = colors.onBackground) }
-                if (links != null) TextButton(onClick = links.onStories) { Text("Stories", color = colors.onBackground) }
-                TextButton(onClick = onClassic) { Text("Chapter", color = colors.onBackground) }
+            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+                NavItem(NavIcons.Search, "Search", onClick = { onOpenSheet(Sheet.Search) })
+                NavItem(NavIcons.Saved, "Saved", onClick = { onOpenSheet(Sheet.Saved) })
+                if (links != null) NavItem(NavIcons.Stories, "Stories", onClick = links.onStories)
+                NavItem(NavIcons.Chapter, "Chapter", onClick = onClassic)
             }
             Text(
                 "Hold a verse to highlight, bookmark, note or copy",

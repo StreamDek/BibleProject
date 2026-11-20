@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import app.bible.app.feed.AppSettingsSheet
 import app.bible.app.ui.LocalOpenSettings
 import androidx.compose.runtime.CompositionLocalProvider
@@ -83,6 +84,7 @@ fun App() {
     val translation = d.bible.translationCode
 
     var settingsOpen by remember { mutableStateOf(false) }
+    val storiesState = rememberSaveableStateHolder()
 
     BibleTheme(dark = state.prefs.dark) {
       CompositionLocalProvider(LocalStoryArt provides home.art, LocalOpenSettings provides { settingsOpen = true }) {
@@ -101,11 +103,15 @@ fun App() {
                     ),
                 )
             }
-            Screen.Stories -> StoriesScreen(
-                stories,
-                onOpen = { openStory(it.slug) },
-                onBible = { stack = listOf(Screen.Bible) },
-            )
+            // Kept in a saveable holder, so coming back from a story returns to the same place: the list's scroll,
+            // each shelf's sideways scroll, the Journey list and any search.
+            Screen.Stories -> storiesState.SaveableStateProvider("stories") {
+                StoriesScreen(
+                    stories,
+                    onOpen = { openStory(it.slug) },
+                    onBible = { stack = listOf(Screen.Bible) },
+                )
+            }
             is Screen.Story -> StoryReader(
                 vm = stories,
                 feed = vm,

@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.animation.Crossfade
+import app.bible.app.ui.cardBackground
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.Canvas
@@ -141,58 +143,67 @@ fun StoryReader(
         key(state.generation) {
             val pager = rememberPagerState(initialPage = state.page) { state.pages.size }
             LaunchedEffect(pager) { snapshotFlow { pager.settledPage }.collect { vm.onPageSettled(it) } }
-            VerticalPager(
-                state = pager,
-                flingBehavior = flickFlingBehavior(pager),
-                beyondViewportPageCount = 1,
-                key = { state.pages[it].key },
-                modifier = Modifier.fillMaxSize().glassSource(glass),
-            ) { index ->
-                val toggle = { chromeVisible = !chromeVisible }
-                val scroll = rememberScrollState()
-                DisposableEffect(index, scroll) {
-                    scrolls[index] = scroll
-                    onDispose { scrolls.remove(index) }
+            // Scripture pages draw no background of their own: it stays still behind the pager and only the text
+            // swipes. The intro, summary and end cards keep their own backgrounds.
+            val bgBook = (state.pages.getOrNull(pager.currentPage) as? StoryPage.Scripture)?.first?.book
+                ?: state.pages.firstNotNullOfOrNull { (it as? StoryPage.Scripture)?.first?.book } ?: 1
+            Box(Modifier.fillMaxSize().glassSource(glass)) {
+                Crossfade(targetState = bgBook, label = "card background") { b ->
+                    Box(Modifier.fillMaxSize().background(cardBackground(b, prefs.dark)))
                 }
-                when (val page = state.pages[index]) {
-                    is StoryPage.Intro -> IntroCard(page.story, state.pages, onTap = toggle)
-                    is StoryPage.Scripture -> {
-                        val step = story.steps[page.step]
-                        ScriptureCard(
-                            card = FeedCard(page.first.value, page.first, page.last, page.continues),
-                            prefs = prefs,
-                            translation = translation,
-                            vm = feed,
-                            marksRevision = marksRevision,
-                            onTap = toggle,
-                            onVerseAction = { verse -> action = VerseActionTarget(page.range.verses().toList(), verse) },
-                            label = if (page.stepStart && story.steps.size > 1) {
-                                "${page.step + 1} of ${story.steps.size} · ${step.title ?: ""}"
-                            } else null,
-                            onReferenceTap = { onOpenInBible(page.first) },
-                            scroll = scroll,
-                            // A clear gap under the header (controls, the story's title and any account tabs).
-                            topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap
-                            else if (step.accounts.size > 1) 152.dp else 104.dp,
+                VerticalPager(
+                    state = pager,
+                    flingBehavior = flickFlingBehavior(pager),
+                    beyondViewportPageCount = 1,
+                    key = { state.pages[it].key },
+                    modifier = Modifier.fillMaxSize(),
+                ) { index ->
+                    val toggle = { chromeVisible = !chromeVisible }
+                    val scroll = rememberScrollState()
+                    DisposableEffect(index, scroll) {
+                        scrolls[index] = scroll
+                        onDispose { scrolls.remove(index) }
+                    }
+                    when (val page = state.pages[index]) {
+                        is StoryPage.Intro -> IntroCard(page.story, state.pages, onTap = toggle)
+                        is StoryPage.Scripture -> {
+                            val step = story.steps[page.step]
+                            ScriptureCard(
+                                drawBackground = false,
+                                card = FeedCard(page.first.value, page.first, page.last, page.continues),
+                                prefs = prefs,
+                                translation = translation,
+                                vm = feed,
+                                marksRevision = marksRevision,
+                                onTap = toggle,
+                                onVerseAction = { verse -> action = VerseActionTarget(page.range.verses().toList(), verse) },
+                                label = if (page.stepStart && story.steps.size > 1) {
+                                    "${page.step + 1} of ${story.steps.size} · ${step.title ?: ""}"
+                                } else null,
+                                onReferenceTap = { onOpenInBible(page.first) },
+                                scroll = scroll,
+                                // A clear gap under the header (controls, the story's title and any account tabs).
+                                topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap
+                                else if (step.accounts.size > 1) 152.dp else 104.dp,
+                            )
+                        }
+                        is StoryPage.Summary -> InterludeCard(
+                            "Summary", page.story.summary!!, onTap = toggle, scroll = scroll,
+                            topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap else 104.dp,
+                        )
+                        is StoryPage.End -> EndCard(
+                            story = page.story,
+                            next = vm.home.value.library?.next(page.story.slug),
+                            onRelated = onOpenInBible,
+                            onNext = onOpenStory,
+                            onAgain = { vm.open(page.story.slug, restart = true) },
+                            onBack = onBack,
+                            // The check animates when the card is reached, not while it waits off screen.
+                            active = pager.settledPage == index,
                         )
                     }
-                    is StoryPage.Summary -> InterludeCard(
-                        "Summary", page.story.summary!!, onTap = toggle, scroll = scroll,
-                        topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap else 104.dp,
-                    )
-                    is StoryPage.End -> EndCard(
-                        story = page.story,
-                        next = vm.home.value.library?.next(page.story.slug),
-                        onRelated = onOpenInBible,
-                        onNext = onOpenStory,
-                        onAgain = { vm.open(page.story.slug, restart = true) },
-                        onBack = onBack,
-                        // The check animates when the card is reached, not while it waits off screen.
-                        active = pager.settledPage == index,
-                    )
                 }
             }
-
             val current = state.pages.getOrNull(pager.currentPage)
             // On reading pages the header is ambient glass, shown while text is under it: pages moving, or a
             // long page scrolled up. The intro and end cards keep their plain header over the art.

@@ -16,6 +16,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import app.bible.app.ui.topSafePadding
+import app.bible.app.ui.GlassState
+import app.bible.app.ui.glass
+import app.bible.app.ui.glassSource
+import app.bible.app.ui.rememberGlassState
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.PagerState
@@ -123,6 +127,7 @@ private fun ScriptureFeed(
     val state by vm.state.collectAsStateWithLifecycle()
     val marksRevision by vm.marksRevision.collectAsStateWithLifecycle()
     var chromeVisible by rememberSaveable { mutableStateOf(true) }
+    val glass = rememberGlassState()
 
     Box(Modifier.fillMaxSize()) {
         if (state.loading && state.cards.isEmpty()) {
@@ -140,7 +145,7 @@ private fun ScriptureFeed(
                 flingBehavior = flickFlingBehavior(pager),
                 beyondViewportPageCount = 1, // compose the neighbours so swipes never show a blank card
                 key = { state.cards[it].key },
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().glassSource(glass),
             ) { page ->
                 val card = state.cards[page]
                 ScriptureCard(
@@ -163,6 +168,7 @@ private fun ScriptureFeed(
                 else (page - bookRange.first) / (bookRange.last - bookRange.first).toFloat()
                 val story = remember(current?.key, links) { current?.let { links?.storyFor?.invoke(it.first) } }
                 Chrome(
+                    glass = glass,
                     title = current?.let { "${Canon.book(it.first.book).name} ${it.first.chapter}" } ?: "",
                     progress = progress,
                     onOpenSheet = onOpenSheet,
@@ -190,6 +196,7 @@ internal fun flickFlingBehavior(pager: PagerState) = PagerDefaults.flingBehavior
 
 @Composable
 private fun Chrome(
+    glass: GlassState,
     title: String,
     progress: Float,
     onOpenSheet: (Sheet) -> Unit,
@@ -200,7 +207,8 @@ private fun Chrome(
 ) {
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
-        Column(Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
+        // The header is ambient glass: the card behind shows through, blurred.
+        Column(Modifier.fillMaxWidth().glass(glass).topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,

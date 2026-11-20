@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.BiasAlignment
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -43,7 +45,7 @@ fun publishedArt(story: Story): ArtImage? {
  */
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun StoryArt(story: Story, modifier: Modifier = Modifier) {
+fun StoryArt(story: Story, modifier: Modifier = Modifier, alignment: Alignment = ArtAlignment) {
     val manifest = LocalStoryArt.current
     val image = publishedArt(story)
     if (image == null) {
@@ -54,18 +56,25 @@ fun StoryArt(story: Story, modifier: Modifier = Modifier) {
         val widthPx = if (constraints.hasBoundedWidth) constraints.maxWidth else 720
         val preview = remember(image.blurhash) { blurhashBitmap(image.blurhash) }
         if (preview != null) {
-            Image(preview, null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop, filterQuality = FilterQuality.Low)
+            Image(preview, null, Modifier.fillMaxSize(), alignment = alignment, contentScale = ContentScale.Crop, filterQuality = FilterQuality.Low)
         } else {
             PlaceholderArt(story, Modifier.fillMaxSize())
         }
         AsyncImage(
             model = if (image.bundled) Res.getUri(manifest.bundledPath(image)) else manifest.url(image, widthPx),
             contentDescription = null,
+            alignment = alignment,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize(),
         )
     }
 }
+
+/**
+ * Where story art is anchored when it is cropped to fit a frame: centred across, and kept towards the top, where
+ * the faces in a scene usually are, so heads are not cut off.
+ */
+val ArtAlignment: Alignment = BiasAlignment(horizontalBias = 0f, verticalBias = -0.6f)
 
 /** A tiny bitmap from the blurhash; drawn scaled up with smoothing, it gives a soft preview. */
 private fun blurhashBitmap(hash: String): ImageBitmap? {

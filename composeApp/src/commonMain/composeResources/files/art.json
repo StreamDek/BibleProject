@@ -2,6 +2,17 @@
     "version": 1,
     "base": "",
     "images": {
+        "aarons-budding-staff": {
+            "hash": "702fd1ebbfa6ad150b84b0cdd06fe11a3f336a837de3a76826f7deea67545b7d",
+            "widths": [
+                720
+            ],
+            "blurhash": "TRFE.YoNNI?wWsoMyEWsoftTo#of",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "abraham-tested-with-isaac": {
             "hash": "613033eb889d62d79f329b07aa80b546d63ddcdeba40247c239679be314d6a0b",
             "widths": [
@@ -35,6 +46,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "bitter-water-made-sweet": {
+            "hash": "f7673300713475e1461d94f5191576214caadf7991cbf356e63fe86b4602eed2",
+            "widths": [
+                720
+            ],
+            "blurhash": "TKF#gjs8VsxvNbWU~pR*r;%NoJM{",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "cain-and-abel": {
             "hash": "14f12b367b19210e2ab6159a1981b07b3f63934343750a4b1c0baf775890d21a",
             "widths": [
@@ -52,6 +74,17 @@
                 720
             ],
             "blurhash": "TeGbVS%1R4.TR+IU%hM{bHx^a}Wr",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "calling-of-matthew": {
+            "hash": "4a941e8e30ecca1336bc3b0b350c40b24f590d4d7b634b015dcce12047a61567",
+            "widths": [
+                720
+            ],
+            "blurhash": "TBF#H$9a0KtlxCIB_2M{M{_2V@D%",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -167,6 +200,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "jesus-heals-a-paralysed-man": {
+            "hash": "be0729353c6aa032f3af7880046b5348f59d7e0b4658ff491d8f7c9b4661e4cf",
+            "widths": [
+                720
+            ],
+            "blurhash": "THE-~*Vs0LENNGsl%MRkM{-pM{IV",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "john-prepares-the-way": {
             "hash": "d7c6fc1d83d042948baf199e3468ce6dabb8fff954041770e644012354360b95",
             "widths": [
@@ -211,6 +255,28 @@
             "ext": "jpg",
             "bundled": true
         },
+        "manna-and-quail": {
+            "hash": "376712a0cdef7fe87d6e566f559281cc0e24bee4b0426d163df70002167b0dc3",
+            "widths": [
+                720
+            ],
+            "blurhash": "TUJG+qROD%TfnhxY_4M{jE%hn#ad",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "moses-strikes-the-rock": {
+            "hash": "e0cb0fbdfe423bae7805abbdcb00a1c5bd1d3f16a6616f5e12441dd7556bc5b9",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFH1oQ4ov{^,x^g3_4xvxW?w%MRP",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "noah-builds-the-ark": {
             "hash": "463c7a4310f6a9ecca6e3066b65cfc277b2bb44b64fbc6ea4dbcb46aa67a8740",
             "widths": [
@@ -218,6 +284,17 @@
             ],
             "blurhash": "ThI|%cSiIo%%ozw[pekCs8-=s:WV",
             "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "parable-of-sower": {
+            "hash": "4a104d35590407638b23553615d27f3464d7a3822a1bc3cd7e12797df10d7083",
+            "widths": [
+                720
+            ],
+            "blurhash": "TNGHxQD%E2_NIARQcGM_$%XoRPR*",
+            "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
             "bundled": true
@@ -240,6 +317,17 @@
             ],
             "blurhash": "TJHwS-g%o~~qyDX8pJt8IW%2bbIU",
             "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "rebekah-chosen-for-isaac": {
+            "hash": "512419aceebf186b6bf71b7050fddf47978c7474b525f6883eb2253bb961018d",
+            "widths": [
+                720
+            ],
+            "blurhash": "TDG*7yV?rW%$WAV??^9aMxx^r;RP",
+            "depiction": "direct",
             "people": true,
             "ext": "jpg",
             "bundled": true
@@ -306,6 +394,28 @@
             ],
             "blurhash": "TRHT,CoJ5T~qxZNL%hxsNetms.R+",
             "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "water-from-the-rock": {
+            "hash": "bd1c82a80084f30459b3f5693ff679a0c560e574ceb2843bb1dd8fca9f8e784f",
+            "widths": [
+                720
+            ],
+            "blurhash": "THGa|H#+9EyZo~V=%%tSRO?wtSr;",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "wheat-and-weeds": {
+            "hash": "b65dbf4d90fb50391ed81c84d7281445d6308d59b96f006454242e435591d89b",
+            "widths": [
+                720
+            ],
+            "blurhash": "TjHm}dnij[~BR*bHtlNHoekqR+of",
+            "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
             "bundled": true

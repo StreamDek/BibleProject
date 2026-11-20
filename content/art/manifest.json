@@ -57,6 +57,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "barren-fig-tree": {
+            "hash": "cd41e93264710996b5099c80ac6c9527649759c3b7e74a678da5b97cc474a9e4",
+            "widths": [
+                720
+            ],
+            "blurhash": "T9E_mb~Cs?*HN#-pK4tS%Lawo#EM",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "birth-of-jesus": {
             "hash": "2b564f8b1f1626e89a678846eaef25747a17a447b1e2e84867c38c7286dfed37",
             "widths": [
@@ -288,6 +299,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "friend-at-midnight": {
+            "hash": "3d1f6045396cd04bebabae80b05b87a312ef5008a0fd54ac0d00cf545b89f1da",
+            "widths": [
+                720
+            ],
+            "blurhash": "T7BCDM75krpKOubd1PtRW?=|Em%0",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "gadarene-demoniac": {
             "hash": "e0fe3f1c0d71fb38f67b28a5e662134353668a159735c5f0a85ef6d26bb8699a",
             "widths": [
@@ -316,6 +338,17 @@
                 720
             ],
             "blurhash": "TGHdjL9EkX.TI9f,_NMwR,?bITn$",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "great-banquet": {
+            "hash": "644aa424fdeaab0d2380d990f5a92bdcb4c5b76f68c4fb539169c0c1930aff9d",
+            "widths": [
+                720
+            ],
+            "blurhash": "T9Gs_Z}RS71$M_-p}[9ZEl%L-5%2",
             "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
@@ -398,6 +431,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "lost-coin": {
+            "hash": "52f63c170d2aa412fb421f573057d999d0abc0fe29036ce1ab241d5399dc4a44",
+            "widths": [
+                720
+            ],
+            "blurhash": "T8C}OSozAG14xG=wAHofa#X8Nd-A",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "lost-sheep": {
             "hash": "3c3a83c67d7fde8c067e08c496d4a320b594f61bf23a61263c254b742d17775e",
             "widths": [
@@ -475,6 +519,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "parable-of-growing-seed": {
+            "hash": "7671be1d329af4d1f8cf7ee789b5e3eb3f6988badcde15686a1091d493fc244a",
+            "widths": [
+                720
+            ],
+            "blurhash": "TSHU8*E2VY?wM_V=cHnMR$tmngni",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "parable-of-sower": {
             "hash": "4a104d35590407638b23553615d27f3464d7a3822a1bc3cd7e12797df10d7083",
             "widths": [
@@ -541,6 +596,28 @@
             "ext": "jpg",
             "bundled": true
         },
+        "rich-fool": {
+            "hash": "4fd180f2aac4c7a23ea4c4ec75f47a5af150491b784132fe91a046247c588f44",
+            "widths": [
+                720
+            ],
+            "blurhash": "TBGG|M0LtR_24:x[%gIU-U?HRPxZ",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "rich-man-and-lazarus": {
+            "hash": "579827a5bb3c9bc342f4772c6a10094819085eaedf42a5c61b62c43747fbfd01",
+            "widths": [
+                720
+            ],
+            "blurhash": "T4Cr1P9v}r]Nog^O={5Sn$EM9_9_",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "rich-young-ruler": {
             "hash": "02c4b7e0aa322df5978094612649d5e30141cce0a3ae445dbd6a3153aec732eb",
             "widths": [
@@ -574,6 +651,28 @@
             "ext": "jpg",
             "bundled": true
         },
+        "sheep-and-goats": {
+            "hash": "f73235a24c48bb030cb1d6febb865d52b25e856e5e70629bfd8cfdcfb676a96b",
+            "widths": [
+                720
+            ],
+            "blurhash": "TPK0f.?GEP~VWFt7%fIpRQ~UxaM}",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "shrewd-manager": {
+            "hash": "849d7aff47981c560a547f431ad0f8358d425166df43c964a4f8ca40fc3c14e3",
+            "widths": [
+                720
+            ],
+            "blurhash": "TDG@rV-Oiv-;IoxD?a$zV?~pjYD%",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "storm-calmed": {
             "hash": "99b3901899fdf071560f30325c468fdeae39ba15e5f9f5ebb10a92f660fd21f8",
             "widths": [
@@ -581,6 +680,17 @@
             ],
             "blurhash": "TJE-]j0M%L%0NexCJBods8NH-UoL",
             "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "talents": {
+            "hash": "411166af49a76aefa9197881bd32f955f6c3e2549deb35c04b2b72fbe23da418",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFEnt-RPIp~pr;NH.8ROR*-=r;R*",
+            "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
             "bundled": true

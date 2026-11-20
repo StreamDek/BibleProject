@@ -245,7 +245,8 @@ private fun ContinueCard(story: Story, onClick: () -> Unit) {
 
 @Composable
 private fun StoryTile(story: Story, finished: Boolean, onUnmark: () -> Unit, onClick: () -> Unit) {
-    Box(Modifier.width(148.dp).height(196.dp).clip(RoundedCornerShape(14.dp)).clickable(onClick = onClick)) {
+    // Portrait posters at 2:3, a little taller than before. The art is anchored towards the top to keep faces in.
+    Box(Modifier.width(148.dp).height(222.dp).clip(RoundedCornerShape(14.dp)).clickable(onClick = onClick)) {
         StoryArt(story, Modifier.fillMaxSize())
         Box(
             Modifier.fillMaxSize().background(

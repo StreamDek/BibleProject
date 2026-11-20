@@ -38,7 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -98,7 +98,7 @@ fun Reader(vm: FeedViewModel, translation: String, links: StoryLinks? = null) {
 
     when (sheet) {
         Sheet.Settings -> ReadingSettingsSheet(state.prefs, vm, onDismiss = { sheet = null })
-        Sheet.Jump -> JumpSheet(onPick = { vm.open(it); sheet = null }, onDismiss = { sheet = null })
+        Sheet.Jump -> JumpSheet(current = state.anchor, onPick = { vm.open(it); sheet = null }, onDismiss = { sheet = null })
         Sheet.Search -> SearchSheet(vm, onPick = { vm.open(it); sheet = null }, onDismiss = { sheet = null })
         Sheet.Saved -> SavedSheet(vm, onPick = { vm.open(it); sheet = null }, onDismiss = { sheet = null })
         null -> Unit
@@ -206,7 +206,17 @@ private fun Chrome(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                TextButton(onClick = { onOpenSheet(Sheet.Jump) }) { Text("$title ▾", color = colors.onBackground) }
+                // The book and chapter being read, bold and prominent; tapping it opens the book list.
+                TextButton(onClick = { onOpenSheet(Sheet.Jump) }) {
+                    Text(
+                        "$title ▾",
+                        color = colors.onBackground,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
                 TextButton(onClick = { onOpenSheet(Sheet.Settings) }) { Text("Aa", color = colors.onBackground) }
             }
             // Story -> Bible: a way back to the story. Bible -> Story: the story this passage belongs to.

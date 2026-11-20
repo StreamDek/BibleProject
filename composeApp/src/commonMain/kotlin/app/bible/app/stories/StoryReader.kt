@@ -45,6 +45,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -125,6 +128,8 @@ fun StoryReader(
                                 "${page.step + 1} of ${story.steps.size} · ${step.title ?: ""}"
                             } else null,
                             onReferenceTap = { onOpenInBible(page.first) },
+                            // Under the controls, the story's title and any account tabs.
+                            topInset = if (step.accounts.size > 1) 152.dp else 104.dp,
                         )
                     }
                     is StoryPage.Summary -> InterludeCard("Summary", page.story.summary!!, onTap = toggle)
@@ -173,18 +178,31 @@ private fun StoryChrome(
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
+            // On the intro card the controls sit on the story's art: white with a soft shadow, over a dark scrim.
+            val overArt = page is StoryPage.Intro
+            val navColor = if (overArt) Color.White else colors.onBackground
+            val navShadow = if (overArt) Shadow(Color.Black.copy(alpha = 0.6f), Offset(0f, 1f), blurRadius = 6f) else null
             Row(verticalAlignment = Alignment.CenterVertically) {
-                TextButton(onClick = onBack) { Text("‹ Stories", color = colors.onBackground) }
-                Text(
-                    story.title,
-                    color = colors.onBackground.copy(alpha = 0.8f),
-                    fontSize = 14.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f),
-                )
-                TextButton(onClick = onSettings) { Text("Aa", color = colors.onBackground) }
+                TextButton(onClick = onBack) {
+                    Text("‹ Stories", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
+                }
+                Spacer(Modifier.weight(1f))
+                TextButton(onClick = onSettings) {
+                    Text("Aa", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
+                }
             }
+            // The story's title as the page heading, under the way back to the stories. The intro and end cards
+            // already show it large, so it is left off there.
+            if (page is StoryPage.Scripture || page is StoryPage.Summary) Text(
+                story.title,
+                color = colors.onBackground,
+                fontSize = 20.sp,
+                lineHeight = 26.sp,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 6.dp),
+            )
             // Parallel accounts: one tab per Gospel (or book). Switching keeps the step.
             val scripture = page as? StoryPage.Scripture
             val step = scripture?.let { story.steps[it.step] }
@@ -269,6 +287,11 @@ private fun IntroCard(story: Story, pages: List<StoryPage>, onTap: () -> Unit) {
         Box(
             Modifier.fillMaxWidth().fillMaxHeight(0.5f)
                 .background(Brush.verticalGradient(0.4f to Color.Transparent, 1f to colors.background)),
+        )
+        // A dark scrim at the top so the controls stay legible over bright art (sky, light, clouds).
+        Box(
+            Modifier.fillMaxWidth().fillMaxHeight(0.22f)
+                .background(Brush.verticalGradient(0f to Color.Black.copy(alpha = 0.55f), 1f to Color.Transparent)),
         )
         Column(
             Modifier.fillMaxSize().topSafePadding().navigationBarsPadding()

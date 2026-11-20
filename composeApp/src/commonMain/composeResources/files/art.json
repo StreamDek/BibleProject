@@ -112,6 +112,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "creation-of-adam-and-eve": {
+            "hash": "0eecc54bca6d877b150ca0c1f7c25064379727fc2459c401fe6548b573f47ecd",
+            "widths": [
+                720
+            ],
+            "blurhash": "TcIXmK4pIo~V9aWYt3M|x]NHads;",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "creation-of-heavens-and-earth": {
             "hash": "ac1abffa9bba4963d651cbd530ae28e519877dbf7e079da4c3450ddbcde3f680",
             "widths": [

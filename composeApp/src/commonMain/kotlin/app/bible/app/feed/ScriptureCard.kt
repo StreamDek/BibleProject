@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.ScrollState
 import app.bible.app.ui.topSafePadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
@@ -77,6 +78,8 @@ fun ScriptureCard(
     onReferenceTap: (() -> Unit)? = null,
     /** Room left at the top for the reader's controls. */
     topInset: Dp = 72.dp,
+    /** The card's scroll position, so the reader can tell when text has scrolled up under its header. */
+    scroll: ScrollState = rememberScrollState(),
 ) {
     var verses by remember(card) { mutableStateOf<List<VerseText>?>(null) }
     var heading by remember(card) { mutableStateOf<String?>(null) }
@@ -117,7 +120,6 @@ fun ScriptureCard(
 
     // The card only becomes scrollable when its text overflows (very large type). Otherwise the scroll modifier
     // would claim the drag and the pager would need a long swipe instead of a flick.
-    val scroll = rememberScrollState()
     Box(
         modifier
             .fillMaxSize()
@@ -139,9 +141,10 @@ fun ScriptureCard(
                 .fillMaxSize()
                 .topSafePadding()
                 .navigationBarsPadding()
+                .verticalScroll(scroll, enabled = scroll.maxValue > 0)
+                // Inside the scroll, so long text scrolls up under the (glass) header instead of being cut off.
                 .padding(horizontal = 28.dp)
-                .padding(top = topInset, bottom = 96.dp)
-                .verticalScroll(scroll, enabled = scroll.maxValue > 0),
+                .padding(top = topInset, bottom = 96.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,
         ) {

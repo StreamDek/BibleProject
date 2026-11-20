@@ -6,6 +6,12 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -131,6 +137,10 @@ private fun ScriptureFeed(
     val marksRevision by vm.marksRevision.collectAsStateWithLifecycle()
     var chromeVisible by rememberSaveable { mutableStateOf(true) }
     val glass = rememberGlassState()
+    // The header's measured height (below the status bar), so card text starts a clear gap below it.
+    var headerHeight by remember { mutableStateOf(0.dp) }
+    val density = LocalDensity.current
+    val scrolls = remember { mutableStateMapOf<Int, ScrollState>() }
 
     Box(Modifier.fillMaxSize()) {
         if (state.loading && state.cards.isEmpty()) {
@@ -151,7 +161,14 @@ private fun ScriptureFeed(
                 modifier = Modifier.fillMaxSize().glassSource(glass),
             ) { page ->
                 val card = state.cards[page]
+                val scroll = rememberScrollState()
+                DisposableEffect(page, scroll) {
+                    scrolls[page] = scroll
+                    onDispose { scrolls.remove(page) }
+                }
                 ScriptureCard(
+                    scroll = scroll,
+                    topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap else 72.dp,
                     card = card,
                     prefs = state.prefs,
                     translation = translation,
@@ -165,8 +182,10 @@ private fun ScriptureFeed(
             }
             val page = pager.currentPage
             val current = state.cards.getOrNull(page)
-            // The glass shows only while cards are moving under the header; at rest the header is clear.
-            val glassVisibility by animateFloatAsState(if (pager.isScrollInProgress) 1f else 0f, label = "glass")
+            // The glass shows only while something is under the header: cards moving, or a long card's text
+            // scrolled up. At rest the header is clear.
+            val textUnder = (scrolls[page]?.value ?: 0) > 0
+            val glassVisibility by animateFloatAsState(if (pager.isScrollInProgress || textUnder) 1f else 0f, label = "glass")
             AnimatedVisibility(chromeVisible && current != null, enter = fadeIn(), exit = fadeOut()) {
                 val bookRange = current?.let { state.bookCards[it.first.book] }
                 val progress = if (bookRange == null || bookRange.last == bookRange.first) 1f
@@ -175,6 +194,7 @@ private fun ScriptureFeed(
                 Chrome(
                     glass = glass,
                     glassVisibility = glassVisibility,
+                    onHeight = { headerHeight = with(density) { it.toDp() } },
                     title = current?.let { "${Canon.book(it.first.book).name} ${it.first.chapter}" } ?: "",
                     progress = progress,
                     onOpenSheet = onOpenSheet,
@@ -204,6 +224,7 @@ internal fun flickFlingBehavior(pager: PagerState) = PagerDefaults.flingBehavior
 private fun Chrome(
     glass: GlassState,
     glassVisibility: Float,
+    onHeight: (Int) -> Unit,
     title: String,
     progress: Float,
     onOpenSheet: (Sheet) -> Unit,
@@ -218,6 +239,7 @@ private fun Chrome(
         // bottom of the glass fades into the card (the extra bottom padding is room for that fade).
         Column(
             Modifier.fillMaxWidth().glass(glass, glassVisibility).topSafePadding()
+                .onSizeChanged { onHeight(it.height) }
                 .padding(horizontal = 12.dp).padding(top = 8.dp, bottom = 20.dp),
         ) {
             Row(
@@ -272,6 +294,9 @@ private fun Chrome(
     }
 }
 
+
+/** Space between the bottom of a reader's header and the first line of text. */
+internal val HeaderGap = 12.dp
 
 /** The story link in the reader's header: no border, just a slightly darker rounded background. */
 @Composable

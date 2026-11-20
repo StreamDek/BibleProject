@@ -100,6 +100,9 @@ import app.bible.app.feed.flickFlingBehavior
 import app.bible.app.platform.SystemBarsEffect
 import app.bible.app.ui.topSafePadding
 import app.bible.app.ui.SettingsButton
+import app.bible.app.ui.ReadAloudButton
+import app.bible.app.ui.ReadAloudState
+import app.bible.app.ui.rememberReadAloud
 import app.bible.core.Canon
 import app.bible.core.VerseId
 import app.bible.stories.EditorialBlock
@@ -146,6 +149,25 @@ fun StoryReader(
         key(state.generation) {
             val pager = rememberPagerState(initialPage = state.page) { state.pages.size }
             LaunchedEffect(pager) { snapshotFlow { pager.settledPage }.collect { vm.onPageSettled(it) } }
+            // Read aloud: the intro, each passage and the summary in turn, stopping at the end card.
+            val readAloud = rememberReadAloud(
+                page = pager.settledPage,
+                text = {
+                    when (val p = state.pages.getOrNull(pager.settledPage)) {
+                        is StoryPage.Intro -> listOfNotNull(story.title, p.story.intro?.text).joinToString(". ")
+                        is StoryPage.Scripture -> feed.textFor(FeedCard(p.first.value, p.first, p.last, p.continues))
+                            .joinToString(" ") { it.text }
+                        is StoryPage.Summary -> p.story.summary?.text
+                        else -> null
+                    }
+                },
+                advance = {
+                    val next = pager.settledPage + 1
+                    if (next < state.pages.size && state.pages[pager.settledPage] !is StoryPage.End) {
+                        pager.animateScrollToPage(next); true
+                    } else false
+                },
+            )
             // Scripture pages draw no background of their own: it stays still behind the pager and only the text
             // swipes. The intro, summary and end cards keep their own backgrounds.
             val bgBook = (state.pages.getOrNull(pager.currentPage) as? StoryPage.Scripture)?.first?.book
@@ -243,6 +265,7 @@ fun StoryReader(
                     onSettings = { settings = true },
                     onChoose = vm::chooseAccount,
                     onOpenInBible = onOpenInBible,
+                    readAloud = readAloud.takeIf { prefs.readAloud },
                 )
             }
         }
@@ -265,6 +288,7 @@ private fun StoryChrome(
     onSettings: () -> Unit,
     onChoose: (step: Int, account: Int) -> Unit,
     onOpenInBible: (VerseId) -> Unit,
+    readAloud: ReadAloudState?,
 ) {
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
@@ -284,6 +308,7 @@ private fun StoryChrome(
                     Text("‹ Stories", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
                 }
                 Spacer(Modifier.weight(1f))
+                readAloud?.let { ReadAloudButton(it, overArt = overArt) }
                 TextButton(onClick = onSettings) {
                     Text("Aa", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
                 }

@@ -31,6 +31,9 @@ import app.bible.app.ui.topSafePadding
 import app.bible.app.ui.NavIcons
 import app.bible.app.ui.NavItem
 import app.bible.app.ui.SettingsButton
+import app.bible.app.ui.ReadAloudButton
+import app.bible.app.ui.ReadAloudState
+import app.bible.app.ui.rememberReadAloud
 import app.bible.app.ui.GlassState
 import app.bible.app.ui.glass
 import app.bible.app.ui.glassSource
@@ -158,6 +161,15 @@ private fun ScriptureFeed(
             LaunchedEffect(pager) {
                 snapshotFlow { pager.settledPage }.collect { vm.onPageSettled(it) }
             }
+            // Read aloud: the card on screen, then on to the next card.
+            val readAloud = rememberReadAloud(
+                page = pager.settledPage,
+                text = { state.cards.getOrNull(pager.settledPage)?.let { c -> vm.textFor(c).joinToString(" ") { it.text } } },
+                advance = {
+                    val next = pager.settledPage + 1
+                    if (next < state.cards.size) { pager.animateScrollToPage(next); true } else false
+                },
+            )
             // The background stays still and only the text swipes. It changes (crossfading) when the book does.
             // Background and cards together are what the glass header blurs.
             val book = state.cards.getOrNull(pager.currentPage)?.first?.book ?: 1
@@ -216,6 +228,7 @@ private fun ScriptureFeed(
                     links = links,
                     story = story,
                     onOpenStory = { s -> current?.let { links?.onOpenStory?.invoke(s, it.first) } },
+                    readAloud = readAloud.takeIf { state.prefs.readAloud },
                 )
             }
         }
@@ -246,6 +259,7 @@ private fun Chrome(
     links: StoryLinks?,
     story: Story?,
     onOpenStory: (Story) -> Unit,
+    readAloud: ReadAloudState?,
 ) {
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
@@ -273,6 +287,7 @@ private fun Chrome(
                     )
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
+                    readAloud?.let { ReadAloudButton(it) }
                     TextButton(onClick = { onOpenSheet(Sheet.Settings) }) { Text("Aa", color = colors.onBackground) }
                     SettingsButton()
                 }

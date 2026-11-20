@@ -452,6 +452,7 @@ private fun EndCard(
 ) {
     val colors = MaterialTheme.colorScheme
     BoxWithConstraints(Modifier.fillMaxSize().background(colors.background)) {
+        val pageHeight = maxHeight
         // The story's art across the top, fading into the page, with a dark scrim behind the controls.
         StoryArt(story, Modifier.fillMaxWidth().fillMaxHeight(0.42f), alignment = Alignment.TopCenter)
         Box(
@@ -469,7 +470,7 @@ private fun EndCard(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // The check sits where the art fades into the page.
-            Spacer(Modifier.height(maxHeight * 0.30f))
+            Spacer(Modifier.height(pageHeight * 0.30f))
             CompletionCheck(play = active)
             Spacer(Modifier.height(16.dp))
             Text("STORY COMPLETE", fontSize = 12.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.SemiBold, color = FinishedGreen)

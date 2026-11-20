@@ -152,6 +152,14 @@ class StoriesViewModel(private val bible: BibleRepository, private val user: Use
         viewModelScope.launch { user.putSetting(KEY_FINISHED, finished.joinToString(",")) }
     }
 
+    /** Marks [story] as not read, e.g. when the reader taps its check on the Stories screen. */
+    fun unmarkFinished(story: Story) {
+        if (story.slug !in home.value.finished) return
+        val finished = home.value.finished - story.slug
+        _home.update { it.copy(finished = finished) }
+        viewModelScope.launch { user.putSetting(KEY_FINISHED, finished.joinToString(",")) }
+    }
+
     private fun saveSoon(story: Story, verse: VerseId) {
         saveJob?.cancel()
         saveJob = viewModelScope.launch {

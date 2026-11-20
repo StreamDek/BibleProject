@@ -79,6 +79,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "blind-men-near-jericho": {
+            "hash": "fe42fb21f54d18b5e057e8ed01c66ebd58e46e26620d5fa80f40f3321e941791",
+            "widths": [
+                720
+            ],
+            "blurhash": "TDGR6dEK01_N${IT.9jXIAyEV?RO",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "cain-and-abel": {
             "hash": "14f12b367b19210e2ab6159a1981b07b3f63934343750a4b1c0baf775890d21a",
             "widths": [
@@ -123,12 +134,34 @@
             "ext": "jpg",
             "bundled": true
         },
+        "canaanite-womans-faith": {
+            "hash": "774a23160602fed2d7e31b9cbc5e2d8d2feb8f4281dc72121e8fbd16f4fdcaaf",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFH1Pc+Ytm.T4m%gyDDiI;t7s+S4",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "centurions-servant-healed": {
             "hash": "66f64ccec66b8684aedd970d595530e96c5071013dad89d37b0492f20e28ce9e",
             "widths": [
                 720
             ],
             "blurhash": "TNFX-dT1r;~q%NMxt-%MM{x^xunh",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "coin-in-fishs-mouth": {
+            "hash": "e3ec7c715452e580a21ead7c3aba53e2900de6b9341a833f7297fc34fefb89a2",
+            "widths": [
+                720
+            ],
+            "blurhash": "TTFOcQ-SnN.TIoMxyEIUIU-=VsWA",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -233,6 +266,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "feeding-four-thousand": {
+            "hash": "ba7c886c23e393bfeab688cbb8ac3f64f451881a24fb43d6478c67a51ba46e14",
+            "widths": [
+                720
+            ],
+            "blurhash": "TBFz{5VrX7~qD%xD_3IUs,~WD*%0",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "flight-to-egypt-and-return": {
             "hash": "7f5a06b907d566d78f057ff9915849072ffb50a46c7d71bc16c49be9e46e4edf",
             "widths": [
@@ -294,6 +338,17 @@
                 720
             ],
             "blurhash": "THE-~*Vs0LENNGsl%MRkM{-pM{IV",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "jesus-walks-on-water": {
+            "hash": "6b4625c0fe7a0a7b49272a253aa660abf65d0d6060808fc82fa4a341710bd0df",
+            "widths": [
+                720
+            ],
+            "blurhash": "T58g?O.AR3OaQld:A0DiRP%$NaM_",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -442,6 +497,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "peter-confesses-jesus": {
+            "hash": "2eba4a53c57254d3b5c3b4e0470688c7016a08f0b839762e584c21d1d34b4a16",
+            "widths": [
+                720
+            ],
+            "blurhash": "TAFhFkyB9bKi^*tR?vtlOE~V-:-o",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "prodigal-son": {
             "hash": "77fb24905ff768ffa7046cb7e038d3a25684688107693daa0963a9aa3e107256",
             "widths": [
@@ -475,6 +541,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "rich-young-ruler": {
+            "hash": "02c4b7e0aa322df5978094612649d5e30141cce0a3ae445dbd6a3153aec732eb",
+            "widths": [
+                720
+            ],
+            "blurhash": "TDF}QAxZ01_M-oVr?vxtIU%gt6V?",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "sauls-conversion": {
             "hash": "4ffeea4f6df2d92c5ff319ca2797eb2b21965745c18ba77192ebecd2a8fe3e55",
             "widths": [
@@ -503,6 +580,17 @@
                 720
             ],
             "blurhash": "TJE-]j0M%L%0NexCJBods8NH-UoL",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "temple-cleansed": {
+            "hash": "b70ab5136efc42d563405f9c084aacbc4116301dfab8e9b60a914083e5c3e58f",
+            "widths": [
+                720
+            ],
+            "blurhash": "TAGkB#?FJB_2D*%L~V-o-p?GE2s;",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -558,6 +646,28 @@
                 720
             ],
             "blurhash": "TRHT,CoJ5T~qxZNL%hxsNetms.R+",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "transfiguration": {
+            "hash": "d6371a957c177f4b269bb74d8e95a709cd9b93e8f2907539543fda408ae9bc85",
+            "widths": [
+                720
+            ],
+            "blurhash": "TgKKD?xa0L~qWqIVIqaexuNMaeo#",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "triumphal-entry": {
+            "hash": "17d86d69b5cb1362658021f6aebef1cf5c75f9a5a8e9870bd4c13e5fe9027722",
+            "widths": [
+                720
+            ],
+            "blurhash": "TAGtvWx[E0_NIpM^~p?GRhpcI?r;",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",

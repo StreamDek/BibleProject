@@ -44,6 +44,8 @@ data class ReadingPrefs(
     val immersive: Boolean = false,
     /** In stories, show the story's image, blurred and dimmed, behind the text. */
     val storyArtBackground: Boolean = false,
+    /** Shows a play button in the readers that reads the text aloud with the device's voice. */
+    val readAloud: Boolean = false,
 )
 
 enum class ReaderMode { Feed, Classic }
@@ -142,6 +144,8 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
 
     fun setStoryArtBackground(on: Boolean) = updatePrefs { it.copy(storyArtBackground = on) }
 
+    fun setReadAloud(on: Boolean) = updatePrefs { it.copy(readAloud = on) }
+
     private fun updatePrefs(change: (ReadingPrefs) -> ReadingPrefs) {
         _state.update { it.copy(prefs = change(it.prefs)) }
         val p = state.value.prefs
@@ -152,6 +156,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
             user.putSetting(KEY_RED_LETTERS, "${p.redLetters}")
             user.putSetting(KEY_IMMERSIVE, "${p.immersive}")
             user.putSetting(KEY_STORY_ART_BG, "${p.storyArtBackground}")
+            user.putSetting(KEY_READ_ALOUD, "${p.readAloud}")
         }
     }
 
@@ -169,6 +174,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
             redLetters = user.setting(KEY_RED_LETTERS)?.toBooleanStrictOrNull() ?: d.redLetters,
             immersive = user.setting(KEY_IMMERSIVE)?.toBooleanStrictOrNull() ?: d.immersive,
             storyArtBackground = user.setting(KEY_STORY_ART_BG)?.toBooleanStrictOrNull() ?: d.storyArtBackground,
+            readAloud = user.setting(KEY_READ_ALOUD)?.toBooleanStrictOrNull() ?: d.readAloud,
         )
     }
 
@@ -294,5 +300,6 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
         private const val KEY_RED_LETTERS = "reading.red_letters"
         private const val KEY_IMMERSIVE = "reading.immersive"
         private const val KEY_STORY_ART_BG = "reading.storyArtBackground"
+        private const val KEY_READ_ALOUD = "reading.readAloud"
     }
 }

@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import app.bible.app.ui.topSafePadding
 import app.bible.app.ui.SettingsButton
+import app.bible.app.ui.ReadAloudButton
+import app.bible.app.ui.rememberReadAloud
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.platform.LocalDensity
@@ -103,6 +105,15 @@ fun ClassicReader(
     val glass = rememberGlassState()
     val density = LocalDensity.current
     var headerHeight by remember { mutableIntStateOf(0) }
+    // Read aloud: the chapter on screen, then on to the next chapter of the book.
+    val readAloud = rememberReadAloud(
+        page = book.number to currentChapter,
+        text = { vm.chapterText(book.number, currentChapter).joinToString(" ") { it.text } },
+        advance = {
+            val i = rows.indexOfFirst { it is ClassicRow.ChapterHeading && it.chapter == currentChapter + 1 }
+            if (i >= 0) { listState.scrollToItem(i); true } else false
+        },
+    )
 
     Box(Modifier.fillMaxSize().background(colors.background)) {
         LazyColumn(
@@ -146,6 +157,7 @@ fun ClassicReader(
                 Text("${book.name} $currentChapter ▾", color = colors.onBackground, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.weight(1f))
+            if (state.prefs.readAloud) ReadAloudButton(readAloud)
             TextButton(onClick = onSettings) { Text("Aa", color = colors.onBackground) }
             SettingsButton()
         }

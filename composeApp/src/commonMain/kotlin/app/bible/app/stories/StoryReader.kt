@@ -4,6 +4,38 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.Canvas
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.Dp
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathMeasure
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.size
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import app.bible.app.feed.HeaderGap
+import app.bible.app.ui.GlassState
+import app.bible.app.ui.glass
+import app.bible.app.ui.glassSource
+import app.bible.app.ui.rememberGlassState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.horizontalScroll
@@ -96,6 +128,11 @@ fun StoryReader(
     LaunchedEffect(prefs) { vm.setPrefs(prefs) }
 
     val story = state.story
+    val glass = rememberGlassState()
+    // The reading header's measured height (below the status bar), so text starts a clear gap below it.
+    var headerHeight by remember { mutableStateOf(0.dp) }
+    val density = LocalDensity.current
+    val scrolls = remember { mutableStateMapOf<Int, ScrollState>() }
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         if (story == null || state.loading || state.pages.isEmpty()) {
             CircularProgressIndicator(Modifier.align(Alignment.Center))
@@ -109,9 +146,14 @@ fun StoryReader(
                 flingBehavior = flickFlingBehavior(pager),
                 beyondViewportPageCount = 1,
                 key = { state.pages[it].key },
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().glassSource(glass),
             ) { index ->
                 val toggle = { chromeVisible = !chromeVisible }
+                val scroll = rememberScrollState()
+                DisposableEffect(index, scroll) {
+                    scrolls[index] = scroll
+                    onDispose { scrolls.remove(index) }
+                }
                 when (val page = state.pages[index]) {
                     is StoryPage.Intro -> IntroCard(page.story, state.pages, onTap = toggle)
                     is StoryPage.Scripture -> {
@@ -128,11 +170,16 @@ fun StoryReader(
                                 "${page.step + 1} of ${story.steps.size} · ${step.title ?: ""}"
                             } else null,
                             onReferenceTap = { onOpenInBible(page.first) },
-                            // Under the controls, the story's title and any account tabs.
-                            topInset = if (step.accounts.size > 1) 152.dp else 104.dp,
+                            scroll = scroll,
+                            // A clear gap under the header (controls, the story's title and any account tabs).
+                            topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap
+                            else if (step.accounts.size > 1) 152.dp else 104.dp,
                         )
                     }
-                    is StoryPage.Summary -> InterludeCard("Summary", page.story.summary!!, onTap = toggle)
+                    is StoryPage.Summary -> InterludeCard(
+                        "Summary", page.story.summary!!, onTap = toggle, scroll = scroll,
+                        topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap else 104.dp,
+                    )
                     is StoryPage.End -> EndCard(
                         story = page.story,
                         next = vm.home.value.library?.next(page.story.slug),
@@ -140,13 +187,25 @@ fun StoryReader(
                         onNext = onOpenStory,
                         onAgain = { vm.open(page.story.slug, restart = true) },
                         onBack = onBack,
+                        // The check animates when the card is reached, not while it waits off screen.
+                        active = pager.settledPage == index,
                     )
                 }
             }
 
             val current = state.pages.getOrNull(pager.currentPage)
+            // On reading pages the header is ambient glass, shown while text is under it: pages moving, or a
+            // long page scrolled up. The intro and end cards keep their plain header over the art.
+            val reading = current is StoryPage.Scripture || current is StoryPage.Summary
+            val textUnder = (scrolls[pager.currentPage]?.value ?: 0) > 0
+            val glassVisibility by animateFloatAsState(
+                if (reading && (pager.isScrollInProgress || textUnder)) 1f else 0f, label = "glass",
+            )
             AnimatedVisibility(chromeVisible, enter = fadeIn(), exit = fadeOut()) {
                 StoryChrome(
+                    glass = glass,
+                    glassVisibility = glassVisibility,
+                    onHeight = { if (reading) headerHeight = with(density) { it.toDp() } },
                     story = story,
                     page = current,
                     progress = if (state.pages.size <= 1) 1f else pager.currentPage / (state.pages.size - 1).toFloat(),
@@ -166,6 +225,9 @@ fun StoryReader(
 
 @Composable
 private fun StoryChrome(
+    glass: GlassState,
+    glassVisibility: Float,
+    onHeight: (Int) -> Unit,
     story: Story,
     page: StoryPage?,
     progress: Float,
@@ -177,9 +239,15 @@ private fun StoryChrome(
 ) {
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
-        Column(Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
-            // On the intro card the controls sit on the story's art: white with a soft shadow, over a dark scrim.
-            val overArt = page is StoryPage.Intro
+        val overArt = page is StoryPage.Intro || page is StoryPage.End
+        Column(
+            Modifier.fillMaxWidth().glass(glass, glassVisibility).topSafePadding()
+                .onSizeChanged { onHeight(it.height) }
+                // On reading pages the extra bottom padding is room for the glass to fade into the text.
+                .padding(horizontal = 12.dp).padding(top = 8.dp, bottom = if (overArt) 8.dp else 20.dp),
+        ) {
+            // On the intro and end cards the controls sit on the story's art: white with a soft shadow, over a
+            // dark scrim.
             val navColor = if (overArt) Color.White else colors.onBackground
             val navShadow = if (overArt) Shadow(Color.Black.copy(alpha = 0.6f), Offset(0f, 1f), blurRadius = 6f) else null
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -283,7 +351,7 @@ private fun IntroCard(story: Story, pages: List<StoryPage>, onTap: () -> Unit) {
         StoryPages.minutes(verses * 130, listOfNotNull(story.intro, story.summary).size)
     }
     Box(Modifier.fillMaxSize().background(colors.background).pointerInput(Unit) { detectTapGestures(onTap = { onTap() }) }) {
-        StoryArt(story, Modifier.fillMaxWidth().fillMaxHeight(0.5f))
+        StoryArt(story, Modifier.fillMaxWidth().fillMaxHeight(0.5f), alignment = Alignment.TopCenter)
         Box(
             Modifier.fillMaxWidth().fillMaxHeight(0.5f)
                 .background(Brush.verticalGradient(0.4f to Color.Transparent, 1f to colors.background)),
@@ -355,13 +423,18 @@ private fun EditorialBody(kind: String, block: EditorialBlock) {
 }
 
 @Composable
-private fun InterludeCard(kind: String, block: EditorialBlock, onTap: () -> Unit) {
-    Box(
+private fun InterludeCard(kind: String, block: EditorialBlock, onTap: () -> Unit, scroll: ScrollState, topInset: Dp) {
+    Column(
         Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
-            .pointerInput(Unit) { detectTapGestures(onTap = { onTap() }) },
-        contentAlignment = Alignment.Center,
+            .pointerInput(Unit) { detectTapGestures(onTap = { onTap() }) }
+            .topSafePadding().navigationBarsPadding()
+            // Long text scrolls up under the glass header; a clear gap below the header to start.
+            .verticalScroll(scroll, enabled = scroll.maxValue > 0)
+            .padding(top = topInset, bottom = 96.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Box(Modifier.widthIn(max = 640.dp).padding(horizontal = 24.dp).topSafePadding().navigationBarsPadding()) {
+        Box(Modifier.widthIn(max = 640.dp).padding(horizontal = 24.dp)) {
             EditorialBody(kind, block)
         }
     }
@@ -375,43 +448,118 @@ private fun EndCard(
     onNext: (Story) -> Unit,
     onAgain: () -> Unit,
     onBack: () -> Unit,
+    active: Boolean,
 ) {
     val colors = MaterialTheme.colorScheme
-    Column(
-        Modifier.fillMaxSize().background(colors.background).topSafePadding().navigationBarsPadding()
-            .padding(horizontal = 28.dp).padding(top = 96.dp, bottom = 72.dp)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text("YOU'VE FINISHED", fontSize = 12.sp, letterSpacing = 1.6.sp, color = colors.primary)
-        Spacer(Modifier.height(8.dp))
-        Text(story.title, fontSize = 26.sp, lineHeight = 32.sp, fontWeight = FontWeight.SemiBold, color = colors.onBackground)
-        if (story.related.isNotEmpty()) {
-            Spacer(Modifier.height(24.dp))
-            Text("Related passages", style = MaterialTheme.typography.titleSmall, color = colors.onBackground)
-            for (r in story.related) {
-                Column(
-                    Modifier.fillMaxWidth().clickable { onRelated(r.passage.first) }.padding(vertical = 8.dp),
-                ) {
-                    Text("${r.passage.display()}  ›", color = colors.primary, fontWeight = FontWeight.Medium)
-                    Text(
-                        listOfNotNull(r.relation.label, r.note).joinToString(" · "),
-                        fontSize = 13.sp,
-                        color = colors.secondary,
-                    )
+    BoxWithConstraints(Modifier.fillMaxSize().background(colors.background)) {
+        val pageHeight = maxHeight
+        // The story's art across the top, fading into the page, with a dark scrim behind the controls.
+        StoryArt(story, Modifier.fillMaxWidth().fillMaxHeight(0.42f), alignment = Alignment.TopCenter)
+        Box(
+            Modifier.fillMaxWidth().fillMaxHeight(0.42f)
+                .background(Brush.verticalGradient(0.45f to Color.Transparent, 1f to colors.background)),
+        )
+        Box(
+            Modifier.fillMaxWidth().fillMaxHeight(0.16f)
+                .background(Brush.verticalGradient(0f to Color.Black.copy(alpha = 0.5f), 1f to Color.Transparent)),
+        )
+        Column(
+            Modifier.fillMaxSize().topSafePadding().navigationBarsPadding()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 28.dp).padding(bottom = 72.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            // The check sits where the art fades into the page.
+            Spacer(Modifier.height(pageHeight * 0.30f))
+            CompletionCheck(play = active)
+            Spacer(Modifier.height(16.dp))
+            Text("STORY COMPLETE", fontSize = 12.sp, letterSpacing = 1.8.sp, fontWeight = FontWeight.SemiBold, color = FinishedGreen)
+            Spacer(Modifier.height(6.dp))
+            Text(
+                story.title, fontSize = 26.sp, lineHeight = 32.sp, fontWeight = FontWeight.SemiBold,
+                color = colors.onBackground, textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(story.sourcesLine(3), fontSize = 13.sp, color = colors.secondary, textAlign = TextAlign.Center)
+            if (story.related.isNotEmpty()) {
+                Spacer(Modifier.height(24.dp))
+                Column(Modifier.fillMaxWidth()) {
+                    Text("Related passages", style = MaterialTheme.typography.titleSmall, color = colors.onBackground)
+                    for (r in story.related) {
+                        Column(
+                            Modifier.fillMaxWidth().clickable { onRelated(r.passage.first) }.padding(vertical = 8.dp),
+                        ) {
+                            Text("${r.passage.display()}  ›", color = colors.primary, fontWeight = FontWeight.Medium)
+                            Text(
+                                listOfNotNull(r.relation.label, r.note).joinToString(" · "),
+                                fontSize = 13.sp,
+                                color = colors.secondary,
+                            )
+                        }
+                    }
                 }
             }
-        }
-        Spacer(Modifier.height(28.dp))
-        next?.let {
-            OutlinedButton(onClick = { onNext(it) }, modifier = Modifier.fillMaxWidth()) {
-                Text("Next: ${it.title}", maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Spacer(Modifier.height(28.dp))
+            next?.let {
+                Button(onClick = { onNext(it) }, modifier = Modifier.fillMaxWidth()) {
+                    Text("Next: ${it.title}", maxLines = 1, overflow = TextOverflow.Ellipsis)
+                }
+                Spacer(Modifier.height(8.dp))
             }
-            Spacer(Modifier.height(8.dp))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                TextButton(onClick = onAgain) { Text("Read again") }
+                TextButton(onClick = onBack) { Text("Back to stories") }
+            }
         }
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextButton(onClick = onAgain) { Text("Read again") }
-            TextButton(onClick = onBack) { Text("Back to stories") }
+    }
+}
+
+/**
+ * The finished-story check: a green circle springs in, a white tick draws itself, and a soft ring pulses out.
+ * It plays each time [play] turns true.
+ */
+@Composable
+private fun CompletionCheck(play: Boolean, diameter: Dp = 84.dp) {
+    val circle = remember { Animatable(0f) }
+    val tick = remember { Animatable(0f) }
+    val halo = remember { Animatable(0f) }
+    LaunchedEffect(play) {
+        if (!play) {
+            circle.snapTo(0f); tick.snapTo(0f); halo.snapTo(0f)
+            return@LaunchedEffect
+        }
+        launch { circle.animateTo(1f, spring(dampingRatio = 0.45f, stiffness = Spring.StiffnessLow)) }
+        launch { delay(120); halo.animateTo(1f, tween(durationMillis = 1100, easing = LinearOutSlowInEasing)) }
+        delay(260)
+        tick.animateTo(1f, tween(durationMillis = 420, easing = FastOutSlowInEasing))
+    }
+    Canvas(Modifier.size(diameter * 1.6f).semantics { contentDescription = "Story complete" }) {
+        val c = center
+        val r = diameter.toPx() / 2f
+        // Pulse ring.
+        if (halo.value > 0f && halo.value < 1f) {
+            drawCircle(FinishedGreen.copy(alpha = 0.35f * (1f - halo.value)), radius = r * (1f + 0.55f * halo.value), center = c)
+        }
+        val s = circle.value
+        if (s <= 0f) return@Canvas
+        // Soft shadow, the green disc and a white ring.
+        drawCircle(Color.Black.copy(alpha = 0.18f), radius = r * s, center = c + Offset(0f, 3.dp.toPx()))
+        drawCircle(FinishedGreen, radius = r * s, center = c)
+        drawCircle(Color.White, radius = r * s, center = c, style = Stroke(width = 2.5.dp.toPx()))
+        // The tick, drawn along its length.
+        if (tick.value > 0f) {
+            val w = r * 1.0f
+            val left = c.x - w * 0.5f
+            val top = c.y - w * 0.5f
+            val path = Path().apply {
+                moveTo(left + w * 0.06f, top + w * 0.54f)
+                lineTo(left + w * 0.40f, top + w * 0.86f)
+                lineTo(left + w * 0.96f, top + w * 0.18f)
+            }
+            val measure = PathMeasure().apply { setPath(path, false) }
+            val part = Path()
+            measure.getSegment(0f, measure.length * tick.value, part, true)
+            drawPath(part, Color.White, style = Stroke(width = r * 0.17f, cap = StrokeCap.Round, join = StrokeJoin.Round))
         }
     }
 }

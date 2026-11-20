@@ -1,5 +1,7 @@
 package app.bible.app.feed
 
+import app.bible.app.platform.Speech
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -105,6 +107,11 @@ fun AppSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Un
                 }
             }
             SettingSwitch("Words of Jesus in red", "As marked in the KJV source text", prefs.redLetters) { vm.setRedLetters(it) }
+            if (Speech.available) SettingSwitch(
+                "Read aloud",
+                "Adds a play button beside Aa that reads the text to you, page after page, with your phone's voice",
+                prefs.readAloud,
+            ) { vm.setReadAloud(it) }
             Spacer(Modifier.height(12.dp))
             SettingsGroup("Stories")
             SettingSwitch(

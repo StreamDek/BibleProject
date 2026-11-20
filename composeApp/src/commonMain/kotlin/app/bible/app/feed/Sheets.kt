@@ -106,6 +106,14 @@ fun ReadingSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -
                 }
                 Switch(checked = prefs.immersive, onCheckedChange = { vm.setImmersive(it) })
             }
+            Spacer(Modifier.height(4.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text("Story image as background", style = MaterialTheme.typography.titleSmall)
+                    Text("In stories, the story's image softly blurred behind the text", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
+                }
+                Switch(checked = prefs.storyArtBackground, onCheckedChange = { vm.setStoryArtBackground(it) })
+            }
             if (appIconSupported()) {
                 Spacer(Modifier.height(20.dp))
                 AppIconPicker()

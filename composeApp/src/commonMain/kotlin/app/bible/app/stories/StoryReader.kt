@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.animation.Crossfade
 import app.bible.app.ui.cardBackground
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -97,6 +99,7 @@ import app.bible.app.feed.VerseActionsSheet
 import app.bible.app.feed.flickFlingBehavior
 import app.bible.app.platform.SystemBarsEffect
 import app.bible.app.ui.topSafePadding
+import app.bible.app.ui.SettingsButton
 import app.bible.core.Canon
 import app.bible.core.VerseId
 import app.bible.stories.EditorialBlock
@@ -148,8 +151,23 @@ fun StoryReader(
             val bgBook = (state.pages.getOrNull(pager.currentPage) as? StoryPage.Scripture)?.first?.book
                 ?: state.pages.firstNotNullOfOrNull { (it as? StoryPage.Scripture)?.first?.book } ?: 1
             Box(Modifier.fillMaxSize().glassSource(glass)) {
-                Crossfade(targetState = bgBook, label = "card background") { b ->
-                    Box(Modifier.fillMaxSize().background(cardBackground(b, prefs.dark)))
+                if (prefs.storyArtBackground && publishedArt(story) != null) {
+                    // The story's own image as an ambient background: heavily blurred, then dimmed with the
+                    // page colour so the text reads easily over it. (Where blur is unsupported, the scrim alone
+                    // keeps it soft.)
+                    StoryArt(story, Modifier.fillMaxSize().blur(36.dp, BlurredEdgeTreatment.Rectangle))
+                    Box(
+                        Modifier.fillMaxSize().background(
+                            Brush.verticalGradient(
+                                0f to MaterialTheme.colorScheme.background.copy(alpha = 0.72f),
+                                1f to MaterialTheme.colorScheme.background.copy(alpha = 0.84f),
+                            ),
+                        ),
+                    )
+                } else {
+                    Crossfade(targetState = bgBook, label = "card background") { b ->
+                        Box(Modifier.fillMaxSize().background(cardBackground(b, prefs.dark)))
+                    }
                 }
                 VerticalPager(
                     state = pager,
@@ -269,6 +287,7 @@ private fun StoryChrome(
                 TextButton(onClick = onSettings) {
                     Text("Aa", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
                 }
+                SettingsButton(overArt = overArt)
             }
             // The story's title as the page heading, under the way back to the stories. The intro and end cards
             // already show it large, so it is left off there.

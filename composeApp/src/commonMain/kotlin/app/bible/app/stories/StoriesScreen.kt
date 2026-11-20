@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.bible.app.platform.PlatformBackHandler
 import app.bible.app.ui.topSafePadding
+import app.bible.app.ui.SettingsButton
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.runtime.mutableIntStateOf
@@ -166,6 +167,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                     TextButton(onClick = { journey = false }) { Text("‹ Stories", color = colors.onBackground) }
                     Spacer(Modifier.weight(1f))
                     TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+                    SettingsButton()
                 }
                 Text(
                     "Journey through the Bible",
@@ -187,6 +189,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                         modifier = Modifier.weight(1f),
                     )
                     TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+                    SettingsButton()
                 }
             }
             if (library != null && !journey) {
@@ -245,7 +248,8 @@ private fun ContinueCard(story: Story, onClick: () -> Unit) {
 
 @Composable
 private fun StoryTile(story: Story, finished: Boolean, onUnmark: () -> Unit, onClick: () -> Unit) {
-    Box(Modifier.width(148.dp).height(196.dp).clip(RoundedCornerShape(14.dp)).clickable(onClick = onClick)) {
+    // Portrait posters at 2:3, a little taller than before. The art is anchored towards the top to keep faces in.
+    Box(Modifier.width(148.dp).height(222.dp).clip(RoundedCornerShape(14.dp)).clickable(onClick = onClick)) {
         StoryArt(story, Modifier.fillMaxSize())
         Box(
             Modifier.fillMaxSize().background(

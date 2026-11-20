@@ -80,6 +80,8 @@ fun ScriptureCard(
     topInset: Dp = 72.dp,
     /** The card's scroll position, so the reader can tell when text has scrolled up under its header. */
     scroll: ScrollState = rememberScrollState(),
+    /** False when the reader draws a fixed background behind its pager, so only the text moves on a swipe. */
+    drawBackground: Boolean = true,
 ) {
     var verses by remember(card) { mutableStateOf<List<VerseText>?>(null) }
     var heading by remember(card) { mutableStateOf<String?>(null) }
@@ -123,7 +125,7 @@ fun ScriptureCard(
     Box(
         modifier
             .fillMaxSize()
-            .background(cardBackground(card.first.book, prefs.dark))
+            .then(if (drawBackground) Modifier.background(cardBackground(card.first.book, prefs.dark)) else Modifier)
             .onGloballyPositioned { boxCoords = it }
             .pointerInput(card) {
                 detectTapGestures(

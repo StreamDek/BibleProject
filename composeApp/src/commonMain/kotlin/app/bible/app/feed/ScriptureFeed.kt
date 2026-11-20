@@ -6,6 +6,8 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.animation.Crossfade
+import app.bible.app.ui.cardBackground
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.DisposableEffect
@@ -153,32 +155,41 @@ private fun ScriptureFeed(
             LaunchedEffect(pager) {
                 snapshotFlow { pager.settledPage }.collect { vm.onPageSettled(it) }
             }
-            VerticalPager(
-                state = pager,
-                flingBehavior = flickFlingBehavior(pager),
-                beyondViewportPageCount = 1, // compose the neighbours so swipes never show a blank card
-                key = { state.cards[it].key },
-                modifier = Modifier.fillMaxSize().glassSource(glass),
-            ) { page ->
-                val card = state.cards[page]
-                val scroll = rememberScrollState()
-                DisposableEffect(page, scroll) {
-                    scrolls[page] = scroll
-                    onDispose { scrolls.remove(page) }
+            // The background stays still and only the text swipes. It changes (crossfading) when the book does.
+            // Background and cards together are what the glass header blurs.
+            val book = state.cards.getOrNull(pager.currentPage)?.first?.book ?: 1
+            Box(Modifier.fillMaxSize().glassSource(glass)) {
+                Crossfade(targetState = book, label = "card background") { b ->
+                    Box(Modifier.fillMaxSize().background(cardBackground(b, state.prefs.dark)))
                 }
-                ScriptureCard(
-                    scroll = scroll,
-                    topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap else 72.dp,
-                    card = card,
-                    prefs = state.prefs,
-                    translation = translation,
-                    vm = vm,
-                    marksRevision = marksRevision,
-                    onTap = { chromeVisible = !chromeVisible },
-                    onVerseAction = { verse ->
-                        onVerseAction(VerseActionTarget(card.range.verses().toList(), verse))
-                    },
-                )
+                VerticalPager(
+                    state = pager,
+                    flingBehavior = flickFlingBehavior(pager),
+                    beyondViewportPageCount = 1, // compose the neighbours so swipes never show a blank card
+                    key = { state.cards[it].key },
+                    modifier = Modifier.fillMaxSize(),
+                ) { page ->
+                    val card = state.cards[page]
+                    val scroll = rememberScrollState()
+                    DisposableEffect(page, scroll) {
+                        scrolls[page] = scroll
+                        onDispose { scrolls.remove(page) }
+                    }
+                    ScriptureCard(
+                        drawBackground = false,
+                        scroll = scroll,
+                        topInset = if (headerHeight > 0.dp) headerHeight + HeaderGap else 72.dp,
+                        card = card,
+                        prefs = state.prefs,
+                        translation = translation,
+                        vm = vm,
+                        marksRevision = marksRevision,
+                        onTap = { chromeVisible = !chromeVisible },
+                        onVerseAction = { verse ->
+                            onVerseAction(VerseActionTarget(card.range.verses().toList(), verse))
+                        },
+                    )
+                }
             }
             val page = pager.currentPage
             val current = state.cards.getOrNull(page)

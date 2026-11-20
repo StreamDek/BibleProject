@@ -42,6 +42,8 @@ data class ReadingPrefs(
     val redLetters: Boolean = true,
     /** Hide the status bar for a full-screen reading view. */
     val immersive: Boolean = false,
+    /** In stories, show the story's image, blurred and dimmed, behind the text. */
+    val storyArtBackground: Boolean = false,
 )
 
 enum class ReaderMode { Feed, Classic }
@@ -138,6 +140,8 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
 
     fun setImmersive(on: Boolean) = updatePrefs { it.copy(immersive = on) }
 
+    fun setStoryArtBackground(on: Boolean) = updatePrefs { it.copy(storyArtBackground = on) }
+
     private fun updatePrefs(change: (ReadingPrefs) -> ReadingPrefs) {
         _state.update { it.copy(prefs = change(it.prefs)) }
         val p = state.value.prefs
@@ -147,6 +151,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
             user.putSetting(KEY_DARK, "${p.dark}")
             user.putSetting(KEY_RED_LETTERS, "${p.redLetters}")
             user.putSetting(KEY_IMMERSIVE, "${p.immersive}")
+            user.putSetting(KEY_STORY_ART_BG, "${p.storyArtBackground}")
         }
     }
 
@@ -163,6 +168,7 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
             dark = user.setting(KEY_DARK)?.toBooleanStrictOrNull() ?: d.dark,
             redLetters = user.setting(KEY_RED_LETTERS)?.toBooleanStrictOrNull() ?: d.redLetters,
             immersive = user.setting(KEY_IMMERSIVE)?.toBooleanStrictOrNull() ?: d.immersive,
+            storyArtBackground = user.setting(KEY_STORY_ART_BG)?.toBooleanStrictOrNull() ?: d.storyArtBackground,
         )
     }
 
@@ -287,5 +293,6 @@ class FeedViewModel(private val bible: BibleRepository, private val user: UserSt
         private const val KEY_DARK = "reading.dark"
         private const val KEY_RED_LETTERS = "reading.red_letters"
         private const val KEY_IMMERSIVE = "reading.immersive"
+        private const val KEY_STORY_ART_BG = "reading.storyArtBackground"
     }
 }

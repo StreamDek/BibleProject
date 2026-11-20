@@ -24,6 +24,28 @@
             "ext": "jpg",
             "bundled": true
         },
+        "abram-in-egypt": {
+            "hash": "545ce10b119daee9a144e40b9357cebcdcb86fb748a48ff735a8c524dca0898e",
+            "widths": [
+                720
+            ],
+            "blurhash": "TGHn4+9uR$_Nx]IA%$bcM_x^S3Vr",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "abram-rescues-lot": {
+            "hash": "d4d0097316b54966f39f268705b83a74794f2eed3c29cf37001a0bdb0ca550d3",
+            "widths": [
+                720
+            ],
+            "blurhash": "T5C5#LMcNHGdrU=|3Fe8X81Qi]s;",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "baptism-of-jesus": {
             "hash": "a85c978e936eef4cdf958db59b7c280192efdf03da5308de0ce0efbc30488a10",
             "widths": [
@@ -63,6 +85,17 @@
                 720
             ],
             "blurhash": "TOHKOY9a%1~VM|oex]j[Ip?FIoWB",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "call-of-abram": {
+            "hash": "f0d45bf7ba9bb97d07fa04e9fd592a84131bcded04e28d1291b74b6d3ee0a751",
+            "widths": [
+                720
+            ],
+            "blurhash": "T7ExRz4UInpy0g},J;5W?Ft15E-n",
             "depiction": "direct",
             "people": true,
             "ext": "jpg",
@@ -222,6 +255,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "gods-covenant-with-noah": {
+            "hash": "0f871b13b1e3d536ba59a61d4757ade4a2feb8bc261825b6283502cc53f34b59",
+            "widths": [
+                720
+            ],
+            "blurhash": "TQGaqLM|NG%%NHxWyFIpWVx^NGt7",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "good-samaritan": {
             "hash": "4928439e35c14fd4b8eb48dab9b83c66d89c385a7cdd4731899e167be260ed49",
             "widths": [
@@ -350,6 +394,17 @@
             ],
             "blurhash": "TPF#t7SjM_.AtSnh.A%MW9%hogV?",
             "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "noah-and-his-sons": {
+            "hash": "2fb7a1dd86d4a94de6987fb7e1995f44119e2364514efc05151a0c7fd216025f",
+            "widths": [
+                720
+            ],
+            "blurhash": "TMFhIr={X9~V-oS#%M%LW.%MxZxZ",
+            "depiction": "direct",
             "people": true,
             "ext": "jpg",
             "bundled": true

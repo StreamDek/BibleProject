@@ -100,6 +100,11 @@ import app.bible.app.feed.flickFlingBehavior
 import app.bible.app.platform.SystemBarsEffect
 import app.bible.app.ui.topSafePadding
 import app.bible.app.ui.SettingsButton
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.foundation.layout.BoxScope
+import kotlin.math.abs
 import app.bible.app.ui.ReadAloudButton
 import app.bible.app.ui.ReadAloudState
 import app.bible.app.ui.rememberReadAloud
@@ -141,7 +146,57 @@ fun StoryReader(
     var headerHeight by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
     val scrolls = remember { mutableStateMapOf<Int, ScrollState>() }
-    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+    // Swipe sideways between stories: left for the next story in journey order, right for the one before. The
+    // page follows the finger, and the story it leads to is named at the edge it uncovers.
+    val library = vm.home.value.library
+    val nextStory = story?.let { library?.next(it.slug) }
+    val prevStory = story?.let { library?.previous(it.slug) }
+    val swipe = remember { Animatable(0f) }
+    val swipeScope = rememberCoroutineScope()
+    var pageWidth by remember { mutableStateOf(1f) }
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant)) {
+    val dx = swipe.value
+    if (dx < 0f && nextStory != null) SwipeHint("Next story", nextStory.title, alignEnd = true)
+    if (dx > 0f && prevStory != null) SwipeHint("Previous story", prevStory.title, alignEnd = false)
+    Box(
+        Modifier.fillMaxSize()
+            .onSizeChanged { pageWidth = it.width.toFloat().coerceAtLeast(1f) }
+            .pointerInput(nextStory, prevStory) {
+                detectHorizontalDragGestures(
+                    onDragEnd = {
+                        swipeScope.launch {
+                            val v = swipe.value
+                            val target = when {
+                                v < -pageWidth * 0.22f -> nextStory
+                                v > pageWidth * 0.22f -> prevStory
+                                else -> null
+                            }
+                            if (target == null) {
+                                swipe.animateTo(0f, spring(stiffness = Spring.StiffnessMediumLow))
+                            } else {
+                                val dir = if (v < 0f) -1f else 1f
+                                swipe.animateTo(dir * pageWidth, tween(160))
+                                onOpenStory(target)
+                                swipe.snapTo(-dir * pageWidth * 0.3f)
+                                swipe.animateTo(0f, tween(240))
+                            }
+                        }
+                    },
+                    onDragCancel = { swipeScope.launch { swipe.animateTo(0f) } },
+                ) { change, amount ->
+                    change.consume()
+                    // With no story that way, the page only gives a little, then springs back.
+                    val going = swipe.value + amount
+                    val possible = if (going < 0f) nextStory != null else prevStory != null
+                    swipeScope.launch { swipe.snapTo(swipe.value + if (possible) amount else amount * 0.2f) }
+                }
+            }
+            .graphicsLayer {
+                translationX = swipe.value
+                alpha = 1f - (abs(swipe.value) / pageWidth).coerceIn(0f, 1f) * 0.5f
+            }
+            .background(MaterialTheme.colorScheme.background),
+    ) {
         if (story == null || state.loading || state.pages.isEmpty()) {
             CircularProgressIndicator(Modifier.align(Alignment.Center))
             return@Box
@@ -269,6 +324,7 @@ fun StoryReader(
                 )
             }
         }
+    }
     }
 
     if (settings) ReadingSettingsSheet(prefs, feed, onDismiss = { settings = false })
@@ -616,5 +672,25 @@ private fun CompletionCheck(play: Boolean, diameter: Dp = 84.dp) {
             measure.getSegment(0f, measure.length * tick.value, part, true)
             drawPath(part, Color.White, style = Stroke(width = r * 0.17f, cap = StrokeCap.Round, join = StrokeJoin.Round))
         }
+    }
+}
+
+/** The story a sideways swipe leads to, named at the edge the page uncovers. */
+@Composable
+private fun BoxScope.SwipeHint(label: String, title: String, alignEnd: Boolean) {
+    val colors = MaterialTheme.colorScheme
+    Column(
+        Modifier.align(if (alignEnd) Alignment.CenterEnd else Alignment.CenterStart).fillMaxWidth(0.6f).padding(24.dp),
+        horizontalAlignment = if (alignEnd) Alignment.End else Alignment.Start,
+    ) {
+        Text(label.uppercase(), style = MaterialTheme.typography.labelMedium, color = colors.primary, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(6.dp))
+        Text(
+            title,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            color = colors.onSurfaceVariant,
+            textAlign = if (alignEnd) TextAlign.End else TextAlign.Start,
+        )
     }
 }

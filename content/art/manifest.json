@@ -519,6 +519,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "ten-virgins": {
+            "hash": "7a7676524e337475c43cbd0011d8a493f4c3aa2d8e5d4ab7b0a38f8db54e22c4",
+            "widths": [
+                720
+            ],
+            "blurhash": "TAD8LJ9{571kJA-4F#NHng}@aeIU",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "the-fall-and-expulsion": {
             "hash": "eb3b5f6c771f273693edf6bb1fc9fd49bec642a573de1c1a49f723519d01cc65",
             "widths": [
@@ -552,6 +563,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "two-sons-parable": {
+            "hash": "f59dae3eeb17421d1ec59349a880a5d60dfba24ca6037d5512ed233019407ede",
+            "widths": [
+                720
+            ],
+            "blurhash": "TAGQ]{Z4JD.mR3$,yYMco$-=VqXB",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "unforgiving-servant": {
             "hash": "ad3e15bcba42579e31249ef4dc556fd7b918b5b11cb89b4f782b2d72b00fb037",
             "widths": [
@@ -574,12 +596,45 @@
             "ext": "jpg",
             "bundled": true
         },
+        "wedding-banquet": {
+            "hash": "6c881cab03106f37e8070e4cc6f030e1d2e87e20fb86911a791e7e00945571cf",
+            "widths": [
+                720
+            ],
+            "blurhash": "TAHc=SwHI^~UE1xuAbZ~t8=_ELbJ",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "wheat-and-weeds": {
             "hash": "b65dbf4d90fb50391ed81c84d7281445d6308d59b96f006454242e435591d89b",
             "widths": [
                 720
             ],
             "blurhash": "TjHm}dnij[~BR*bHtlNHoekqR+of",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "wicked-tenants": {
+            "hash": "c83cd5751ff7ab98d1d45ed1a830b38e8def4a34964030e59429cf4b3645a386",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFE.90D%kW?^ITxb.SVrj^_4Ima$",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "workers-in-vineyard": {
+            "hash": "805e35d035adcf8cd3e0c50cbffcbd94caabe1cc1f6a6d1a9be1c9ffafee86df",
+            "widths": [
+                720
+            ],
+            "blurhash": "THGRO=MwNF_MITM{?vROxC.8M_R%",
             "depiction": "symbolic",
             "people": true,
             "ext": "jpg",

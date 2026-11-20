@@ -6,6 +6,10 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,7 +29,6 @@ import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -162,6 +165,8 @@ private fun ScriptureFeed(
             }
             val page = pager.currentPage
             val current = state.cards.getOrNull(page)
+            // The glass shows only while cards are moving under the header; at rest the header is clear.
+            val glassVisibility by animateFloatAsState(if (pager.isScrollInProgress) 1f else 0f, label = "glass")
             AnimatedVisibility(chromeVisible && current != null, enter = fadeIn(), exit = fadeOut()) {
                 val bookRange = current?.let { state.bookCards[it.first.book] }
                 val progress = if (bookRange == null || bookRange.last == bookRange.first) 1f
@@ -169,6 +174,7 @@ private fun ScriptureFeed(
                 val story = remember(current?.key, links) { current?.let { links?.storyFor?.invoke(it.first) } }
                 Chrome(
                     glass = glass,
+                    glassVisibility = glassVisibility,
                     title = current?.let { "${Canon.book(it.first.book).name} ${it.first.chapter}" } ?: "",
                     progress = progress,
                     onOpenSheet = onOpenSheet,
@@ -197,6 +203,7 @@ internal fun flickFlingBehavior(pager: PagerState) = PagerDefaults.flingBehavior
 @Composable
 private fun Chrome(
     glass: GlassState,
+    glassVisibility: Float,
     title: String,
     progress: Float,
     onOpenSheet: (Sheet) -> Unit,
@@ -207,8 +214,12 @@ private fun Chrome(
 ) {
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
-        // The header is ambient glass: the card behind shows through, blurred.
-        Column(Modifier.fillMaxWidth().glass(glass).topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
+        // The header is ambient glass while cards scroll under it: the card shows through, blurred, and the
+        // bottom of the glass fades into the card (the extra bottom padding is room for that fade).
+        Column(
+            Modifier.fillMaxWidth().glass(glass, glassVisibility).topSafePadding()
+                .padding(horizontal = 12.dp).padding(top = 8.dp, bottom = 20.dp),
+        ) {
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -230,16 +241,8 @@ private fun Chrome(
             // Story -> Bible: a way back to the story. Bible -> Story: the story this passage belongs to.
             val back = links?.backTo
             when {
-                back != null && links != null -> AssistChip(
-                    onClick = links.onBackToStory,
-                    label = { Text("‹ Back to ${back.title}", maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                )
-                story != null -> AssistChip(
-                    onClick = { onOpenStory(story) },
-                    label = { Text("Part of: ${story.title} ›", maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                )
+                back != null && links != null -> StoryPill("‹ Back to ${back.title}", links.onBackToStory)
+                story != null -> StoryPill("Part of: ${story.title} ›") { onOpenStory(story) }
             }
         }
         Column(
@@ -269,3 +272,21 @@ private fun Chrome(
     }
 }
 
+
+/** The story link in the reader's header: no border, just a slightly darker rounded background. */
+@Composable
+private fun StoryPill(text: String, onClick: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    Text(
+        text,
+        color = colors.onBackground,
+        style = MaterialTheme.typography.labelLarge,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(colors.onBackground.copy(alpha = 0.08f))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 14.dp, vertical = 8.dp),
+    )
+}

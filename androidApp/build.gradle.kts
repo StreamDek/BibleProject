@@ -16,7 +16,21 @@ android {
         versionCode = 1
         versionName = "0.1.0"
     }
+    signingConfigs {
+        // Every debug build, local or CI, is signed with this one committed debug key. Each CI runner used to make
+        // its own, so a new APK could not install over the last and Android made you uninstall it first, which
+        // deletes notes, highlights, bookmarks and reading progress. Not a secret: debug builds only.
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))

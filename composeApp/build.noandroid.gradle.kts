@@ -32,6 +32,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             // Story art: published images from the CDN, cached on the device (proposal §6.4).
             implementation(libs.coil.compose)
+            implementation(libs.haze)
             implementation(libs.coil.network.ktor3)
         }
         val desktopMain by getting {

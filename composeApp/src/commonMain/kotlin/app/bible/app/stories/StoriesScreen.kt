@@ -254,7 +254,7 @@ private fun FinishedBadge(modifier: Modifier = Modifier, size: Dp = 24.dp) {
     }
 }
 
-private val FinishedGreen = Color(0xFF22A355)
+internal val FinishedGreen = Color(0xFF22A355)
 
 /** A soft shadow under white titles laid over story art, so they read on bright images. */
 private val TitleShadow = Shadow(Color.Black.copy(alpha = 0.6f), Offset(0f, 1f), blurRadius = 6f)

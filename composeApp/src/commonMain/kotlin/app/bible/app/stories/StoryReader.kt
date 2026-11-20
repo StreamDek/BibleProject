@@ -284,7 +284,10 @@ private fun StoryChrome(
                     Text("‹ Stories", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
                 }
                 Spacer(Modifier.weight(1f))
-                SettingsButton(onClick = onSettings, overArt = overArt)
+                TextButton(onClick = onSettings) {
+                    Text("Aa", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
+                }
+                SettingsButton(overArt = overArt)
             }
             // The story's title as the page heading, under the way back to the stories. The intro and end cards
             // already show it large, so it is left off there.

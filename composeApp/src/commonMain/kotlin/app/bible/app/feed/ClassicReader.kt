@@ -146,7 +146,8 @@ fun ClassicReader(
                 Text("${book.name} $currentChapter ▾", color = colors.onBackground, fontWeight = FontWeight.Bold)
             }
             Spacer(Modifier.weight(1f))
-            SettingsButton(onClick = onSettings)
+            TextButton(onClick = onSettings) { Text("Aa", color = colors.onBackground) }
+            SettingsButton()
         }
     }
 }

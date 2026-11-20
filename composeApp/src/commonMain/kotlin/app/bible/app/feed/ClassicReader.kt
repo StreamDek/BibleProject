@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import app.bible.app.ui.topSafePadding
+import app.bible.app.ui.SettingsButton
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.platform.LocalDensity
@@ -146,6 +147,7 @@ fun ClassicReader(
             }
             Spacer(Modifier.weight(1f))
             TextButton(onClick = onSettings) { Text("Aa", color = colors.onBackground) }
+            SettingsButton()
         }
     }
 }

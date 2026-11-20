@@ -14,6 +14,8 @@ activity-compose = "1.10.1"
 coil = "3.4.0"
 # Haze 1.7+ needs AndroidX Compose 1.12; 1.6.x matches Compose Multiplatform 1.9.
 haze = "1.6.10"
+# The last release of the Compose Material icons; still works with Compose Multiplatform 1.9.
+material-icons = "1.7.3"
 postgresql = "42.7.13"
 flyway = "13.12.1"
 hikari = "7.0.2"
@@ -25,6 +27,7 @@ android-targetSdk = "36"
 
 [libraries]
 haze = { module = "dev.chrisbanes.haze:haze", version.ref = "haze" }
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icons" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }

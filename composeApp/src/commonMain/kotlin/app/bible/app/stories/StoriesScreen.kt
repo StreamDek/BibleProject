@@ -59,6 +59,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.bible.app.platform.PlatformBackHandler
 import app.bible.app.ui.topSafePadding
 import app.bible.app.ui.SettingsButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Route
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
+import androidx.compose.material3.Icon
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -162,9 +166,7 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                         if (last.slug !in home.finished) item(key = "continue") { ContinueCard(last) { onOpen(last) } }
                     }
                     item(key = "journey") {
-                        TextButton(onClick = { journey = true }, modifier = Modifier.padding(horizontal = 8.dp)) {
-                            Text("Journey through the Bible: every story in order ›", color = colors.primary)
-                        }
+                        JourneyCard(Modifier.padding(start = 20.dp, end = 20.dp, top = 16.dp, bottom = 4.dp)) { journey = true }
                     }
                     for (shelf in library.shelves()) {
                         item(key = "shelf-${shelf.title}") {
@@ -258,6 +260,44 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
                 )
             }
         }
+    }
+}
+
+/**
+ * The way into "Journey through the Bible": a tinted card with an icon and a chevron, so it reads clearly as
+ * something to tap.
+ */
+@Composable
+private fun JourneyCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+    Row(
+        modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp))
+            .background(colors.primary.copy(alpha = 0.14f))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            Modifier.size(44.dp).clip(CircleShape).background(colors.primary.copy(alpha = 0.22f)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Icons.Rounded.Route, contentDescription = null, tint = colors.primary, modifier = Modifier.size(24.dp))
+        }
+        Spacer(Modifier.width(14.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                "Journey through the Bible",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = colors.onBackground,
+            )
+            Text(
+                "Every story in order, from Creation to Revelation",
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.onBackground.copy(alpha = 0.7f),
+            )
+        }
+        Icon(Icons.AutoMirrored.Rounded.KeyboardArrowRight, contentDescription = null, tint = colors.primary)
     }
 }
 

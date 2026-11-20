@@ -1,5 +1,6 @@
 package app.bible.app.feed
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -130,9 +131,12 @@ fun ClassicReader(
                 }
             }
         }
+        // Glass only once the text has scrolled up under the header; at the top the header is clear. The bottom
+        // padding is room for the glass to fade into the text.
+        val glassVisibility by animateFloatAsState(if (listState.canScrollBackward) 1f else 0f, label = "glass")
         Row(
-            Modifier.fillMaxWidth().onSizeChanged { headerHeight = it.height }.glass(glass)
-                .topSafePadding().padding(horizontal = 8.dp, vertical = 4.dp),
+            Modifier.fillMaxWidth().onSizeChanged { headerHeight = it.height }.glass(glass, glassVisibility)
+                .topSafePadding().padding(horizontal = 8.dp).padding(top = 4.dp, bottom = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             TextButton(onClick = onClose) { Text("Cards", color = colors.primary) }

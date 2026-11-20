@@ -45,10 +45,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import app.bible.app.ui.GlassState
-import app.bible.app.ui.glass
-import app.bible.app.ui.glassSource
-import app.bible.app.ui.rememberGlassState
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -97,7 +96,6 @@ fun StoryReader(
     LaunchedEffect(prefs) { vm.setPrefs(prefs) }
 
     val story = state.story
-    val glass = rememberGlassState()
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         if (story == null || state.loading || state.pages.isEmpty()) {
             CircularProgressIndicator(Modifier.align(Alignment.Center))
@@ -111,7 +109,7 @@ fun StoryReader(
                 flingBehavior = flickFlingBehavior(pager),
                 beyondViewportPageCount = 1,
                 key = { state.pages[it].key },
-                modifier = Modifier.fillMaxSize().glassSource(glass),
+                modifier = Modifier.fillMaxSize(),
             ) { index ->
                 val toggle = { chromeVisible = !chromeVisible }
                 when (val page = state.pages[index]) {
@@ -149,7 +147,6 @@ fun StoryReader(
             val current = state.pages.getOrNull(pager.currentPage)
             AnimatedVisibility(chromeVisible, enter = fadeIn(), exit = fadeOut()) {
                 StoryChrome(
-                    glass = glass,
                     story = story,
                     page = current,
                     progress = if (state.pages.size <= 1) 1f else pager.currentPage / (state.pages.size - 1).toFloat(),
@@ -169,7 +166,6 @@ fun StoryReader(
 
 @Composable
 private fun StoryChrome(
-    glass: GlassState,
     story: Story,
     page: StoryPage?,
     progress: Float,
@@ -181,12 +177,19 @@ private fun StoryChrome(
 ) {
     val colors = MaterialTheme.colorScheme
     Box(Modifier.fillMaxSize()) {
-        // The header is ambient glass: the story's art and text show through, blurred, so it stays legible.
-        Column(Modifier.fillMaxWidth().glass(glass).topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
+        Column(Modifier.fillMaxWidth().topSafePadding().padding(horizontal = 12.dp, vertical = 8.dp)) {
+            // On the intro card the controls sit on the story's art: white with a soft shadow, over a dark scrim.
+            val overArt = page is StoryPage.Intro
+            val navColor = if (overArt) Color.White else colors.onBackground
+            val navShadow = if (overArt) Shadow(Color.Black.copy(alpha = 0.6f), Offset(0f, 1f), blurRadius = 6f) else null
             Row(verticalAlignment = Alignment.CenterVertically) {
-                TextButton(onClick = onBack) { Text("‹ Stories", color = colors.onBackground, fontWeight = FontWeight.Medium) }
+                TextButton(onClick = onBack) {
+                    Text("‹ Stories", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
+                }
                 Spacer(Modifier.weight(1f))
-                TextButton(onClick = onSettings) { Text("Aa", color = colors.onBackground, fontWeight = FontWeight.Medium) }
+                TextButton(onClick = onSettings) {
+                    Text("Aa", color = navColor, fontWeight = FontWeight.Medium, style = TextStyle(shadow = navShadow))
+                }
             }
             // The story's title as the page heading, under the way back to the stories. The intro and end cards
             // already show it large, so it is left off there.
@@ -284,6 +287,11 @@ private fun IntroCard(story: Story, pages: List<StoryPage>, onTap: () -> Unit) {
         Box(
             Modifier.fillMaxWidth().fillMaxHeight(0.5f)
                 .background(Brush.verticalGradient(0.4f to Color.Transparent, 1f to colors.background)),
+        )
+        // A dark scrim at the top so the controls stay legible over bright art (sky, light, clouds).
+        Box(
+            Modifier.fillMaxWidth().fillMaxHeight(0.22f)
+                .background(Brush.verticalGradient(0f to Color.Black.copy(alpha = 0.55f), 1f to Color.Transparent)),
         )
         Column(
             Modifier.fillMaxSize().topSafePadding().navigationBarsPadding()

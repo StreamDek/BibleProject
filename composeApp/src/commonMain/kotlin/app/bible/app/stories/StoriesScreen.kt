@@ -56,12 +56,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.bible.app.platform.PlatformBackHandler
 import app.bible.app.ui.topSafePadding
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.runtime.mutableIntStateOf
-import app.bible.app.ui.glass
-import app.bible.app.ui.glassSource
-import app.bible.app.ui.rememberGlassState
 import app.bible.stories.Period
 import app.bible.stories.Story
 
@@ -77,92 +71,84 @@ fun StoriesScreen(vm: StoriesViewModel, onOpen: (Story) -> Unit, onBible: () -> 
     val colors = MaterialTheme.colorScheme
     PlatformBackHandler(enabled = journey) { journey = false }
 
-    val glass = rememberGlassState()
-    val density = LocalDensity.current
-    var headerHeight by remember { mutableIntStateOf(0) }
-
-    Box(Modifier.fillMaxSize().background(colors.background)) {
+    Column(Modifier.fillMaxSize().background(colors.background).topSafePadding()) {
+        Row(
+            Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (journey) TextButton(onClick = { journey = false }) { Text("‹ Stories", color = colors.onBackground) }
+            Text(
+                if (journey) "Journey through the Bible" else "Stories",
+                style = if (journey) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = colors.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
+        }
         val library = home.library
-        // The lists start below the glass header and scroll under it.
-        val bottom = PaddingValues(top = with(density) { headerHeight.toDp() }, bottom = 32.dp)
-        val listModifier = Modifier.fillMaxSize().glassSource(glass).navigationBarsPadding()
         if (library == null) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-        } else {
-            when {
-                journey -> LazyColumn(listModifier, contentPadding = bottom) {
-                    var period: Period? = null
-                    for (s in library.stories) {
-                        if (s.period != period) {
-                            period = s.period
-                            val title = s.period.title
-                            item(key = "h-$title") { SectionHeader(title) }
-                        }
-                        item(key = s.slug) { StoryRow(s, s.slug in home.finished) { onOpen(s) } }
+            return@Column
+        }
+        if (!journey) {
+            OutlinedTextField(
+                value = query,
+                onValueChange = { query = it },
+                placeholder = { Text("Search stories, people or a reference") },
+                singleLine = true,
+                shape = CircleShape, // search fields are pill-shaped: no sharp corners
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
+            )
+        }
+        val bottom = PaddingValues(bottom = 32.dp)
+        when {
+            journey -> LazyColumn(Modifier.fillMaxSize().navigationBarsPadding(), contentPadding = bottom) {
+                var period: Period? = null
+                for (s in library.stories) {
+                    if (s.period != period) {
+                        period = s.period
+                        val title = s.period.title
+                        item(key = "h-$title") { SectionHeader(title) }
+                    }
+                    item(key = s.slug) { StoryRow(s, s.slug in home.finished) { onOpen(s) } }
+                }
+            }
+            query.isNotBlank() -> {
+                val results = remember(query, library) { library.search(query) }
+                LazyColumn(Modifier.fillMaxSize().navigationBarsPadding(), contentPadding = bottom) {
+                    if (results.isEmpty()) item {
+                        Text(
+                            "No stories found. Try a name, a place, or a reference like \"Luke 2\".",
+                            color = colors.secondary,
+                            modifier = Modifier.padding(20.dp),
+                        )
+                    }
+                    items(results, key = { it.slug }) { s -> StoryRow(s, s.slug in home.finished) { onOpen(s) } }
+                }
+            }
+            else -> LazyColumn(Modifier.fillMaxSize().navigationBarsPadding(), contentPadding = bottom) {
+                home.last?.let { last ->
+                    if (last.slug !in home.finished) item(key = "continue") { ContinueCard(last) { onOpen(last) } }
+                }
+                item(key = "journey") {
+                    TextButton(onClick = { journey = true }, modifier = Modifier.padding(horizontal = 8.dp)) {
+                        Text("Journey through the Bible: every story in order ›", color = colors.primary)
                     }
                 }
-                query.isNotBlank() -> {
-                    val results = remember(query, library) { library.search(query) }
-                    LazyColumn(listModifier, contentPadding = bottom) {
-                        if (results.isEmpty()) item {
-                            Text(
-                                "No stories found. Try a name, a place, or a reference like \"Luke 2\".",
-                                color = colors.secondary,
-                                modifier = Modifier.padding(20.dp),
-                            )
-                        }
-                        items(results, key = { it.slug }) { s -> StoryRow(s, s.slug in home.finished) { onOpen(s) } }
-                    }
-                }
-                else -> LazyColumn(listModifier, contentPadding = bottom) {
-                    home.last?.let { last ->
-                        if (last.slug !in home.finished) item(key = "continue") { ContinueCard(last) { onOpen(last) } }
-                    }
-                    item(key = "journey") {
-                        TextButton(onClick = { journey = true }, modifier = Modifier.padding(horizontal = 8.dp)) {
-                            Text("Journey through the Bible: every story in order ›", color = colors.primary)
-                        }
-                    }
-                    for (shelf in library.shelves()) {
-                        item(key = "shelf-${shelf.title}") {
-                            Column {
-                                SectionHeader("${shelf.title}  ·  ${shelf.stories.size}")
-                                LazyRow(
-                                    contentPadding = PaddingValues(horizontal = 20.dp),
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                ) {
-                                    items(shelf.stories, key = { it.slug }) { s -> StoryTile(s, s.slug in home.finished) { onOpen(s) } }
-                                }
+                for (shelf in library.shelves()) {
+                    item(key = "shelf-${shelf.title}") {
+                        Column {
+                            SectionHeader("${shelf.title}  ·  ${shelf.stories.size}")
+                            LazyRow(
+                                contentPadding = PaddingValues(horizontal = 20.dp),
+                                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            ) {
+                                items(shelf.stories, key = { it.slug }) { s -> StoryTile(s, s.slug in home.finished) { onOpen(s) } }
                             }
                         }
                     }
                 }
-            }
-        }
-        Column(Modifier.fillMaxWidth().onSizeChanged { headerHeight = it.height }.glass(glass).topSafePadding()) {
-            Row(
-                Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp, top = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                if (journey) TextButton(onClick = { journey = false }) { Text("‹ Stories", color = colors.onBackground) }
-                Text(
-                    if (journey) "Journey through the Bible" else "Stories",
-                    style = if (journey) MaterialTheme.typography.titleMedium else MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = colors.onBackground,
-                    modifier = Modifier.weight(1f),
-                )
-                TextButton(onClick = onBible) { Text("Bible ›", color = colors.onBackground) }
-            }
-            if (library != null && !journey) {
-                OutlinedTextField(
-                    value = query,
-                    onValueChange = { query = it },
-                    placeholder = { Text("Search stories, people or a reference") },
-                    singleLine = true,
-                    shape = CircleShape, // search fields are pill-shaped: no sharp corners
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
-                )
             }
         }
     }

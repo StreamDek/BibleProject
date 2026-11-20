@@ -26,6 +26,12 @@ class StoryLibrary(catalogue: StoryCatalogue) {
         return if (i < 0) null else stories.getOrNull(i + 1)
     }
 
+    /** The story before [slug] in journey order, for swiping back a story. */
+    fun previous(slug: String): Story? {
+        val i = stories.indexOfFirst { it.slug == slug }
+        return if (i <= 0) null else stories[i - 1]
+    }
+
     /**
      * The story to offer while reading [verse] in the Bible ("Part of: ..."). Multi-step and parallel stories are
      * preferred, then the shortest story, so the most specific match wins.

@@ -68,6 +68,28 @@
             "ext": "jpg",
             "bundled": true
         },
+        "beasts-from-sea-and-earth": {
+            "hash": "7daee5a004c0de20fa607a3d54ef7559d059f1ff567f7504f77ca5675579d422",
+            "widths": [
+                720
+            ],
+            "blurhash": "TMFq:j0$oe~U57t6R*Myxu-:NIs:",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "birth-and-rescue-of-moses": {
+            "hash": "3be8c1358d9df7d0c6dde82e274d54b968b03f69f71d20ac39ee35439b5b1f73",
+            "widths": [
+                720
+            ],
+            "blurhash": "TEHnA-E^0L^%NaIV.7R*ad^*E2sk",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "birth-of-jesus": {
             "hash": "2b564f8b1f1626e89a678846eaef25747a17a447b1e2e84867c38c7286dfed37",
             "widths": [
@@ -266,6 +288,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "fall-of-babylon": {
+            "hash": "7824fa59f48c79336077de07742e8b201726f0f952d4f87e414a804c278b820e",
+            "widths": [
+                720
+            ],
+            "blurhash": "TBG7C[$eF2~9RQEk5S-nSh59t6%0",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "feeding-five-thousand": {
             "hash": "f6cdc38a2750e61dc9a1459471a03cd1ba88ae160a241135f6f8bf860ff39585",
             "widths": [
@@ -354,6 +387,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "heaven-rejoices": {
+            "hash": "0652cbf900528dfe71d0eaf0e0a4b8c60b7dcb8bd5603f7d0a762e8b2cc76d73",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFMsW84;0g*E%LV@y:WCtRX*NeE2",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "hidden-treasure-and-pearl": {
             "hash": "5235438a2a80464718aced541919f8fabedfb2036647c13f5ba8d1b7be300e38",
             "widths": [
@@ -361,6 +405,17 @@
             ],
             "blurhash": "TIFq,hMd9a?wITVsyEROi_yDMxRj",
             "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "israel-oppressed-in-egypt": {
+            "hash": "a0ccc1d55214db4500b5f288070a636c4eba664a0c765ba4ff884acc064cf6bf",
+            "widths": [
+                720
+            ],
+            "blurhash": "THG@raV[9a~qNcIU_3kDIUx^R-Rj",
+            "depiction": "direct",
             "people": true,
             "ext": "jpg",
             "bundled": true
@@ -453,6 +508,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "lamb-and-144000": {
+            "hash": "242fde2e06bb03223ba04607d05ced695489300b452c837472692be6f3545fe6",
+            "widths": [
+                720
+            ],
+            "blurhash": "TLLf,MnjER.TWYNK~VWYNH^*kDIW",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "leper-cleansed": {
             "hash": "3ad77c7a870f24092dcba1a2beade372e9985b6395458f0d005768dff0434305",
             "widths": [
@@ -460,6 +526,17 @@
             ],
             "blurhash": "TCG84OveD+_N4nb0TyD$?G?cwG%1",
             "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "letters-to-seven-churches": {
+            "hash": "ca6160a3709cc528bb46b54199c5dde03ed3d5241a619916f481d0f7d0d98730",
+            "widths": [
+                720
+            ],
+            "blurhash": "TPHT?C~AR-^*-oxto~xtxs-:%Kt6",
+            "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
             "bundled": true
@@ -497,6 +574,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "millennium-and-final-judgment": {
+            "hash": "077ec64d3997de6d02818b3ff6fca0516ab662e30969ff5ff911e60bea8bcab9",
+            "widths": [
+                720
+            ],
+            "blurhash": "ThK,g5?G58~pkCIWIrRkj[E2WCoy",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "moses-strikes-the-rock": {
             "hash": "e0cb0fbdfe423bae7805abbdcb00a1c5bd1d3f16a6616f5e12441dd7556bc5b9",
             "widths": [
@@ -525,6 +613,28 @@
                 720
             ],
             "blurhash": "TPF#t7SjM_.AtSnh.A%MW9%hogV?",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "new-heaven-and-new-earth": {
+            "hash": "a881ee919b80c95d68982ca11b0859f720ece176af0de896439a3fc3cc920388",
+            "widths": [
+                720
+            ],
+            "blurhash": "TDM6x2D%01c@0LR5?]E1Ri^+tOs,",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "new-jerusalem": {
+            "hash": "d97d4b3b605207ff08f5d10d75dafc83c4a79b6094b2119670c3183d4d7ba37a",
+            "widths": [
+                720
+            ],
+            "blurhash": "TIM$o7E19H?^9ID*_3bDxtbJWAxs",
             "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
@@ -662,6 +772,28 @@
             "ext": "jpg",
             "bundled": true
         },
+        "rider-on-white-horse": {
+            "hash": "56f976c1ccb252571849d09413331bdc81887aa904a65233acddb0025be4ea19",
+            "widths": [
+                720
+            ],
+            "blurhash": "TUKctqMxR*~VIV%1J-IokV%MR*oe",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "river-of-life-and-final-invitation": {
+            "hash": "b30d9c5b5a181dff7f67ee099980969cecf063a0fea992dd7e31b7f04ea8d6a7",
+            "widths": [
+                720
+            ],
+            "blurhash": "THLpvzHX56?sE2Di^iS^nON{Z}o~",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "sabbath-controversies": {
             "hash": "57a06d3e9d68d0e1eebed2a89e851618e59d27f23e8ac9f28157f737c6bfc062",
             "widths": [
@@ -684,6 +816,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "scroll-and-lamb": {
+            "hash": "603f90962c18dac9eb961aa141bc48e5c0291f1e695f7c7b9df9068198a71856",
+            "widths": [
+                720
+            ],
+            "blurhash": "TZLC@fs:9a~VoeM{kqa{Mybcj@Rk",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "sermon-on-the-mount": {
             "hash": "243b84fa1bfceac9888f095f6c390cd28684c8a72169b363609cc2b527dad469",
             "widths": [
@@ -691,6 +834,39 @@
             ],
             "blurhash": "TUINpqRN9b.TMwn~yXM_o2-;RjR+",
             "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "seven-bowls": {
+            "hash": "0dadd88cad2267afd95317d32486690ba49fe9e74d209e8a631dd0f56ceede7b",
+            "widths": [
+                720
+            ],
+            "blurhash": "TbJsa%}?I;%f%1M|NfxtxY%1xaxZ",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "seven-seals": {
+            "hash": "8b41431573d8ad109b71db257c859eb1850f987a51320575f3e034510c311477",
+            "widths": [
+                720
+            ],
+            "blurhash": "TKJQ1Q-U0g~As-M~~UNIM|^iR*9b",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "seven-trumpets": {
+            "hash": "f5e1f088aee036cc13e1a0837cbb30a40356f24170566dd7034c8447f73fa713",
+            "widths": [
+                720
+            ],
+            "blurhash": "TaJ7K?M{My~VV@Iqx[M|NHWEWCw]",
+            "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
             "bundled": true
@@ -713,6 +889,17 @@
             ],
             "blurhash": "TDG@rV-Oiv-;IoxD?a$zV?~pjYD%",
             "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "song-of-moses-and-miriam": {
+            "hash": "130c1e211e0e89c3e3612316b9fed617565ecea5d1d313e7689b1c9a15ff59a6",
+            "widths": [
+                720
+            ],
+            "blurhash": "TIHA@J0MbG_4NHIW?vEMNIx^S5NH",
+            "depiction": "direct",
             "people": true,
             "ext": "jpg",
             "bundled": true
@@ -794,6 +981,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "throne-room-of-heaven": {
+            "hash": "29b6e25f65fe0d3bba58058ab3e05dcfc8e79b67eaa323a92e74691b0a33c1ae",
+            "widths": [
+                720
+            ],
+            "blurhash": "TML3-=-mD6?ajXMxH[niScIXazxW",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "tower-of-babel": {
             "hash": "79dc5b8a79a81187ac6cdfff30999ab90902a4b1a80680fa14fd7b20b2390b97",
             "widths": [
@@ -860,6 +1058,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "vision-of-risen-christ": {
+            "hash": "7aea78ff4e2bfa087edeb6fc198fc85a5f8a7d21dcf621d78cf5506c9b34ad9e",
+            "widths": [
+                720
+            ],
+            "blurhash": "TJLo=k-T0hOZoIE3ERaeR,xYadNH",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "water-from-the-rock": {
             "hash": "bd1c82a80084f30459b3f5693ff679a0c560e574ceb2843bb1dd8fca9f8e784f",
             "widths": [
@@ -899,6 +1108,17 @@
                 720
             ],
             "blurhash": "TFE.90D%kW?^ITxb.SVrj^_4Ima$",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "woman-dragon-and-child": {
+            "hash": "ea8e9605f46119eb889f8d5a4c138583f7f3ef794edbd1a838766465f53f27e5",
+            "widths": [
+                720
+            ],
+            "blurhash": "TKIpo1WUI[?]xDI=4;NGxa4oNbWW",
             "depiction": "symbolic",
             "people": true,
             "ext": "jpg",

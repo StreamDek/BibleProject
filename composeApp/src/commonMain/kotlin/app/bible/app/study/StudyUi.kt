@@ -264,3 +264,15 @@ fun strongsLinks(text: String): List<Pair<String, Int?>> {
 
 /** Arrangement used by the study chips. */
 val ChipSpacing = Arrangement.spacedBy(8.dp)
+
+/** Filter chips in the app's own colours (Material's default selected colour is a lavender that clashes with both themes). */
+@Composable
+fun studyChipColors(): androidx.compose.material3.SelectableChipColors {
+    val c = MaterialTheme.colorScheme
+    return androidx.compose.material3.FilterChipDefaults.filterChipColors(
+        containerColor = Color.Transparent,
+        labelColor = c.onSurface.copy(alpha = 0.85f),
+        selectedContainerColor = c.primary.copy(alpha = 0.18f),
+        selectedLabelColor = c.onSurface,
+    )
+}

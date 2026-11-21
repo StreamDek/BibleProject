@@ -139,7 +139,7 @@ fun StudyScreen(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 items(StudyFilter.entries) { f ->
-                    FilterChip(selected = filter == f, onClick = { filter = f }, label = { Text(f.label) }, shape = RoundedCornerShape(50))
+                    FilterChip(selected = filter == f, onClick = { filter = f }, label = { Text(f.label) }, shape = RoundedCornerShape(50), colors = studyChipColors())
                 }
             }
         }
@@ -392,10 +392,10 @@ private fun SavedWords(vm: StudyViewModel, open: (WordStudyRequest) -> Unit) {
         return
     }
     LazyRow(horizontalArrangement = ChipSpacing, contentPadding = PaddingValues(horizontal = 16.dp)) {
-        item { FilterChip(selected = lang == null && !favourites, onClick = { lang = null; favourites = false }, label = { Text("All") }, shape = RoundedCornerShape(50)) }
-        item { FilterChip(selected = lang == "heb", onClick = { lang = if (lang == "heb") null else "heb" }, label = { Text("Hebrew") }, shape = RoundedCornerShape(50)) }
-        item { FilterChip(selected = lang == "grc", onClick = { lang = if (lang == "grc") null else "grc" }, label = { Text("Greek") }, shape = RoundedCornerShape(50)) }
-        item { FilterChip(selected = favourites, onClick = { favourites = !favourites }, label = { Text("Starred") }, shape = RoundedCornerShape(50)) }
+        item { FilterChip(selected = lang == null && !favourites, onClick = { lang = null; favourites = false }, label = { Text("All") }, shape = RoundedCornerShape(50), colors = studyChipColors()) }
+        item { FilterChip(selected = lang == "heb", onClick = { lang = if (lang == "heb") null else "heb" }, label = { Text("Hebrew") }, shape = RoundedCornerShape(50), colors = studyChipColors()) }
+        item { FilterChip(selected = lang == "grc", onClick = { lang = if (lang == "grc") null else "grc" }, label = { Text("Greek") }, shape = RoundedCornerShape(50), colors = studyChipColors()) }
+        item { FilterChip(selected = favourites, onClick = { favourites = !favourites }, label = { Text("Starred") }, shape = RoundedCornerShape(50), colors = studyChipColors()) }
     }
     val shown = saved.filter { (lang == null || it.lang == lang || (lang == "heb" && it.lang == "arc")) && (!favourites || it.favorite) }
     Column {

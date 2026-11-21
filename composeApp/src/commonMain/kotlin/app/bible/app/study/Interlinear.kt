@@ -85,8 +85,8 @@ fun InterlinearPage(vm: StudyViewModel, verse: VerseId, highlight: Int?, onWord:
         }
         Spacer(Modifier.height(12.dp))
         Row(horizontalArrangement = ChipSpacing) {
-            FilterChip(selected = showXlit, onClick = { showXlit = !showXlit }, label = { Text("Transliteration") }, shape = RoundedCornerShape(50))
-            FilterChip(selected = showGrammar, onClick = { showGrammar = !showGrammar }, label = { Text("Grammar") }, shape = RoundedCornerShape(50))
+            FilterChip(selected = showXlit, onClick = { showXlit = !showXlit }, label = { Text("Transliteration") }, shape = RoundedCornerShape(50), colors = studyChipColors())
+            FilterChip(selected = showGrammar, onClick = { showGrammar = !showGrammar }, label = { Text("Grammar") }, shape = RoundedCornerShape(50), colors = studyChipColors())
         }
         Spacer(Modifier.height(12.dp))
         if (missing) {

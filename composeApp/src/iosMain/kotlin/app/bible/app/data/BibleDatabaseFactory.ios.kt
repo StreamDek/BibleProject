@@ -1,6 +1,7 @@
 package app.bible.app.data
 
 import app.bible.data.bible.BibleDatabase
+import app.bible.data.study.StudyDatabase
 import app.bible.data.user.UserDatabase
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
@@ -54,12 +55,35 @@ actual suspend fun openBundledBibleDriver(): SqlDriver {
     )
 }
 
+@OptIn(ExperimentalForeignApi::class)
+actual suspend fun openStudyDriver(): SqlDriver {
+    val base = databaseDir()
+    val path = "$base/$BUNDLED_STUDY"
+    val stampPath = "$path.stamp"
+    val stamp = bundledStudyStamp()
+    val installed = NSString.stringWithContentsOfFile(stampPath, encoding = NSUTF8StringEncoding, error = null)
+    if (!NSFileManager.defaultManager.fileExistsAtPath(path) || installed != stamp) {
+        writeFile(path, bundledStudyBytes()) // atomically: written to a temporary file, then moved
+        writeFile(stampPath, stamp.encodeToByteArray())
+    }
+    return NativeSqliteDriver(
+        DatabaseConfiguration(
+            name = BUNDLED_STUDY,
+            version = StudyDatabase.Schema.version.toInt(),
+            create = { connection -> wrapConnection(connection) { StudyDatabase.Schema.create(it) } },
+            extendedConfig = DatabaseConfiguration.Extended(basePath = base),
+        ),
+    )
+}
+
 actual suspend fun openUserDriver(): SqlDriver =
     NativeSqliteDriver(
         DatabaseConfiguration(
             name = USER_DB,
             version = UserDatabase.Schema.version.toInt(),
             create = { connection -> wrapConnection(connection) { UserDatabase.Schema.create(it) } },
+            // Adds the tables of newer versions (e.g. word study in version 2) and keeps existing data.
+            upgrade = { connection, old, new -> wrapConnection(connection) { UserDatabase.Schema.migrate(it, old.toLong(), new.toLong()) } },
             extendedConfig = DatabaseConfiguration.Extended(basePath = databaseDir()),
         ),
     )

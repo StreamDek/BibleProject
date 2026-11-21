@@ -102,3 +102,9 @@ private fun setStatusBarHidden(window: Window, hidden: Boolean) {
 actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) {
     androidx.activity.compose.BackHandler(enabled = enabled, onBack = onBack)
 }
+
+actual fun reducedMotion(): Boolean = try {
+    android.provider.Settings.Global.getFloat(appContext.contentResolver, android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f
+} catch (e: Exception) {
+    false
+}

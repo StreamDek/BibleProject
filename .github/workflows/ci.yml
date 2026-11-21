@@ -30,6 +30,10 @@ jobs:
         run: |
           ./gradlew -Pbible.android=false :pipeline:buildStories --console=plain
           git diff --exit-code -- composeApp/src/commonMain/composeResources/files/stories.json
+      - name: Check the bundled study pack is up to date
+        run: |
+          ./gradlew -Pbible.android=false :pipeline:buildStudy --console=plain
+          git diff --exit-code -- composeApp/src/commonMain/composeResources/files/study.stamp content/study/import-report.md
 
   android:
     name: Android app

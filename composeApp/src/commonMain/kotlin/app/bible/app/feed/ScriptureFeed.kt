@@ -83,6 +83,8 @@ class StoryLinks(
     /** The story the reader came from via "Open in Bible", to go back to it. */
     val backTo: Story?,
     val onBackToStory: () -> Unit,
+    /** Opens the Study page (concordance and word studies). */
+    val onStudy: (() -> Unit)? = null,
 )
 
 /**
@@ -314,10 +316,11 @@ private fun Chrome(
                 NavItem(NavIcons.Search, "Search", onClick = { onOpenSheet(Sheet.Search) })
                 NavItem(NavIcons.Saved, "Saved", onClick = { onOpenSheet(Sheet.Saved) })
                 if (links != null) NavItem(NavIcons.Stories, "Stories", onClick = links.onStories)
+                links?.onStudy?.let { NavItem(NavIcons.Study, "Study", onClick = it) }
                 NavItem(NavIcons.Chapter, "Chapter", onClick = onClassic)
             }
             Text(
-                "Hold a verse to highlight, bookmark, note or copy",
+                "Hold a verse to highlight, note, copy or study a word",
                 fontSize = 11.sp,
                 color = colors.secondary.copy(alpha = 0.8f),
                 modifier = Modifier.align(Alignment.CenterHorizontally),

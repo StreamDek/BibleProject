@@ -24,3 +24,6 @@ expect fun SystemBarsEffect(hideStatusBar: Boolean)
 /** Handles the system back gesture or button while [enabled] (Android). Other platforms use on-screen buttons. */
 @Composable
 expect fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit)
+
+/** True when the reader asked the system to reduce motion; animations then cut instead of slide. */
+expect fun reducedMotion(): Boolean

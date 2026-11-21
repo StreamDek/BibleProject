@@ -34,13 +34,7 @@ class OrigStats {
 
 object OriginalTextParser {
     /** STEP Bible's book abbreviations, in canonical order (index + 1 = book number). */
-    val BOOKS = listOf(
-        "Gen", "Exo", "Lev", "Num", "Deu", "Jos", "Jdg", "Rut", "1Sa", "2Sa", "1Ki", "2Ki", "1Ch", "2Ch", "Ezr", "Neh",
-        "Est", "Job", "Psa", "Pro", "Ecc", "Sng", "Isa", "Jer", "Lam", "Ezk", "Dan", "Hos", "Jol", "Amo", "Oba", "Jon",
-        "Mic", "Nam", "Hab", "Zep", "Hag", "Zec", "Mal", "Mat", "Mrk", "Luk", "Jhn", "Act", "Rom", "1Co", "2Co", "Gal",
-        "Eph", "Php", "Col", "1Th", "2Th", "1Ti", "2Ti", "Tit", "Phm", "Heb", "Jas", "1Pe", "2Pe", "1Jn", "2Jn", "3Jn",
-        "Jud", "Rev",
-    )
+    val BOOKS = app.bible.data.study.StepBooks.codes
     private val bookNumber = BOOKS.withIndex().associate { (i, b) -> b to i + 1 }
 
     /**

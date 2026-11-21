@@ -154,6 +154,36 @@
       "version": "STEPBible-Data@5de0a47 (2026-11-02)"
     },
     {
+      "id": "step-tipnr",
+      "category": "study",
+      "name": "STEP Bible TIPNR: Translators Individualised Proper Names with all References",
+      "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
+      "description": "Every person, place and other proper name in the Bible, each identified individually, with family and place links and every reference.",
+      "modifications": "Only TIPNR's data fields are used (names, description, summary, family and place links, map position, references). Its longer descriptions, which STEP adapted from AI output, are not included. Linked to VerseUp's stories by reference.",
+      "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
+      "licence": "CC BY 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenceFile": "licences/cc-by-4.0.txt",
+      "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
+      "url": "https://github.com/STEPBible/STEPBible-Data",
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)"
+    },
+    {
+      "id": "openbible-xrefs",
+      "category": "study",
+      "name": "OpenBible.info Cross References",
+      "author": "OpenBible.info",
+      "description": "About 340,000 cross-references between Bible verses, ranked by readers' votes.",
+      "copyright": "OpenBible.info",
+      "licence": "CC BY",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenceFile": "licences/cc-by-4.0.txt",
+      "attribution": "Cross references from OpenBible.info (www.openbible.info/labs/cross-references), CC BY.",
+      "url": "https://www.openbible.info/labs/cross-references/",
+      "version": "2024-11-04",
+      "modifications": "References with no positive votes are left out; reformatted into VerseUp's study database in KJV verse numbering."
+    },
+    {
       "id": "crosswire-kjv",
       "category": "original-language",
       "name": "CrossWire KJV with Strong's numbers",

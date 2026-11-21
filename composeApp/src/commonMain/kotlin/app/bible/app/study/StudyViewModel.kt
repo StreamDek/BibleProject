@@ -54,7 +54,16 @@ data class WordStudyRequest(
     val context: WordContext? = null,
     /** Open the Hebrew or Greek of this verse, word by word, instead of one word. */
     val interlinear: VerseId? = null,
+    /** Open a person, place or other name (STEP Bible TIPNR entity id). */
+    val entity: Int? = null,
+    /** Open the cross-references of this verse. */
+    val crossRefs: VerseId? = null,
 )
+
+/** VerseUp's stories as the study screens need them: a title for a slug, and opening one. Provided once in App. */
+class StoryLinksForStudy(val title: (String) -> String?, val open: (String) -> Unit)
+
+val LocalStudyStories = staticCompositionLocalOf<StoryLinksForStudy?> { null }
 
 /** Opens the word-study sheet from anywhere in the app. Provided once in App. */
 val LocalWordStudy = staticCompositionLocalOf<(WordStudyRequest) -> Unit> { {} }

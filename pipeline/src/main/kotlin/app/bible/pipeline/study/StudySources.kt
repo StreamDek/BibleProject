@@ -91,7 +91,23 @@ object StudySources {
     val tehmc = text("step-tehmc", "step-morphology", "Morphology codes/TEHMC - Translators Expansion of Hebrew Morphology Codes - STEPBible.org CC BY.txt", "fe37e62b97e531410159e5f1b1ac8a69db4512c3e8407c03bae38639bd09f97f")
     val tegmc = text("step-tegmc", "step-morphology", "Morphology codes/TEGMC - Translators Expansion of Greek Morphhology Codes - STEPBible.org CC BY.txt", "9e8443fd4759f112253d7a1858c0687a8cf833f4d537e8fda97bfff74ea4c168")
 
-    val all = listOf(strongsHebrew, strongsGreek, tbesh, tbesg, crosswireKjv) + tahot + tagnt + listOf(tehmc, tegmc)
+    /** STEP Bible's people, places and other proper names, with family links and every reference. */
+    val tipnr = text("step-tipnr", "step-tipnr", "Proper Nouns/TIPNR - Translators Individualised Proper Names with all References - STEPBible.org CC BY.txt", "d595b9163d32a400bb0ef96b27a6de58335a63da840b82531fe9f5e1d16a318c")
+
+    /**
+     * OpenBible.info's cross-references (CC BY), dated 2024-11-04. openbible.info itself is not reachable from every
+     * build machine, so the unchanged file is read from scrollmapper/bible_databases at a pinned commit; the
+     * hash pins the exact content either way.
+     */
+    val crossRefs = StudySource(
+        key = "openbible-xrefs",
+        registryId = "openbible-xrefs",
+        url = "https://raw.githubusercontent.com/scrollmapper/bible_databases/59b18c5af5845728c275d5b7178ad0d024172b1f/sources/extras/cross_references.txt",
+        sha256 = "452b263f657d3e721d20341b6b82f1196fc98882d685bd4ef9050ae17f033f82",
+        version = "openbible.info cross-references 2024-11-04",
+    )
+
+    val all = listOf(strongsHebrew, strongsGreek, tbesh, tbesg, crosswireKjv) + tahot + tagnt + listOf(tehmc, tegmc, tipnr, crossRefs)
 
     /** Returns the cached file for [source], downloading it first if needed. Fails on any hash mismatch. */
     fun fetch(source: StudySource, cacheDir: File): File {

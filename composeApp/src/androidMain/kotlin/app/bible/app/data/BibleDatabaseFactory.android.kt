@@ -2,6 +2,7 @@ package app.bible.app.data
 
 import android.content.Context
 import app.bible.data.bible.BibleDatabase
+import app.bible.data.study.StudyDatabase
 import app.bible.data.user.UserDatabase
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
@@ -25,6 +26,22 @@ actual suspend fun openBundledBibleDriver(): SqlDriver = withContext(Dispatchers
         stampFile.writeText(stamp)
     }
     AndroidSqliteDriver(BibleDatabase.Schema, appContext, BUNDLED_BIBLE)
+}
+
+actual suspend fun openStudyDriver(): SqlDriver = withContext(Dispatchers.IO) {
+    val file = appContext.getDatabasePath(BUNDLED_STUDY)
+    val stampFile = File(file.parentFile, "$BUNDLED_STUDY.stamp")
+    val stamp = bundledStudyStamp()
+    if (!file.exists() || !stampFile.exists() || stampFile.readText() != stamp) {
+        file.parentFile?.mkdirs()
+        listOf("-wal", "-shm", "-journal").forEach { File(file.path + it).delete() }
+        val tmp = File(file.path + ".tmp")
+        tmp.writeBytes(bundledStudyBytes())
+        file.delete()
+        check(tmp.renameTo(file)) { "Could not install $BUNDLED_STUDY" }
+        stampFile.writeText(stamp)
+    }
+    AndroidSqliteDriver(StudyDatabase.Schema, appContext, BUNDLED_STUDY)
 }
 
 actual suspend fun openUserDriver(): SqlDriver = withContext(Dispatchers.IO) {

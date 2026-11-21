@@ -1,0 +1,156 @@
+-- study.db: the read-only word-study pack, built by `./gradlew :pipeline:buildStudy` (docs/concordance.md).
+-- Each lexicon keeps its own table, so Strong's and STEP Bible are never merged or relabelled.
+-- Strong's numbers are stored as integers: Hebrew H430 = 430, Greek G26 = 100026 (see StrongsNumber).
+-- The full-text index (lexicon_fts, FTS4: Android has no FTS5) is created by the pipeline with raw SQL.
+
+CREATE TABLE meta (
+    key TEXT NOT NULL PRIMARY KEY,
+    value TEXT NOT NULL
+);
+
+-- Every dataset in the pack, with its licence and version. Mirrors files/attributions.json.
+CREATE TABLE source (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    licence TEXT NOT NULL,
+    url TEXT NOT NULL,
+    version TEXT NOT NULL
+);
+
+-- Strong's dictionaries (James Strong, 1890/1894, public domain), as published in the XML editions.
+CREATE TABLE strongs (
+    num INTEGER NOT NULL PRIMARY KEY,
+    -- "heb", "arc" (Aramaic) or "grc".
+    lang TEXT NOT NULL,
+    lemma TEXT NOT NULL,
+    xlit TEXT,
+    pron TEXT,
+    -- Part of speech, where the edition gives one (Hebrew only).
+    pos TEXT,
+    derivation TEXT,
+    definition TEXT,
+    -- Strong's own list of KJV renderings ("chief, (fore-) father(-less), ...").
+    kjv_def TEXT,
+    source_id TEXT NOT NULL,
+    -- KJV verses and tagged words that carry this number (CrossWire KJV tagging).
+    verses INTEGER NOT NULL,
+    words INTEGER NOT NULL
+);
+
+-- Entries Strong's names in a derivation ("from H1254", "corresponding to H3"). A documented lexical link,
+-- not a similarity of meaning.
+CREATE TABLE strongs_ref (
+    num INTEGER NOT NULL,
+    ref INTEGER NOT NULL,
+    PRIMARY KEY (num, ref)
+) WITHOUT ROWID;
+
+-- STEP Bible's brief lexicons (TBESH, TBESG): one row per disambiguated Strong's number (dStrong).
+CREATE TABLE step_entry (
+    id TEXT NOT NULL PRIMARY KEY,
+    -- The traditional Strong's number it refines, as an integer (0 when it has none, e.g. a suffix).
+    num INTEGER NOT NULL,
+    estrong TEXT NOT NULL,
+    ustrong TEXT,
+    -- STEP's own label for the sense, e.g. "a Name of" or "a Part of".
+    label TEXT,
+    lang TEXT NOT NULL,
+    lemma TEXT NOT NULL,
+    xlit TEXT,
+    -- STEP's simple grammar code, e.g. "H:N-M" or "G:V".
+    morph TEXT,
+    gloss TEXT,
+    -- Greek only (corrected Abbott-Smith, CC BY). NULL for Hebrew: see docs/concordance.md, licensing.
+    meaning TEXT,
+    source_id TEXT NOT NULL
+);
+
+CREATE INDEX step_entry_num ON step_entry(num);
+
+-- The KJV's own word tags (CrossWire), mapped onto VerseUp's KJV text. One row per verse; tags are
+-- "start,end,nums,morph,src" joined by ';' where start/end are character offsets into verse.text,
+-- nums are space-separated Strong's integers (one English phrase can carry several) and morph/src may be empty.
+CREATE TABLE kjv_tags (
+    verse_id INTEGER NOT NULL PRIMARY KEY,
+    tags TEXT NOT NULL
+);
+
+-- Verses where a Strong's number is tagged in the KJV.
+CREATE TABLE occurrence (
+    num INTEGER NOT NULL,
+    verse_id INTEGER NOT NULL,
+    PRIMARY KEY (num, verse_id)
+) WITHOUT ROWID;
+
+-- How the KJV renders each number: the tagged English phrase (folded) and how often.
+CREATE TABLE rendering (
+    num INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    count INTEGER NOT NULL,
+    PRIMARY KEY (num, text)
+) WITHOUT ROWID;
+
+-- Single English words (folded, function words left out) and the numbers they translate in the KJV.
+CREATE TABLE english (
+    word TEXT NOT NULL,
+    num INTEGER NOT NULL,
+    count INTEGER NOT NULL,
+    PRIMARY KEY (word, num)
+) WITHOUT ROWID;
+
+metaValue:
+SELECT value FROM meta WHERE key = ?;
+
+sources:
+SELECT * FROM source ORDER BY id;
+
+strongsByNum:
+SELECT * FROM strongs WHERE num = ?;
+
+strongsByNums:
+SELECT * FROM strongs WHERE num IN ?;
+
+refsOf:
+SELECT s.* FROM strongs_ref r JOIN strongs s ON s.num = r.ref WHERE r.num = ? ORDER BY s.num;
+
+referencedBy:
+SELECT s.* FROM strongs_ref r JOIN strongs s ON s.num = r.num WHERE r.ref = ? ORDER BY s.verses DESC LIMIT 30;
+
+stepByNum:
+SELECT * FROM step_entry WHERE num = ? ORDER BY id;
+
+stepById:
+SELECT * FROM step_entry WHERE id = ?;
+
+tagsFor:
+SELECT verse_id, tags FROM kjv_tags WHERE verse_id BETWEEN ? AND ?;
+
+occurrenceCount:
+SELECT count(*) FROM occurrence WHERE num = ?;
+
+-- Verse counts per book (verse ids are BBCCCVVV, so book = verse_id / 1000000).
+bookDistribution:
+SELECT verse_id / 1000000 AS book, count(*) AS verses FROM occurrence WHERE num = ? GROUP BY book ORDER BY book;
+
+occurrencePage:
+SELECT verse_id FROM occurrence WHERE num = ? AND verse_id > ? ORDER BY verse_id LIMIT ?;
+
+occurrencePageInBook:
+SELECT verse_id FROM occurrence WHERE num = ? AND verse_id > ? AND verse_id BETWEEN ? AND ? ORDER BY verse_id LIMIT ?;
+
+renderings:
+SELECT text, count FROM rendering WHERE num = ? ORDER BY count DESC, text LIMIT ?;
+
+englishWord:
+SELECT e.num, e.count FROM english e WHERE e.word = ? ORDER BY e.count DESC LIMIT ?;
+
+englishPrefix:
+SELECT e.word, e.num, e.count FROM english e WHERE e.word >= ? AND e.word < ? ORDER BY e.count DESC LIMIT ?;
+
+-- Documents of the full-text index lexicon_fts (docid = id): kind is "strongs" (ref = the integer) or "step"
+-- (ref = the STEP id). lexicon_fts columns: ids, lemma, xlit, gloss, defs, all folded with Fold.
+CREATE TABLE search_doc (
+    id INTEGER NOT NULL PRIMARY KEY,
+    kind TEXT NOT NULL,
+    ref TEXT NOT NULL
+);

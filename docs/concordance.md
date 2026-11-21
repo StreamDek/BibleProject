@@ -24,6 +24,8 @@ current pack is in [content/study/import-report.md](../content/study/import-repo
 | STEPBible TAHOT | Hebrew/Aramaic text word by word (Leningrad Codex with Qere), transliteration, English, grammar | CC BY 4.0 | Words found only in Greek sources (X) are left out. |
 | STEPBible TAGNT | Greek text word by word, transliteration, English (based on the Berean Study Bible), grammar | CC BY 4.0 | Only the words of Scrivener's Textus Receptus (the KJV's Greek). Where it has a different word, the Nestle-Aland word is shown with the TR reading noted. |
 | STEPBible TEHMC / TEGMC | Grammar codes explained in plain words | CC BY 4.0 | Only codes the text uses. |
+| STEPBible TIPNR | People, places and other names: description, data-built summary, family and place links, map position, references | CC BY 4.0 | TIPNR's @Brief/@Short/@Article descriptions were adapted from AI output, so they are not imported. |
+| OpenBible.info cross-references (2024-11-04) | 341k cross-references ranked by votes | CC BY | Read unchanged from scrollmapper/bible_databases at a pinned commit (openbible.info isn't reachable from every build machine); references without a positive vote are left out. |
 | Noto Serif Hebrew | Hebrew with vowel points and cantillation | SIL OFL 1.1 | Static Regular and SemiBold cut from the variable font. |
 
 Excluded on purpose: STEP's TTESV (CC BY-NC and ESV text), TBESH meanings (see above). STEP asks that its files
@@ -37,7 +39,7 @@ refuses to build the pack if an entry is missing a required field or a licence.
 
 `./gradlew :pipeline:buildStudy` downloads each source at a pinned commit, checks its SHA-256, and writes:
 
-- `composeResources/files/study.db` (about 27 MB, read-only SQLite, deterministic) and `study.stamp`.
+- `composeResources/files/study.db` (about 67 MB, read-only SQLite, deterministic) and `study.stamp`.
 - `content/study/import-report.md`: sources, counts, quarantined records and weakly matched verses.
 
 Records that fail validation are quarantined and listed in the report, never silently dropped or guessed. CI
@@ -53,7 +55,8 @@ match. Tags that cannot be placed are left out and counted. The Greek article (G
 `kjv_tags` (per verse: start, end, numbers, morphology), `occurrence`, `rendering`, `english`, and `lexicon_fts`
 (FTS4, since Android's SQLite has no FTS5) over ids, folded lemmas, transliterations, glosses and definitions.
 Phase 2 adds `orig_verse` (the Hebrew or Greek of every KJV verse, word by word, in KJV numbering), `morph`
-(grammar explanations) and `sense_count` (verses per STEP sense). The pack is now about 55 MB.
+(grammar explanations) and `sense_count` (verses per STEP sense). Phase 3 adds `entity`, `entity_name`, `entity_link`, `entity_ref`, `entity_story` and `xref`. The pack is now
+about 67 MB.
 Saved words and history live in `user.db` (`saved_word`, `study_history`, migration `1.sqm`).
 
 ## In the app (phase 1)
@@ -77,6 +80,15 @@ Saved words and history live in `user.db` (`saved_word`, `study_history`, migrat
   sense the verse uses (the original text's tags resolve what the KJV's Strong's tags alone cannot).
 - Qere readings (Q) and places where the KJV's Greek differs from Nestle-Aland (TR) are labelled.
 
+## In the app (phase 3)
+
+- A word that names a person or place shows who or what it names; in a verse, only the one meant there.
+- Person and place pages: STEP's description and summary, family (parents, spouses, siblings, children) or a
+  place's founders and people, map position, every Hebrew and Greek form of the name, the VerseUp stories they
+  appear in, and every verse that names them. Namesakes stay separate (two Bethlehems).
+- Study search finds people and places by name.
+- "Cross-references" under Study a word: related passages for the verse, most agreed on first.
+
 ## Performance
 
 Measured by `StudyPerformanceTest` on the JVM (median ms): word sheet data 5.9, verse tags 0.7, interlinear of
@@ -88,8 +100,8 @@ the longest verse with its grammar 1.9, occurrences page 0.2, search 1 to 12. Th
    history, attributions page.
 2. **Done:** original-language text (STEP TAHOT/TAGNT), morphology (TEHMC/TEGMC), the interlinear view, and
    resolving which STEP sense each verse uses.
-3. People and places (TIPNR, labelled where its descriptions are AI-written) linked to stories, frequency charts,
-   cross-references, Psalm title tags.
+3. **Done:** people and places (TIPNR data fields only) linked to stories, and cross-references. Frequency by book
+   was already in phase 1. Psalm titles wait until the KJV text shows them.
 4. Downloadable packs and storage settings, pronunciation audio, sync of saved words, optional AI help (always
    labelled and separate from the lexicons).
 

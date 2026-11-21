@@ -125,6 +125,7 @@ fun VerseActionsSheet(vm: FeedViewModel, target: VerseActionTarget, translation:
                     study, primaryText,
                     onWord = { ctx -> onDismiss(); openStudy(WordStudyRequest(context = ctx)) },
                     onInterlinear = { onDismiss(); openStudy(WordStudyRequest(interlinear = primaryText.id)) },
+                    onCrossRefs = { onDismiss(); openStudy(WordStudyRequest(crossRefs = primaryText.id)) },
                 )
             }
 

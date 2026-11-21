@@ -196,6 +196,22 @@ private fun LazyListScope.results(
             }
         }
     }
+    if (filter == StudyFilter.All && r.entities.isNotEmpty()) {
+        item(key = "h-people") { GroupHeader("People and places", "STEP Bible") }
+        items(r.entities, key = { "p${it.id}" }) { e ->
+            Row(Modifier.fillMaxWidth().clickable { open(WordStudyRequest(entity = e.id)) }.padding(horizontal = 20.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text(e.name, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        listOfNotNull(e.description ?: e.area, entitySpan(e).takeIf { it.isNotEmpty() }).joinToString(" · "),
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                Spacer(Modifier.width(10.dp))
+                Text(if (e.kind == "person") "Person" else if (e.kind == "place") "Place" else e.type, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.secondary)
+            }
+        }
+    }
     if (strongs.isNotEmpty()) {
         item(key = "h-words") { GroupHeader("Hebrew and Greek words", "Strong's") }
         items(strongs, key = { "s${it.num}" }) { e -> EntryRow(e) { open(WordStudyRequest(num = e.num)) } }
@@ -224,7 +240,7 @@ private fun LazyListScope.results(
             }
         }
     }
-    val nothing = strongs.isEmpty() && step.isEmpty() && (!shows(StudyFilter.English) || r.english.isEmpty()) &&
+    val nothing = strongs.isEmpty() && step.isEmpty() && (filter != StudyFilter.All || r.entities.isEmpty()) && (!shows(StudyFilter.English) || r.english.isEmpty()) &&
         (!shows(StudyFilter.Scripture) || (scripture.hits.isEmpty() && r.reference == null))
     if (nothing && !searching) {
         item(key = "empty") {

@@ -7,6 +7,9 @@ import app.bible.data.study.StrongsNumber
 import app.bible.data.study.StudyDatabase
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import java.io.File
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.DriverManager
@@ -18,7 +21,7 @@ import java.sql.DriverManager
  */
 object StudyDbWriter {
     /** Bump when the study.db schema changes. */
-    const val SCHEMA_VERSION = 2
+    const val SCHEMA_VERSION = 3
 
     /** English words left out of the English → Strong's index (they translate almost everything). */
     private val FUNCTION_WORDS = setOf(
@@ -109,6 +112,35 @@ object StudyDbWriter {
         }
         for ((id, n) in unknownIds) quarantine.add("step-text", "tag $id ($n×) is not in STEP's lexicons; kept on the word, no lexicon link")
 
+        // People, places and other names; links resolved by TIPNR's unique names.
+        val entities = TipnrParser.parse(files.getValue(StudySources.tipnr.key), quarantine)
+            .filter { e -> e.names.isNotEmpty().also { if (!it) quarantine.add("step-tipnr", "${e.uniqueName} has no name forms; left out") } }
+            .sortedBy { it.uniqueName }
+        val entityId = HashMap<String, Int>()
+        entities.forEachIndexed { i, e -> if (entityId.putIfAbsent(e.uniqueName, i + 1) != null) quarantine.add("step-tipnr", "${e.uniqueName} listed twice") }
+        val nameOwner = sortedMapOf<String, Pair<Int, EntityName>>()
+        for ((i, e) in entities.withIndex()) for (n in e.names) {
+            val prev = nameOwner.putIfAbsent(n.stepId, (i + 1) to n)
+            if (prev != null && prev.first != i + 1) quarantine.add("step-tipnr", "${n.stepId} names both ${entities[prev.first - 1].uniqueName} and ${e.uniqueName}; kept the first")
+        }
+        val entityLinks = sortedSetOf<Triple<Int, String, Int>>(compareBy({ it.first }, { it.second }, { it.third }))
+        var unresolvedLinks = 0
+        for ((i, e) in entities.withIndex()) for ((rel, other) in e.links) {
+            val target = entityId[other.substringBefore('(').trim()]
+            if (target == null) unresolvedLinks++ else entityLinks += Triple(i + 1, rel, target)
+        }
+        if (unresolvedLinks > 0) quarantine.add("step-tipnr", "$unresolvedLinks family or place links name an entity TIPNR doesn't list; left out")
+        val entityRefs = entities.mapIndexed { i, e -> (i + 1) to e.names.flatMap { it.refs }.toSortedSet() }
+        val stories = readStories(registryFile.resolveSibling("stories.json"))
+        val entityStories = sortedSetOf<Pair<Int, String>>(compareBy({ it.first }, { it.second }))
+        for ((id, refs) in entityRefs) for ((slug, ranges) in stories) {
+            if (refs.any { r -> ranges.any { r.value in it } }) entityStories += id to slug
+        }
+
+        // Cross-references with at least one positive vote.
+        val xrefs = CrossRefParser.parse(files.getValue(StudySources.crossRefs.key), minVotes = 1, quarantine)
+            .sortedWith(compareBy({ it.from }, { it.toStart }, { it.toEnd }))
+
         // Grammar explanations for the codes the text uses.
         val morphs = (MorphologyParser.parse(files.getValue(StudySources.tehmc.key)) + MorphologyParser.parse(files.getValue(StudySources.tegmc.key))).associateBy { it.code }
         val usedCodes = sortedSetOf<String>()
@@ -154,6 +186,17 @@ object StudyDbWriter {
             insert(c, "INSERT INTO morph(code, parsing, summary, explanation, example) VALUES (?, ?, ?, ?, ?)",
                 usedCodes.mapNotNull { morphs[it] }.map { m -> listOf(m.code, m.parsing, m.summary, m.explanation, m.example) })
             insert(c, "INSERT INTO sense_count(id, verses) VALUES (?, ?)", senseVerses.toSortedMap().map { (id, n) -> listOf(id, n) })
+            insert(c, "INSERT INTO entity(id, unique_name, name, name_fold, kind, type, description, summary, tribe, area, lat, lon, verses) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                entities.mapIndexed { i, e ->
+                    listOf(i + 1, e.uniqueName, e.name, Fold.fold(e.name), e.kind, e.type, e.description, e.summary, e.tribe, e.area,
+                        e.lat?.let { "%.5f".format(java.util.Locale.ROOT, it) }, e.lon?.let { "%.5f".format(java.util.Locale.ROOT, it) }, entityRefs[i].second.size)
+                })
+            insert(c, "INSERT INTO entity_name(step_id, entity, significance, original, translated) VALUES (?,?,?,?,?)",
+                nameOwner.map { (id, p) -> listOf(id, p.first, p.second.significance, p.second.original, p.second.translated) })
+            insert(c, "INSERT INTO entity_link(entity, rel, other) VALUES (?,?,?)", entityLinks.map { listOf(it.first, it.second, it.third) })
+            insert(c, "INSERT INTO entity_ref(entity, verse_id) VALUES (?,?)", entityRefs.flatMap { (id, refs) -> refs.map { listOf(id, it.value) } })
+            insert(c, "INSERT INTO entity_story(entity, slug) VALUES (?,?)", entityStories.map { listOf(it.first, it.second) })
+            insert(c, "INSERT INTO xref(verse_id, to_start, to_end, votes) VALUES (?,?,?,?)", xrefs.map { listOf(it.from.value, it.toStart.value, it.toEnd.value, it.votes) })
 
             // Full-text index over both lexicons, folded so accents, vowel points and transliteration marks don't matter.
             val docs = ArrayList<List<Any?>>()
@@ -205,6 +248,8 @@ object StudyDbWriter {
             appendLine("  - Where the Traditional text has a different word, the Nestle-Aland word is shown with the Traditional reading noted: ${grcStats.flaggedTraditional}")
             appendLine("  - Left out (not in the Textus Receptus): " + grcStats.skippedTypes.entries.joinToString(", ") { "${it.key} ${it.value}" })
             appendLine("- KJV verses without original-language words: ${noOriginal.size}" + if (noOriginal.isNotEmpty()) " (" + noOriginal.take(40).joinToString(", ") { it.osis() } + if (noOriginal.size > 40) ", ...)" else ")" else "")
+            appendLine("- People, places and other names (TIPNR data fields only): ${entities.count { it.kind == "person" }} people, ${entities.count { it.kind == "place" }} places, ${entities.count { it.kind == "other" }} other; name forms: ${nameOwner.size}; links: ${entityLinks.size}; linked to stories: ${entityStories.map { it.first }.toSet().size}")
+            appendLine("- Cross-references (OpenBible.info, votes ≥ 1): ${xrefs.size}, from ${xrefs.map { it.from }.toSet().size} verses")
             appendLine("- Grammar codes used: ${usedCodes.size}; explained: ${usedCodes.size - missingCodes.size}")
             appendLine()
             appendLine("## Quarantined records (${quarantine.items.size})")
@@ -216,6 +261,24 @@ object StudyDbWriter {
         reportFile.parentFile.mkdirs()
         reportFile.writeText(report)
         return Result(report.lines().take(20).joinToString("\n") + "\nstudy.db ${out.length() / 1024} KB")
+    }
+
+    /** VerseUp's stories and the verse ranges each tells (stories.json). */
+    private fun readStories(file: File): List<Pair<String, List<IntRange>>> {
+        val root = kotlinx.serialization.json.Json.parseToJsonElement(file.readText()).jsonObject
+        return root.getValue("stories").jsonArray.map { st ->
+            val o = st.jsonObject
+            val ranges = o["steps"]?.jsonArray.orEmpty().flatMap { step ->
+                step.jsonObject["accounts"]?.jsonArray.orEmpty().flatMap { acc ->
+                    acc.jsonObject["passage"]?.jsonObject?.get("ranges")?.jsonArray.orEmpty().map { r ->
+                        val parts = r.jsonPrimitive.content.split('-')
+                        val a = parts[0].toInt(); val b = parts.getOrElse(1) { parts[0] }.toInt()
+                        a..b
+                    }
+                }
+            }
+            o.getValue("slug").jsonPrimitive.content to ranges
+        }.sortedBy { it.first }
     }
 
     private fun brokenRefCount(q: Quarantine) = q.items.count { it.startsWith("strongs: derivation names") }

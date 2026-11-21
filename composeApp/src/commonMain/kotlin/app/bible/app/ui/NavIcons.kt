@@ -8,12 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.MenuBook
-import androidx.compose.material.icons.rounded.AutoStories
-import androidx.compose.material.icons.rounded.BookmarkBorder
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,12 +25,12 @@ import androidx.compose.ui.unit.sp
 
 /** The reader's navigation icons: Material "Rounded" icons, with smooth curved shapes. */
 object NavIcons {
-    val Search: ImageVector get() = Icons.Rounded.Search
-    val Saved: ImageVector get() = Icons.Rounded.BookmarkBorder
-    val Stories: ImageVector get() = Icons.Rounded.AutoStories
-    val Chapter: ImageVector get() = Icons.AutoMirrored.Rounded.MenuBook
+    val Search: ImageVector get() = SmoothIcons.Search
+    val Saved: ImageVector get() = SmoothIcons.Saved
+    val Stories: ImageVector get() = SmoothIcons.Stories
+    val Chapter: ImageVector get() = SmoothIcons.Chapter
     val Settings: ImageVector get() = Icons.Rounded.Settings
-    val Study: ImageVector get() = Icons.Rounded.Translate
+    val Study: ImageVector get() = SmoothIcons.Study
 }
 
 /** One item of the reader's bottom navigation: an icon over a small label. */

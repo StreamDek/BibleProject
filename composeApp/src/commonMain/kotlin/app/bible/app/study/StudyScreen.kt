@@ -316,13 +316,13 @@ private fun StepRow(s: StepEntry, onClick: () -> Unit) {
 private fun LazyListScope.discovery(vm: StudyViewModel, open: (WordStudyRequest) -> Unit, onAttributions: () -> Unit) {
     item(key = "recent") { RecentWords(vm, open) }
     item(key = "saved") { SavedWords(vm, open) }
+    item(key = "people") { SuggestedPeople(vm, open) }
     item(key = "suggested") { Suggested(vm, open) }
     item(key = "credits") {
         Column(Modifier.padding(horizontal = 20.dp, vertical = 24.dp)) {
             Text(
-                "Word studies use Strong's Hebrew and Greek dictionaries (public domain), STEP Bible's lexicons " +
-                    "(STEPBible.org, CC BY 4.0) and the KJV's word tags from CrossWire. Every word in VerseUp's study pack " +
-                    "comes from these sources; nothing is generated.",
+                "Word studies, people and places come from Strong's dictionaries, STEP Bible and OpenBible.info. " +
+                    "Nothing here is made up or generated.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary,
             )
             TextButton(onClick = onAttributions, modifier = Modifier.padding(start = 0.dp)) { Text("Attributions and licences") }
@@ -459,6 +459,34 @@ private fun SavedWords(vm: StudyViewModel, open: (WordStudyRequest) -> Unit) {
             },
         )
     }
+}
+
+/** Well-known people and places, so their pages can be found without knowing to search for them. */
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+@Composable
+private fun SuggestedPeople(vm: StudyViewModel, open: (WordStudyRequest) -> Unit) {
+    var list by remember { mutableStateOf<List<app.bible.data.study.BibleEntity>>(emptyList()) }
+    LaunchedEffect(Unit) {
+        runCatching {
+            val s = vm.store()
+            // The best-known person or place with each name (the one named in the most verses).
+            list = StudyViewModel.SUGGESTED_PEOPLE.mapNotNull { n -> s.entitiesByName(n, 8).firstOrNull { it.name == n } }
+        }
+    }
+    SectionTitle("People and places")
+    androidx.compose.foundation.layout.FlowRow(
+        horizontalArrangement = ChipSpacing,
+        verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(horizontal = 16.dp),
+    ) {
+        if (list.isEmpty()) Box(Modifier.width(200.dp)) { SkeletonLine(0.9f, 40) }
+        for (e in list) EntityChip(e) { open(WordStudyRequest(entity = e.id)) }
+    }
+    Text(
+        "Search for anyone else by name.",
+        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary,
+        modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp),
+    )
 }
 
 /** A few well-known word studies. The cards read every field from the study pack. */

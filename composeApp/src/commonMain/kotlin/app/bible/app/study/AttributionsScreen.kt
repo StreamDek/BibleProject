@@ -83,7 +83,7 @@ fun AttributionsScreen(vm: StudyViewModel, onBack: () -> Unit) {
             value = query,
             onValueChange = { query = it },
             singleLine = true,
-            placeholder = { Text("Search sources and licences", maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) },
+            placeholder = { Text("Search", maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) },
             leadingIcon = { Icon(Icons.Rounded.Search, contentDescription = null) },
             trailingIcon = { if (query.isNotEmpty()) IconButton(onClick = { query = "" }) { Icon(Icons.Rounded.Close, contentDescription = "Clear search") } },
             shape = CircleShape, // search fields are pill-shaped: no sharp corners
@@ -147,21 +147,19 @@ private fun AttributionCard(a: Attribution, onLicence: (String) -> Unit) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(a.name, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                Text("${a.author} · ${a.licence}", style = MaterialTheme.typography.bodySmall, color = colors.secondary)
+                Text(a.description, style = MaterialTheme.typography.bodySmall, color = colors.secondary)
             }
             Icon(if (open) Icons.Rounded.ExpandLess else Icons.Rounded.ExpandMore, contentDescription = null, tint = colors.secondary)
         }
         if (open) {
-            Spacer(Modifier.height(10.dp))
-            Text(a.description, style = MaterialTheme.typography.bodyMedium)
             Field("Credit", a.attribution)
-            Field("Copyright", a.copyright)
-            Field("Version", a.version)
-            a.modifications?.let { Field("Changes made by VerseUp", it) }
+            if (!a.copyright.startsWith("Public domain")) Field("Copyright", a.copyright)
+            Field("Licence", listOfNotNull(a.summary, a.licence.takeIf { it != "Public domain" }).joinToString(" "))
+            a.modifications?.let { Field("How VerseUp uses it", it) }
             Row {
-                TextButton(onClick = { runCatching { uri.openUri(a.url) } }) { Text("Source") }
-                a.licenceFile?.let { f -> TextButton(onClick = { onLicence(f) }) { Text("Full licence") } }
-                if (a.licenceFile == null) a.licenceUrl?.let { u -> TextButton(onClick = { runCatching { uri.openUri(u) } }) { Text("Licence") } }
+                TextButton(onClick = { runCatching { uri.openUri(a.url) } }) { Text("Visit website") }
+                a.licenceFile?.let { f -> TextButton(onClick = { onLicence(f) }) { Text("Read the licence") } }
+                if (a.licenceFile == null) a.licenceUrl?.let { u -> TextButton(onClick = { runCatching { uri.openUri(u) } }) { Text("Read the licence") } }
             }
         }
     }

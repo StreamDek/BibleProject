@@ -54,6 +54,8 @@ data class Attribution(
     val licenceUrl: String? = null,
     /** A full licence text bundled in composeResources/files, e.g. "licences/cc-by-4.0.txt". */
     val licenceFile: String? = null,
+    /** The licence in a few plain words, for readers ("Free to use with credit."). */
+    val summary: String? = null,
     /** What VerseUp changed, where the licence asks for it or it helps readers. */
     val modifications: String? = null,
 )

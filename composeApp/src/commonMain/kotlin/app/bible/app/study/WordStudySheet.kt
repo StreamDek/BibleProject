@@ -285,6 +285,7 @@ private fun WordPage(
                             )
                         },
                         shape = RoundedCornerShape(50),
+                        colors = studyChipColors(),
                     )
                 }
             }
@@ -824,9 +825,9 @@ private fun OccurrencesPage(vm: StudyViewModel, page: StudyPage.Occurrences, onO
             horizontalArrangement = ChipSpacing,
             contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 24.dp),
         ) {
-            item { FilterChip(selected = book == null, onClick = { book = null }, label = { Text("All books") }, shape = RoundedCornerShape(50)) }
+            item { FilterChip(selected = book == null, onClick = { book = null }, label = { Text("All books") }, shape = RoundedCornerShape(50), colors = studyChipColors()) }
             items(books, key = { it.book }) { b ->
-                FilterChip(selected = book == b.book, onClick = { book = b.book }, label = { Text("${Canon.book(b.book).name} ${b.verses}") }, shape = RoundedCornerShape(50))
+                FilterChip(selected = book == b.book, onClick = { book = b.book }, label = { Text("${Canon.book(b.book).name} ${b.verses}") }, shape = RoundedCornerShape(50), colors = studyChipColors())
             }
         }
         Spacer(Modifier.height(6.dp))

@@ -33,12 +33,18 @@ class StudyPerformanceTest {
             store.derivedFrom(430); store.derivatives(430)
         }
         val tags = median { store.tags(VerseRange.single(VerseId.of(43, 3, 16))) }
+        // The interlinear: a long Hebrew verse (Esther 8:9, the longest in the Bible) and its grammar codes.
+        val interlinear = median {
+            val v = store.original(VerseId.of(17, 8, 9))!!
+            store.morph(v.words.flatMap { w -> w.parts.mapNotNull { it.grammar } })
+        }
         val queries = listOf("love", "H430", "G26", "agape", "chesed", "אלהים", "λογος", "John 3:16", "lovingkindnees", "creat")
         val search = queries.associateWith { q -> median(7) { store.search(q) } }
         val occurrences = median { store.occurrences(100026, null, 30, null) }
-        println("study perf (ms): sheet=%.2f tags=%.2f occurrences=%.2f search=%s".format(sheet, tags, occurrences, search.mapValues { "%.1f".format(it.value) }))
+        println("study perf (ms): sheet=%.2f tags=%.2f interlinear=%.2f occurrences=%.2f search=%s".format(sheet, tags, interlinear, occurrences, search.mapValues { "%.1f".format(it.value) }))
         assertTrue(sheet < 30, "word sheet data took $sheet ms")
         assertTrue(tags < 10, "verse tags took $tags ms")
+        assertTrue(interlinear < 20, "interlinear took $interlinear ms")
         assertTrue(occurrences < 40, "occurrence page took $occurrences ms")
         for ((q, t) in search) assertTrue(t < 50, "search \"$q\" took $t ms")
     }

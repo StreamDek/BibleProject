@@ -91,11 +91,17 @@ import app.bible.data.study.StepEntry
 import app.bible.data.study.StrongsEntry
 import app.bible.data.study.StrongsNumber
 import app.bible.data.study.WordTag
+import app.bible.data.study.MorphInfo
+import app.bible.data.study.OriginalWord
 import kotlinx.coroutines.launch
 
 /** A page inside the word-study sheet. The sheet keeps a stack of them, so related words can be followed and undone. */
 sealed interface StudyPage {
-    data class Word(val num: Int?, val stepId: String?, val context: WordContext?) : StudyPage
+    /** [verse] is the verse a word was opened from when there is no tapped KJV word (e.g. from the Hebrew or Greek). */
+    data class Word(val num: Int?, val stepId: String?, val context: WordContext?, val verse: VerseId? = null) : StudyPage {
+        val fromVerse: VerseId? get() = context?.verse ?: verse
+    }
+    data class Interlinear(val verse: VerseId, val highlight: Int?) : StudyPage
     data class Occurrences(val num: Int, val title: String, val language: Language, val book: Int?) : StudyPage
 }
 
@@ -136,7 +142,7 @@ fun WordStudySheet(
     val scope = rememberCoroutineScope()
     val stack = remember(request) {
         mutableStateListOf<StudyPage>(
-            StudyPage.Word(
+            request.interlinear?.let { StudyPage.Interlinear(it, request.num) } ?: StudyPage.Word(
                 num = request.num ?: request.context?.nums?.let { n -> n.firstOrNull { it !in MARKERS } ?: n.firstOrNull() },
                 stepId = request.stepId,
                 context = request.context,
@@ -186,7 +192,16 @@ fun WordStudySheet(
                         onExpand = { scope.launch { sheet.expand() } },
                         onSearch = onSearch,
                         onAttributions = onAttributions,
+                        onInterlinear = { verse, num -> stack.add(StudyPage.Interlinear(verse, num)) },
                     )
+                    is StudyPage.Interlinear -> InterlinearPage(vm, page.verse, page.highlight) { w ->
+                        scope.launch {
+                            val root = w.root
+                            val num = root?.num?.takeIf { it > 0 }
+                            val ctx = num?.let { vm.contextFor(page.verse, it) }
+                            stack.add(StudyPage.Word(num, root?.stepId, ctx, page.verse))
+                        }
+                    }
                     is StudyPage.Occurrences -> OccurrencesPage(vm, page, onOpenVerse = onOpenVerse)
                 }
             }
@@ -207,8 +222,13 @@ private fun WordPage(
     onExpand: () -> Unit,
     onSearch: (String) -> Unit,
     onAttributions: () -> Unit,
+    onInterlinear: (VerseId, Int?) -> Unit,
 ) {
     val source by vm.source.collectAsStateWithLifecycle()
+    // The original word in the verse it was opened from: its form, grammar and the STEP sense used there.
+    var here by remember(page) { mutableStateOf<List<OriginalWord>>(emptyList()) }
+    var hereSenses by remember(page) { mutableStateOf<List<String>>(emptyList()) }
+    var hereMorph by remember(page) { mutableStateOf<Map<String, MorphInfo>>(emptyMap()) }
     val saved by vm.saved.collectAsStateWithLifecycle()
     var data by remember(page) { mutableStateOf<WordData?>(null) }
     var phrase by remember(page) { mutableStateOf<List<StrongsEntry>>(emptyList()) }
@@ -228,8 +248,16 @@ private fun WordPage(
             return@LaunchedEffect
         }
         val entry = s.strongs(num)
-        val senses = s.stepSenses(num).let { all -> page.stepId?.let { id -> all.filter { it.id == id }.ifEmpty { all } } ?: all }
+        // A sense asked for on its own shows alone; from a verse, every sense shows with the one used there marked.
+        val senses = s.stepSenses(num).let { all -> page.stepId?.takeIf { page.fromVerse == null }?.let { id -> all.filter { it.id == id }.ifEmpty { all } } ?: all }
         if (entry == null && senses.isEmpty()) { missing = true; return@LaunchedEffect }
+        page.fromVerse?.let { v ->
+            vm.original(v)?.let { o ->
+                here = o.wordsWith(num).ifEmpty { page.stepId?.let { id -> o.words.filter { w -> w.parts.any { it.stepId == id } } } ?: emptyList() }
+                hereSenses = o.sensesOf(num)
+                hereMorph = vm.morph(here.flatMap { w -> w.parts.mapNotNull { it.grammar } })
+            }
+        }
         val d = WordData(entry, senses, s.renderings(num, 24), s.distribution(num), s.derivedFrom(num), s.derivatives(num))
         data = d
         vm.recordStudy(num, d.language, d.lemma, d.gloss, page.context?.verse)
@@ -310,11 +338,13 @@ private fun WordPage(
             Column {
                 when (src) {
                     StudySource.Strongs -> StrongsView(d, onOpenWord)
-                    StudySource.Step -> StepView(d, page.context != null)
+                    StudySource.Step -> StepView(d, page.fromVerse != null, hereSenses)
                     StudySource.Compare -> CompareView(d)
                 }
             }
         }
+
+        page.fromVerse?.let { v -> InThisVerse(here, hereMorph, page.num) { onInterlinear(v, page.num) } }
 
         // In the KJV: how often, where and how it is translated (from the KJV's own word tags).
         d.strongs?.let { e -> KjvUsage(e, d, onOccurrences) }
@@ -472,7 +502,7 @@ private fun LinkedStrongs(text: String, onOpenWord: (Int) -> Unit) {
 }
 
 @Composable
-private fun StepView(d: WordData, fromVerse: Boolean) {
+private fun StepView(d: WordData, fromVerse: Boolean, usedHere: List<String>) {
     val colors = MaterialTheme.colorScheme
     if (d.senses.isEmpty()) {
         MissingSource("STEP Bible's lexicon has no sense listed under this Strong's number.")
@@ -482,13 +512,18 @@ private fun StepView(d: WordData, fromVerse: Boolean) {
         StudyHeading("STEP Bible: ${d.senses.size} senses")
         Text(
             "STEP Bible divides ${d.strongs?.id ?: "this number"} into ${d.senses.size} distinct senses or people." +
-                if (fromVerse) " The KJV's tags give only the Strong's number, so they don't say which one this verse uses." else "",
+                when {
+                    !fromVerse -> ""
+                    usedHere.isNotEmpty() -> " The Hebrew or Greek text of this verse uses ${usedHere.joinToString(" and ")}, marked below."
+                    else -> " The original text of this verse doesn't say which one is meant here."
+                },
             style = MaterialTheme.typography.bodySmall, color = colors.secondary,
         )
         Spacer(Modifier.height(8.dp))
     } else StudyHeading("STEP Bible")
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        for (s in d.senses) StepSenseCard(s)
+        // The sense this verse uses comes first.
+        for (s in d.senses.sortedBy { if (it.id in usedHere) 0 else 1 }) StepSenseCard(s, usedHere = s.id in usedHere)
     }
     if (d.senses.any { it.language != Language.Greek }) {
         Spacer(Modifier.height(10.dp))
@@ -501,13 +536,22 @@ private fun StepView(d: WordData, fromVerse: Boolean) {
 }
 
 @Composable
-private fun StepSenseCard(s: StepEntry) {
+private fun StepSenseCard(s: StepEntry, usedHere: Boolean = false) {
     val colors = MaterialTheme.colorScheme
     var expanded by remember(s.id) { mutableStateOf(false) }
     StudyCard(accent = StudyColors.step()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(s.id, style = MaterialTheme.typography.labelLarge, color = StudyColors.step())
             s.label?.let { Text("  ·  $it ${s.uStrong ?: ""}".trimEnd(), style = MaterialTheme.typography.labelMedium, color = colors.secondary) }
+            if (usedHere) {
+                Spacer(Modifier.weight(1f))
+                Text(
+                    "USED IN THIS VERSE",
+                    style = TextStyle(fontSize = 10.sp, letterSpacing = 1.2.sp, fontWeight = FontWeight.SemiBold),
+                    color = StudyColors.step(),
+                    modifier = Modifier.clip(CircleShape).background(StudyColors.step().copy(alpha = 0.12f)).padding(horizontal = 8.dp, vertical = 3.dp),
+                )
+            }
         }
         Spacer(Modifier.height(6.dp))
         Row(verticalAlignment = Alignment.Bottom) {

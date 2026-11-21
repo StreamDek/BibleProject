@@ -154,3 +154,37 @@ CREATE TABLE search_doc (
     kind TEXT NOT NULL,
     ref TEXT NOT NULL
 );
+
+-- The Hebrew and Greek text behind each KJV verse (STEP Bible TAHOT / TAGNT), word by word, in the KJV's verse
+-- numbering. Words are joined by U+001E; each word's fields, joined by U+001F, are: text, transliteration, English,
+-- dStrong tags, grammar code, text type and variant note (see OriginalWord in StudyStore.kt).
+CREATE TABLE orig_verse (
+    verse_id INTEGER NOT NULL PRIMARY KEY,
+    -- "heb" (Old Testament, including its Aramaic passages) or "grc".
+    lang TEXT NOT NULL,
+    words TEXT NOT NULL
+);
+
+-- Grammar codes explained in words (STEP Bible TEHMC / TEGMC), for the codes the text uses.
+CREATE TABLE morph (
+    code TEXT NOT NULL PRIMARY KEY,
+    parsing TEXT NOT NULL,
+    summary TEXT,
+    explanation TEXT,
+    example TEXT
+) WITHOUT ROWID;
+
+-- KJV verses in which each STEP sense occurs in the original text.
+CREATE TABLE sense_count (
+    id TEXT NOT NULL PRIMARY KEY,
+    verses INTEGER NOT NULL
+) WITHOUT ROWID;
+
+origRange:
+SELECT verse_id, lang, words FROM orig_verse WHERE verse_id BETWEEN ? AND ?;
+
+morphByCodes:
+SELECT * FROM morph WHERE code IN ?;
+
+senseCounts:
+SELECT id, verses FROM sense_count WHERE id IN ?;

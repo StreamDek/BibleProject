@@ -33,6 +33,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.rounded.Bookmark
 import androidx.compose.material.icons.rounded.BookmarkBorder
 import androidx.compose.material.icons.rounded.Close
@@ -425,6 +426,16 @@ private fun WordHeader(d: WordData, page: StudyPage.Word) {
         pron?.let {
             Spacer(Modifier.width(10.dp))
             Text("say “$it”", style = MaterialTheme.typography.bodySmall, color = colors.secondary)
+        }
+        // The phone's own voice reads Strong's pronunciation guide: offline, and only an approximation.
+        val spoken = app.bible.data.study.Pronunciation.speakable(pron)
+        if (spoken != null && app.bible.app.platform.Speech.available) {
+            IconButton(onClick = { app.bible.app.platform.Speech.pronounce(spoken) }) {
+                Icon(
+                    Icons.AutoMirrored.Rounded.VolumeUp, tint = colors.secondary,
+                    contentDescription = "Hear how ${xlit ?: "this word"} is said",
+                )
+            }
         }
     }
     Spacer(Modifier.height(10.dp))

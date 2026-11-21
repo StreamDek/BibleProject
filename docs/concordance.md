@@ -89,6 +89,11 @@ Saved words and history live in `user.db` (`saved_word`, `study_history`, migrat
 - Study search finds people and places by name.
 - "Cross-references" under Study a word: related passages for the verse, most agreed on first.
 
+## In the app (phase 4)
+
+- A speaker button beside a word's pronunciation says it slowly with the phone's own voice (offline). The voice
+  reads Strong's English-spelled guide ("el-o-heem'"), so it is an approximation, not recorded audio.
+
 ## Performance
 
 Measured by `StudyPerformanceTest` on the JVM (median ms): word sheet data 5.9, verse tags 0.7, interlinear of
@@ -98,11 +103,12 @@ the longest verse with its grammar 1.9, occurrences page 0.2, search 1 to 12. Th
 
 1. **Done (PR #25):** data pack, Strong's and STEP lexicons, KJV word tags, word sheet, Study page, saved words and
    history, attributions page.
-2. **Done:** original-language text (STEP TAHOT/TAGNT), morphology (TEHMC/TEGMC), the interlinear view, and
+2. **Done (PR #26):** original-language text (STEP TAHOT/TAGNT), morphology (TEHMC/TEGMC), the interlinear view, and
    resolving which STEP sense each verse uses.
-3. **Done:** people and places (TIPNR data fields only) linked to stories, and cross-references. Frequency by book
+3. **Done (PR #28):** people and places (TIPNR data fields only) linked to stories, and cross-references. Frequency by book
    was already in phase 1. Psalm titles wait until the KJV text shows them.
-4. Downloadable packs and storage settings, pronunciation audio, sync of saved words, optional AI help (always
+4. **Started:** pronunciation with the phone's voice. Still to come: downloadable packs and storage settings (need
+   the R2 details), recorded pronunciation audio if a licensed source is found, sync of saved words, optional AI help (always
    labelled and separate from the lexicons).
 
 ## Open questions for Henry

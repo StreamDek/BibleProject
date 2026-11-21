@@ -45,6 +45,13 @@ fun main(args: Array<String>) {
                     "${s.count { it.summary != null }} summaries",
             )
         }
+        "build-study" -> {
+            require(args.size == 6) { "usage: build-study <cache-dir> <bible-kjv.db> <attributions.json> <out study.db> <report.md>" }
+            val db = File(args[4])
+            val r = app.bible.pipeline.study.StudyDbWriter.build(File(args[1]), File(args[2]), File(args[3]), db, File(args[5]))
+            app.bible.pipeline.study.StudyDbWriter.writeStamp(db, File(db.parentFile, db.nameWithoutExtension + ".stamp"))
+            println(r.report)
+        }
         "art-plan" -> {
             require(args.size == 4) { "usage: art-plan <stories.json> <overrides.tsv> <briefs.jsonl>" }
             val catalogue = StoryCatalogue.decode(File(args[1]).readText())

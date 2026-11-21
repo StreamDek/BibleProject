@@ -80,3 +80,52 @@ INSERT OR REPLACE INTO note(verse_id, body, created_at, updated_at) VALUES (?, ?
 
 removeNote:
 DELETE FROM note WHERE verse_id = ?;
+
+-- ---- Word study (added in schema version 2, see migrations/1.sqm) ---------------------------------------------
+
+-- Words the reader saved. entry is a Strong's id ("H430", "G26") or a STEP id ("H1254A"); the lemma and language
+-- are kept so the list shows even before study.db opens. verse_id is where it was saved from (0 = none).
+CREATE TABLE saved_word (
+    entry TEXT NOT NULL PRIMARY KEY,
+    source TEXT NOT NULL,
+    lang TEXT NOT NULL,
+    lemma TEXT NOT NULL,
+    gloss TEXT NOT NULL,
+    verse_id INTEGER NOT NULL,
+    note TEXT NOT NULL,
+    favorite INTEGER NOT NULL,
+    created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+-- Recently studied words, newest first; one row per entry.
+CREATE TABLE study_history (
+    entry TEXT NOT NULL PRIMARY KEY,
+    lang TEXT NOT NULL,
+    lemma TEXT NOT NULL,
+    gloss TEXT NOT NULL,
+    verse_id INTEGER NOT NULL,
+    viewed_at INTEGER NOT NULL
+);
+
+savedWords:
+SELECT * FROM saved_word ORDER BY created_at DESC;
+
+savedWord:
+SELECT * FROM saved_word WHERE entry = ?;
+
+putSavedWord:
+INSERT OR REPLACE INTO saved_word(entry, source, lang, lemma, gloss, verse_id, note, favorite, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+removeSavedWord:
+DELETE FROM saved_word WHERE entry = ?;
+
+recentStudies:
+SELECT * FROM study_history ORDER BY viewed_at DESC LIMIT ?;
+
+putStudy:
+INSERT OR REPLACE INTO study_history(entry, lang, lemma, gloss, verse_id, viewed_at) VALUES (?, ?, ?, ?, ?, ?);
+
+trimStudies:
+DELETE FROM study_history WHERE entry NOT IN (SELECT entry FROM study_history ORDER BY viewed_at DESC LIMIT ?);

@@ -39,6 +39,11 @@ sqldelight {
             packageName.set("app.bible.data.bible")
             srcDirs("src/commonMain/sqldelight/bible")
         }
+        // Read-only word-study pack (study.db): Strong's, STEP Bible and the KJV's word tags. Built by :pipeline.
+        create("StudyDatabase") {
+            packageName.set("app.bible.data.study")
+            srcDirs("src/commonMain/sqldelight/study")
+        }
         // Read-write, one per device: reading position, settings, highlights, bookmarks, notes.
         create("UserDatabase") {
             packageName.set("app.bible.data.user")

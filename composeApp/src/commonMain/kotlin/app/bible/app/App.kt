@@ -33,6 +33,13 @@ import app.bible.app.stories.LocalStoryArt
 import app.bible.app.stories.StoriesScreen
 import app.bible.app.stories.StoriesViewModel
 import app.bible.app.stories.StoryReader
+import app.bible.app.study.AttributionsScreen
+import app.bible.app.study.LocalStudy
+import app.bible.app.study.LocalWordStudy
+import app.bible.app.study.StudyScreen
+import app.bible.app.study.StudyViewModel
+import app.bible.app.study.WordStudyRequest
+import app.bible.app.study.WordStudySheet
 import app.bible.core.VerseId
 import app.bible.app.ui.BibleTheme
 import app.bible.data.user.UserDatabase
@@ -72,6 +79,7 @@ fun App() {
     }
     val vm = viewModel { FeedViewModel(d.bible, d.user) }
     val stories = viewModel { StoriesViewModel(d.bible, d.user) }
+    val study = viewModel { StudyViewModel(d.bible, d.user) }
     val state by vm.state.collectAsStateWithLifecycle()
     val home by stories.home.collectAsStateWithLifecycle()
     // A small back stack: the Bible is the root; Stories and a story sit on top of it.
@@ -84,10 +92,23 @@ fun App() {
     val translation = d.bible.translationCode
 
     var settingsOpen by remember { mutableStateOf(false) }
+    var wordStudy by remember { mutableStateOf<WordStudyRequest?>(null) }
+    fun openStudy(query: String = "") { stack = stack.filterNot { it is Screen.Study || it is Screen.Attributions } + Screen.Study(query) }
+    fun openAttributions() { stack = stack.filterNot { it is Screen.Attributions } + Screen.Attributions }
+    // Opening a verse from a study goes to the Bible at that verse; the study pages stay behind it on the stack.
+    fun openVerse(verse: VerseId) {
+        vm.open(verse)
+        if (stack.last() != Screen.Bible) stack = stack + Screen.Bible
+    }
     val storiesState = rememberSaveableStateHolder()
 
     BibleTheme(dark = state.prefs.dark) {
-      CompositionLocalProvider(LocalStoryArt provides home.art, LocalOpenSettings provides { settingsOpen = true }) {
+      CompositionLocalProvider(
+          LocalStoryArt provides home.art,
+          LocalOpenSettings provides { settingsOpen = true },
+          LocalStudy provides study,
+          LocalWordStudy provides { wordStudy = it },
+      ) {
         when (val top = stack.last()) {
             Screen.Bible -> {
                 val from = (stack.getOrNull(stack.lastIndex - 1) as? Screen.Story)?.let { home.library?.get(it.slug) }
@@ -100,6 +121,7 @@ fun App() {
                         onStories = { stack = stack.takeWhile { it != Screen.Stories } + Screen.Stories },
                         backTo = from,
                         onBackToStory = { stack = stack.dropLast(1) },
+                        onStudy = { openStudy() },
                     ),
                 )
             }
@@ -126,8 +148,25 @@ fun App() {
                 },
                 onOpenStory = { openStory(it.slug) },
             )
+            is Screen.Study -> StudyScreen(
+                study,
+                onBack = { stack = stack.dropLast(1) },
+                onOpenVerse = ::openVerse,
+                onAttributions = ::openAttributions,
+                initialQuery = top.query,
+            )
+            Screen.Attributions -> AttributionsScreen(study, onBack = { stack = stack.dropLast(1) })
         }
-        if (settingsOpen) AppSettingsSheet(state.prefs, vm, onDismiss = { settingsOpen = false })
+        if (settingsOpen) AppSettingsSheet(state.prefs, vm, onDismiss = { settingsOpen = false }, onAttributions = ::openAttributions)
+        wordStudy?.let { req ->
+            WordStudySheet(
+                study, req,
+                onDismiss = { wordStudy = null },
+                onOpenVerse = { wordStudy = null; openVerse(it) },
+                onSearch = { wordStudy = null; openStudy(it) },
+                onAttributions = { wordStudy = null; openAttributions() },
+            )
+        }
       }
     }
 }
@@ -136,4 +175,6 @@ private sealed interface Screen {
     data object Bible : Screen
     data object Stories : Screen
     data class Story(val slug: String) : Screen
+    data class Study(val query: String = "") : Screen
+    data object Attributions : Screen
 }

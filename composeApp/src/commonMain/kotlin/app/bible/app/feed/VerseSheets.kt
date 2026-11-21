@@ -64,6 +64,10 @@ import app.bible.data.bible.SearchResult
 import app.bible.data.user.SavedNote
 import app.bible.data.user.VerseMarks
 import kotlinx.coroutines.delay
+import app.bible.app.study.LocalStudy
+import app.bible.app.study.LocalWordStudy
+import app.bible.app.study.StudyWordsSection
+import app.bible.app.study.WordStudyRequest
 
 /** Actions on one or more verses: copy, highlight, bookmark and note. */
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
@@ -108,6 +112,18 @@ fun VerseActionsSheet(vm: FeedViewModel, target: VerseActionTarget, translation:
                             label = { Text("${v.verse}") },
                         )
                     }
+                }
+            }
+
+            // Word study: the primary verse with every word tappable (KJV only, since the word tags are the KJV's).
+            val study = LocalStudy.current
+            val openStudy = LocalWordStudy.current
+            val primaryText = texts[primary]
+            if (study != null && primaryText != null && translation.equals("kjv", ignoreCase = true)) {
+                Spacer(Modifier.height(16.dp))
+                StudyWordsSection(study, primaryText) { ctx ->
+                    onDismiss()
+                    openStudy(WordStudyRequest(context = ctx))
                 }
             }
 

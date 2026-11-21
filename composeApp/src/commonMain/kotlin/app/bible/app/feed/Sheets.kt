@@ -1,6 +1,9 @@
 package app.bible.app.feed
 
 import app.bible.app.platform.Speech
+import app.bible.app.study.LocalStudy
+import app.bible.app.study.StudySource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -85,7 +88,7 @@ fun ReadingSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -
  */
 @OptIn(ExperimentalMaterial3Api::class, androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
-fun AppSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Unit) {
+fun AppSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Unit, onAttributions: (() -> Unit)? = null) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 32.dp)) {
             Text("Settings", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
@@ -119,9 +122,34 @@ fun AppSettingsSheet(prefs: ReadingPrefs, vm: FeedViewModel, onDismiss: () -> Un
                 "The story's image, softly blurred, behind the text while you read",
                 prefs.storyArtBackground,
             ) { vm.setStoryArtBackground(it) }
+            LocalStudy.current?.let { study ->
+                val source by study.source.collectAsStateWithLifecycle()
+                Spacer(Modifier.height(12.dp))
+                SettingsGroup("Word study")
+                Text("Open word studies with", style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 6.dp))
+                Spacer(Modifier.height(8.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    for (s in StudySource.entries) {
+                        FilterChip(selected = source == s, onClick = { study.setSource(s) }, label = { Text(s.label) })
+                    }
+                }
+            }
             if (appIconSupported()) {
                 Spacer(Modifier.height(20.dp))
                 AppIconPicker()
+            }
+            onAttributions?.let { open ->
+                Spacer(Modifier.height(20.dp))
+                SettingsGroup("About & Legal")
+                Row(
+                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).clickable { onDismiss(); open() }.padding(vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Column(Modifier.weight(1f)) {
+                        Text("Attributions & Licences", style = MaterialTheme.typography.titleSmall)
+                        Text("The Bible text, lexicons, fonts and software VerseUp uses, and their licences", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
+                    }
+                }
             }
         }
     }

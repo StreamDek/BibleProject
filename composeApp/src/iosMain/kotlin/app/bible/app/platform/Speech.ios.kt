@@ -9,6 +9,7 @@ import platform.AVFAudio.AVSpeechSynthesisVoice
 import platform.AVFAudio.AVSpeechSynthesizer
 import platform.AVFAudio.AVSpeechSynthesizerDelegateProtocol
 import platform.AVFAudio.AVSpeechUtterance
+import platform.AVFAudio.AVSpeechUtteranceDefaultSpeechRate
 import platform.darwin.NSObject
 
 @OptIn(ExperimentalForeignApi::class)
@@ -36,7 +37,9 @@ actual object Speech {
         synth.delegate = delegate
     }
 
-    actual fun speak(text: String, onDone: () -> Unit) {
+    actual fun speak(text: String, onDone: () -> Unit) = utter(text, 1f, onDone)
+
+    private fun utter(text: String, rate: Float, onDone: () -> Unit) {
         stop()
         // Play even with the ring/silent switch on, like any audio the reader asked for.
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, null)
@@ -44,10 +47,13 @@ actual object Speech {
         val utterance = AVSpeechUtterance.speechUtteranceWithString(text)
         val lang = AVSpeechSynthesisVoice.currentLanguageCode().takeIf { it.startsWith("en") } ?: "en-US"
         utterance.voice = AVSpeechSynthesisVoice.voiceWithLanguage(lang)
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * rate
         current = utterance
         callback = onDone
         synth.speakUtterance(utterance)
     }
+
+    actual fun pronounce(text: String) = utter(text, 0.7f) {}
 
     actual fun stop() {
         callback = null

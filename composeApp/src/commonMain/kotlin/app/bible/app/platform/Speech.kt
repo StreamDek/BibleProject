@@ -11,6 +11,9 @@ expect object Speech {
     /** Reads [text] aloud, replacing anything being read, and calls [onDone] on the main thread when it ends. */
     fun speak(text: String, onDone: () -> Unit)
 
+    /** Says one word slowly (a Hebrew or Greek word's pronunciation), stopping anything being read. */
+    fun pronounce(text: String)
+
     /** Stops reading at once. The pending [speak] callback is dropped. */
     fun stop()
 }

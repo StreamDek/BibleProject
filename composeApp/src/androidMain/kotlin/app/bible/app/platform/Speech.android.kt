@@ -14,6 +14,7 @@ actual object Speech {
     private var tts: TextToSpeech? = null
     private var ready = false
     private var pending: String? = null
+    private var rate = 1f
     private var callback: (() -> Unit)? = null
     private var lastId: String? = null
     private var counter = 0
@@ -51,13 +52,22 @@ actual object Speech {
 
     actual fun speak(text: String, onDone: () -> Unit) {
         stop()
+        rate = 1f
         callback = onDone
+        engine()
+        if (ready) speakNow(text) else pending = text
+    }
+
+    actual fun pronounce(text: String) {
+        stop()
+        rate = 0.7f
         engine()
         if (ready) speakNow(text) else pending = text
     }
 
     private fun speakNow(text: String) {
         val engine = tts ?: return
+        engine.setSpeechRate(rate)
         val chunks = chunk(text, TextToSpeech.getMaxSpeechInputLength() - 100)
         val run = ++counter
         chunks.forEachIndexed { i, part ->

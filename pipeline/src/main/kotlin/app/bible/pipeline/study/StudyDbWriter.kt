@@ -18,7 +18,7 @@ import java.sql.DriverManager
  */
 object StudyDbWriter {
     /** Bump when the study.db schema changes. */
-    const val SCHEMA_VERSION = 1
+    const val SCHEMA_VERSION = 2
 
     /** English words left out of the English → Strong's index (they translate almost everything). */
     private val FUNCTION_WORDS = setOf(
@@ -87,6 +87,35 @@ object StudyDbWriter {
         }
         val verseCounts = occurrence.groupingBy { (it / 1_000_000_000L).toInt() }.eachCount()
 
+        // The Hebrew and Greek text, word by word, in the KJV's verse numbering.
+        val hebStats = OrigStats(); val grcStats = OrigStats()
+        val hebrew = OriginalTextParser.parseHebrew(StudySources.tahot.map { files.getValue(it.key) }, hebStats)
+        val greek = OriginalTextParser.parseGreek(StudySources.tagnt.map { files.getValue(it.key) }, grcStats)
+        val original = sortedMapOf<VerseId, Pair<String, List<OrigWord>>>()
+        hebrew.forEach { (id, w) -> original[id] = "heb" to w }
+        greek.forEach { (id, w) -> original[id] = "grc" to w }
+        for (r in hebStats.badRefs) quarantine.add("step-tahot", "reference $r is not a KJV verse; its words are left out")
+        for (r in grcStats.badRefs) quarantine.add("step-tagnt", "reference $r is not a KJV verse; its words are left out")
+        val noOriginal = verses.keys.filter { it !in original }
+        val stepIds = step.mapTo(HashSet()) { it.id }
+        val unknownIds = sortedMapOf<String, Int>()
+        val senseVerses = HashMap<String, Int>()
+        for ((_, pair) in original) {
+            val seen = HashSet<String>()
+            for (w in pair.second) for (id in OriginalTextParser.ids(w.strongs)) {
+                if (id !in stepIds) unknownIds.merge(id, 1, Int::plus) else seen += id
+            }
+            seen.forEach { senseVerses.merge(it, 1, Int::plus) }
+        }
+        for ((id, n) in unknownIds) quarantine.add("step-text", "tag $id ($n×) is not in STEP's lexicons; kept on the word, no lexicon link")
+
+        // Grammar explanations for the codes the text uses.
+        val morphs = (MorphologyParser.parse(files.getValue(StudySources.tehmc.key)) + MorphologyParser.parse(files.getValue(StudySources.tegmc.key))).associateBy { it.code }
+        val usedCodes = sortedSetOf<String>()
+        for ((_, pair) in original) for (w in pair.second) usedCodes += MorphologyParser.codes(w.grammar, pair.first == "heb")
+        val missingCodes = usedCodes.filter { it !in morphs }
+        for (code in missingCodes) quarantine.add("step-morphology", "grammar code $code has no explanation")
+
         out.parentFile.mkdirs()
         listOf("", "-journal", "-wal", "-shm").forEach { File(out.path + it).delete() }
         JdbcSqliteDriver("jdbc:sqlite:${out.absolutePath}").use { StudyDatabase.Schema.create(it) }
@@ -99,7 +128,7 @@ object StudyDbWriter {
                 listOf("tags", "${stats.mapped}"),
             ))
             insert(c, "INSERT INTO source(id, name, licence, url, version) VALUES (?, ?, ?, ?, ?)",
-                StudySources.all.map { s -> registry.byId(s.registryId)!!.let { listOf(s.registryId, it.name, it.licence, it.url, s.version) } })
+                StudySources.all.distinctBy { it.registryId }.map { s -> registry.byId(s.registryId)!!.let { listOf(s.registryId, it.name, it.licence, it.url, s.version) } })
             insert(c, "INSERT INTO strongs(num, lang, lemma, xlit, pron, pos, derivation, definition, kjv_def, source_id, verses, words) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                 strongs.sortedBy { it.num }.map { s ->
                     listOf(s.num, s.lang, s.lemma, s.xlit, s.pron, s.pos, s.derivation, s.definition, s.kjvDef, s.sourceId, verseCounts[s.num] ?: 0, words[s.num] ?: 0)
@@ -121,6 +150,10 @@ object StudyDbWriter {
             insert(c, "INSERT INTO english(word, num, count) VALUES (?, ?, ?)", english.toSortedMap().flatMap { (w, m) ->
                 m.toSortedMap().map { (n, k) -> listOf(w, n, k) }
             })
+            insert(c, "INSERT INTO orig_verse(verse_id, lang, words) VALUES (?, ?, ?)", original.map { (id, p) -> listOf(id.value, p.first, OriginalTextParser.encode(p.second)) })
+            insert(c, "INSERT INTO morph(code, parsing, summary, explanation, example) VALUES (?, ?, ?, ?, ?)",
+                usedCodes.mapNotNull { morphs[it] }.map { m -> listOf(m.code, m.parsing, m.summary, m.explanation, m.example) })
+            insert(c, "INSERT INTO sense_count(id, verses) VALUES (?, ?)", senseVerses.toSortedMap().map { (id, n) -> listOf(id, n) })
 
             // Full-text index over both lexicons, folded so accents, vowel points and transliteration marks don't matter.
             val docs = ArrayList<List<Any?>>()
@@ -166,6 +199,13 @@ object StudyDbWriter {
             appendLine("- Untranslated source words (empty <w>, Greek only): ${stats.emptySourceWords}; Psalm title tags not used yet: ${stats.titleTagsSkipped}")
             appendLine("- VerseUp words matched to the tagged text: ${stats.ourWordsMatched} of ${stats.ourWords} (${"%.2f".format(100.0 * stats.ourWordsMatched / stats.ourWords)}%)")
             appendLine("- Occurrence rows: ${occurrence.size}; renderings: ${rendering.values.sumOf { it.size }}; English index words: ${english.size}")
+            appendLine("- Hebrew words (TAHOT): ${hebStats.kept} of ${hebStats.rows} rows kept, in ${hebrew.size} verses; Psalm title words not used yet: ${hebStats.titleWords}")
+            appendLine("  - Left out (not the text the KJV translates): " + hebStats.skippedTypes.entries.joinToString(", ") { "${it.key} ${it.value}" })
+            appendLine("- Greek words (TAGNT, the KJV's Textus Receptus): ${grcStats.kept} of ${grcStats.rows} rows kept, in ${greek.size} verses")
+            appendLine("  - Where the Traditional text has a different word, the Nestle-Aland word is shown with the Traditional reading noted: ${grcStats.flaggedTraditional}")
+            appendLine("  - Left out (not in the Textus Receptus): " + grcStats.skippedTypes.entries.joinToString(", ") { "${it.key} ${it.value}" })
+            appendLine("- KJV verses without original-language words: ${noOriginal.size}" + if (noOriginal.isNotEmpty()) " (" + noOriginal.take(40).joinToString(", ") { it.osis() } + if (noOriginal.size > 40) ", ...)" else ")" else "")
+            appendLine("- Grammar codes used: ${usedCodes.size}; explained: ${usedCodes.size - missingCodes.size}")
             appendLine()
             appendLine("## Quarantined records (${quarantine.items.size})")
             quarantine.items.forEach { appendLine("- $it") }

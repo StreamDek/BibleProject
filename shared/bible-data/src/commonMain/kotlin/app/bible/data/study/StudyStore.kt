@@ -163,6 +163,28 @@ class StudyStore(private val driver: SqlDriver, private val io: CoroutineContext
             .associate { VerseId(it.verse_id.toInt()) to WordTag.parseAll(it.tags) }
     }
 
+    /** The Hebrew or Greek text of each verse in [range], word by word. */
+    suspend fun original(range: VerseRange): Map<VerseId, OriginalVerse> = withContext(io) {
+        q.origRange(range.start.value.toLong(), range.end.value.toLong()).executeAsList().associate {
+            val id = VerseId(it.verse_id.toInt())
+            id to OriginalVerse(id, Language.of(it.lang), OriginalWord.decodeVerse(it.lang, it.words))
+        }
+    }
+
+    suspend fun original(verse: VerseId): OriginalVerse? = original(VerseRange.single(verse))[verse]
+
+    /** Plain-language explanations of grammar codes. */
+    suspend fun morph(codes: Collection<String>): Map<String, MorphInfo> = withContext(io) {
+        if (codes.isEmpty()) return@withContext emptyMap()
+        q.morphByCodes(codes.distinct()).executeAsList().associate { it.code to MorphInfo(it.code, it.parsing, it.summary, it.explanation, it.example) }
+    }
+
+    /** In how many KJV verses each STEP sense occurs in the original text. */
+    suspend fun senseCounts(ids: Collection<String>): Map<String, Int> = withContext(io) {
+        if (ids.isEmpty()) return@withContext emptyMap()
+        q.senseCounts(ids.distinct()).executeAsList().associate { it.id to it.verses.toInt() }
+    }
+
     suspend fun renderings(num: Int, limit: Int = 40): List<KjvRendering> = withContext(io) {
         q.renderings(num.toLong(), limit.toLong()).executeAsList().map { KjvRendering(it.text, it.count.toInt()) }
     }

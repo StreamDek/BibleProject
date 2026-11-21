@@ -1,12 +1,30 @@
 {
   "about": "VerseUp's attribution registry. Every third-party text, dataset, font and library the app ships is listed here once; the Attributions & Licences page is generated from this file, and :pipeline:buildStudy copies dataset entries into study.db. Tests fail when a bundled source has no entry or an entry is missing a required field.",
   "categories": [
-    { "id": "translations", "title": "Bible translations" },
-    { "id": "lexicons", "title": "Concordances & lexicons" },
-    { "id": "original-language", "title": "Original-language resources" },
-    { "id": "study", "title": "Study resources" },
-    { "id": "software", "title": "Open-source software" },
-    { "id": "media", "title": "Fonts & media" }
+    {
+      "id": "translations",
+      "title": "Bible translations"
+    },
+    {
+      "id": "lexicons",
+      "title": "Concordances & lexicons"
+    },
+    {
+      "id": "original-language",
+      "title": "Original-language resources"
+    },
+    {
+      "id": "study",
+      "title": "Study resources"
+    },
+    {
+      "id": "software",
+      "title": "Open-source software"
+    },
+    {
+      "id": "media",
+      "title": "Fonts & media"
+    }
   ],
   "resources": [
     {
@@ -89,6 +107,51 @@
       "url": "https://github.com/STEPBible/STEPBible-Data",
       "version": "STEPBible-Data@5de0a47 (2026-11-02)",
       "modifications": "Reformatted into VerseUp's study database; definition HTML converted to plain text with bold and line breaks."
+    },
+    {
+      "id": "step-tahot",
+      "category": "original-language",
+      "name": "STEP Bible TAHOT: Translators Amalgamated Hebrew Old Testament",
+      "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
+      "description": "The Hebrew and Aramaic Old Testament (Leningrad Codex, with the scribes' Qere corrections), word by word, with transliteration, STEP's English translation, disambiguated Strong's numbers and ETCBC-based grammar.",
+      "modifications": "Only the text translators use (Leningrad, Qere and restored words) is included; words found only in Greek sources are left out. Reformatted into VerseUp's study database in KJV verse numbering; Psalm titles are not shown yet.",
+      "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
+      "licence": "CC BY 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenceFile": "licences/cc-by-4.0.txt",
+      "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
+      "url": "https://github.com/STEPBible/STEPBible-Data",
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)"
+    },
+    {
+      "id": "step-tagnt",
+      "category": "original-language",
+      "name": "STEP Bible TAGNT: Translators Amalgamated Greek New Testament",
+      "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge; English translation based on the Berean Study Bible",
+      "description": "Every word of the main Greek New Testament editions, marked by edition, with transliteration, English translation, disambiguated Strong's numbers and grammar.",
+      "modifications": "Only the words of the Greek text the KJV translators used (Scrivener's Textus Receptus) are included. Where that text has a different word, the Nestle-Aland word is shown with the Traditional reading noted. Reformatted into VerseUp's study database in KJV verse numbering.",
+      "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
+      "licence": "CC BY 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenceFile": "licences/cc-by-4.0.txt",
+      "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
+      "url": "https://github.com/STEPBible/STEPBible-Data",
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)"
+    },
+    {
+      "id": "step-morphology",
+      "category": "original-language",
+      "name": "STEP Bible TEHMC and TEGMC: Hebrew and Greek grammar codes explained",
+      "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
+      "description": "Plain-language explanations of every Hebrew and Greek grammar code used in the tagged texts.",
+      "modifications": "Only the codes used by the included text are kept.",
+      "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
+      "licence": "CC BY 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenceFile": "licences/cc-by-4.0.txt",
+      "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
+      "url": "https://github.com/STEPBible/STEPBible-Data",
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)"
     },
     {
       "id": "crosswire-kjv",

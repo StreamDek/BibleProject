@@ -4,6 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.foundation.shape.CircleShape
+import app.bible.core.Canon
+import app.bible.core.Testament
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,7 +61,7 @@ private val WORD = Regex("[\\p{L}’']+")
  * read as links without shouting; untagged words are still tappable, and say why they have no original word.
  */
 @Composable
-fun StudyWordsSection(vm: StudyViewModel, verse: VerseText, onWord: (WordContext) -> Unit) {
+fun StudyWordsSection(vm: StudyViewModel, verse: VerseText, onWord: (WordContext) -> Unit, onInterlinear: () -> Unit) {
     var tags by remember(verse.id) { mutableStateOf<List<WordTag>?>(null) }
     LaunchedEffect(verse.id) { tags = runCatching { vm.tags(verse.id) }.getOrDefault(emptyList()) }
     val t = tags ?: return
@@ -95,5 +99,9 @@ fun StudyWordsSection(vm: StudyViewModel, verse: VerseText, onWord: (WordContext
             "Tap an underlined word to see its Hebrew or Greek.",
             style = MaterialTheme.typography.bodySmall, color = colors.secondary,
         )
+        Spacer(Modifier.height(8.dp))
+        OutlinedButton(onClick = onInterlinear, shape = CircleShape) {
+            Text(if (Canon.book(verse.id.book).testament == Testament.OLD) "Read this verse in Hebrew" else "Read this verse in Greek")
+        }
     }
 }

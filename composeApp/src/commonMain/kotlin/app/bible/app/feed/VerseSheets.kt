@@ -121,10 +121,11 @@ fun VerseActionsSheet(vm: FeedViewModel, target: VerseActionTarget, translation:
             val primaryText = texts[primary]
             if (study != null && primaryText != null && translation.equals("kjv", ignoreCase = true)) {
                 Spacer(Modifier.height(16.dp))
-                StudyWordsSection(study, primaryText) { ctx ->
-                    onDismiss()
-                    openStudy(WordStudyRequest(context = ctx))
-                }
+                StudyWordsSection(
+                    study, primaryText,
+                    onWord = { ctx -> onDismiss(); openStudy(WordStudyRequest(context = ctx)) },
+                    onInterlinear = { onDismiss(); openStudy(WordStudyRequest(interlinear = primaryText.id)) },
+                )
             }
 
             Spacer(Modifier.height(16.dp))

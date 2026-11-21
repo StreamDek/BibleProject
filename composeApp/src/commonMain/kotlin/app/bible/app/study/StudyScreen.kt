@@ -36,6 +36,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -111,7 +112,9 @@ fun StudyScreen(
         searching = false
     }
 
-    Column(Modifier.fillMaxSize().background(colors.background).statusBarsPadding()) {
+    // A Surface gives text and icons the theme's content colour; without it they default to black, unreadable in dark mode.
+    Surface(Modifier.fillMaxSize(), color = colors.background, contentColor = colors.onBackground) {
+    Column(Modifier.fillMaxSize().statusBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Back") }
             Text(
@@ -124,7 +127,7 @@ fun StudyScreen(
             value = query,
             onValueChange = { query = it },
             singleLine = true,
-            placeholder = { Text("A word, Hebrew or Greek, H430, G26, John 3:16") },
+            placeholder = { Text("Search a word, H430 or John 3:16", maxLines = 1, overflow = TextOverflow.Ellipsis) },
             leadingIcon = { Icon(Icons.Rounded.Search, contentDescription = null) },
             trailingIcon = { if (query.isNotEmpty()) IconButton(onClick = { query = "" }) { Icon(Icons.Rounded.Close, contentDescription = "Clear search") } },
             shape = CircleShape, // search fields are pill-shaped: no sharp corners
@@ -145,6 +148,7 @@ fun StudyScreen(
             if (query.isBlank()) discovery(vm, open, onAttributions)
             else results(query, filter, result, scripture, searching, open, onOpenVerse, onSuggestion = { query = it })
         }
+    }
     }
 }
 

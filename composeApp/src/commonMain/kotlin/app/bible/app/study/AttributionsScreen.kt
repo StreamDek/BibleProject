@@ -31,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -68,7 +69,9 @@ fun AttributionsScreen(vm: StudyViewModel, onBack: () -> Unit) {
     var licence by remember { mutableStateOf<Pair<String, String>?>(null) }
     val scope = rememberCoroutineScope()
 
-    Column(Modifier.fillMaxSize().background(colors.background).statusBarsPadding()) {
+    // A Surface gives text and icons the theme's content colour; without it they default to black, unreadable in dark mode.
+    Surface(Modifier.fillMaxSize(), color = colors.background, contentColor = colors.onBackground) {
+    Column(Modifier.fillMaxSize().statusBarsPadding()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Back") }
             Text(
@@ -80,7 +83,7 @@ fun AttributionsScreen(vm: StudyViewModel, onBack: () -> Unit) {
             value = query,
             onValueChange = { query = it },
             singleLine = true,
-            placeholder = { Text("Search sources and licences") },
+            placeholder = { Text("Search sources and licences", maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) },
             leadingIcon = { Icon(Icons.Rounded.Search, contentDescription = null) },
             trailingIcon = { if (query.isNotEmpty()) IconButton(onClick = { query = "" }) { Icon(Icons.Rounded.Close, contentDescription = "Clear search") } },
             shape = CircleShape, // search fields are pill-shaped: no sharp corners
@@ -113,6 +116,7 @@ fun AttributionsScreen(vm: StudyViewModel, onBack: () -> Unit) {
             }
             if (matches.isEmpty()) item { Text("No sources match “$query”.", color = colors.secondary, modifier = Modifier.padding(16.dp)) }
         }
+    }
     }
 
     licence?.let { (title, text) ->

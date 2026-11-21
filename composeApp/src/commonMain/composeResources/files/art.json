@@ -387,6 +387,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "greatest-commandment": {
+            "hash": "d3b1428756385e66df8d8674c6fe4b3daeaa76f5dab0b8a7418c6718bf5b7dd6",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFG@oN=Z57~oV@M{.79anO?aNFIV",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "heaven-rejoices": {
             "hash": "0652cbf900528dfe71d0eaf0e0a4b8c60b7dcb8bd5603f7d0a762e8b2cc76d73",
             "widths": [
@@ -662,6 +673,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "olivet-discourse": {
+            "hash": "618a5abd77a4a78c48b52ba77d5fac66d855482086ee229c4e3ddff58ad61e3f",
+            "widths": [
+                720
+            ],
+            "blurhash": "TQG@i2E3Na~B58xsoyIpxtWVRjW=",
+            "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "parable-of-growing-seed": {
             "hash": "7671be1d329af4d1f8cf7ee789b5e3eb3f6988badcde15686a1091d493fc244a",
             "widths": [
@@ -695,6 +717,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "persistent-widow": {
+            "hash": "3c9092039544999d7d4260da5f3e4f4de0666407fe6d225394be50d4da138ac1",
+            "widths": [
+                720
+            ],
+            "blurhash": "TBGtc.-=5T~p~Wxu~p-;XS%2-;%M",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "peter-confesses-jesus": {
             "hash": "2eba4a53c57254d3b5c3b4e0470688c7016a08f0b839762e584c21d1d34b4a16",
             "widths": [
@@ -702,6 +735,17 @@
             ],
             "blurhash": "TAFhFkyB9bKi^*tR?vtlOE~V-:-o",
             "depiction": "direct",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "pharisee-and-tax-collector": {
+            "hash": "31964f07c82049f14f5b37a9cc5f1dbea0f038c873b2bdd3cc1096619b37a5c7",
+            "widths": [
+                720
+            ],
+            "blurhash": "TFH^Y49H9u~9$*-o^*9atQn$M|xt",
+            "depiction": "symbolic",
             "people": true,
             "ext": "jpg",
             "bundled": true
@@ -948,6 +992,17 @@
             "ext": "jpg",
             "bundled": true
         },
+        "ten-minas": {
+            "hash": "ebf6dd3af1a47c2bc6cd13635f93af4313eba5f992cf0bc4e439d3aa8c3cce17",
+            "widths": [
+                720
+            ],
+            "blurhash": "TCG@udH?%2~qD%Iq?b9sxG_1aJM|",
+            "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
         "ten-virgins": {
             "hash": "7a7676524e337475c43cbd0011d8a493f4c3aa2d8e5d4ab7b0a38f8db54e22c4",
             "widths": [
@@ -1109,6 +1164,17 @@
             ],
             "blurhash": "TFE.90D%kW?^ITxb.SVrj^_4Ima$",
             "depiction": "symbolic",
+            "people": true,
+            "ext": "jpg",
+            "bundled": true
+        },
+        "woes-against-scribes-and-pharisees": {
+            "hash": "257fa94a25d66654c510d8277ad2552fbcb6c261b676a790b9edf9af1ecc0d71",
+            "widths": [
+                720
+            ],
+            "blurhash": "TKHm.J~A-o_2X9Rk-pNdoy-oozkB",
+            "depiction": "direct",
             "people": true,
             "ext": "jpg",
             "bundled": true

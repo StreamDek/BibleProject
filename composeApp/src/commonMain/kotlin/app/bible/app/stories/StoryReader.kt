@@ -402,7 +402,10 @@ private fun StoryChrome(
             }
         }
         Column(
-            Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()
+            // Ambient glass like the Bible reader's bottom bar: its top fades into the text, and it runs down to
+            // the screen edge behind the system bar.
+            Modifier.align(Alignment.BottomCenter).fillMaxWidth()
+                .glass(glass, fadeTop = 28.dp).padding(top = 28.dp).navigationBarsPadding()
                 .padding(horizontal = 16.dp).padding(bottom = 8.dp),
         ) {
             LinearProgressIndicator(

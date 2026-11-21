@@ -21,6 +21,20 @@ actual suspend fun openBundledBibleDriver(): SqlDriver = withContext(Dispatchers
     JdbcSqliteDriver("jdbc:sqlite:${file.absolutePath}", Properties().apply { put("open_mode", "1") })
 }
 
+actual suspend fun openStudyDriver(): SqlDriver = withContext(Dispatchers.IO) {
+    val file = File(dataDir, BUNDLED_STUDY)
+    val stampFile = File(dataDir, "$BUNDLED_STUDY.stamp")
+    val stamp = bundledStudyStamp()
+    if (!file.exists() || !stampFile.exists() || stampFile.readText() != stamp) {
+        val tmp = File(dataDir, "$BUNDLED_STUDY.tmp")
+        tmp.writeBytes(bundledStudyBytes())
+        file.delete()
+        tmp.renameTo(file)
+        stampFile.writeText(stamp)
+    }
+    JdbcSqliteDriver("jdbc:sqlite:${file.absolutePath}", Properties().apply { put("open_mode", "1") })
+}
+
 actual suspend fun openUserDriver(): SqlDriver = withContext(Dispatchers.IO) {
     JdbcSqliteDriver("jdbc:sqlite:${File(dataDir, USER_DB).absolutePath}", Properties(), UserDatabase.Schema)
 }

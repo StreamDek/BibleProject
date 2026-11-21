@@ -1,0 +1,22 @@
+-- Version 1 -> 2: word study (saved words and recently studied words).
+CREATE TABLE saved_word (
+    entry TEXT NOT NULL PRIMARY KEY,
+    source TEXT NOT NULL,
+    lang TEXT NOT NULL,
+    lemma TEXT NOT NULL,
+    gloss TEXT NOT NULL,
+    verse_id INTEGER NOT NULL,
+    note TEXT NOT NULL,
+    favorite INTEGER NOT NULL,
+    created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+CREATE TABLE study_history (
+    entry TEXT NOT NULL PRIMARY KEY,
+    lang TEXT NOT NULL,
+    lemma TEXT NOT NULL,
+    gloss TEXT NOT NULL,
+    verse_id INTEGER NOT NULL,
+    viewed_at INTEGER NOT NULL
+);

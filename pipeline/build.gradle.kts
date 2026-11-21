@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.sqldelight.sqlite.driver)
     implementation(libs.sqlite.jdbc)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
     testImplementation(kotlin("test"))
 }
 
@@ -36,6 +37,25 @@ tasks.register<JavaExec>("importKjv") {
         repoRoot.file("composeApp/src/commonMain/composeResources/files/bible-kjv.db").asFile.path,
         repoRoot.file("shared/feed-engine/src/jvmTest/resources/kjv-units.tsv").asFile.path,
         repoRoot.dir("content/editorial").asFile.path,
+    )
+}
+
+// ./gradlew :pipeline:buildStudy  →  builds the bundled word-study pack (docs/concordance.md). Downloads the pinned
+// Strong's, STEP Bible and CrossWire files into pipeline/build/study-sources (checked against their SHA-256) and
+// reads the KJV text from bible-kjv.db, so run importKjv first when the KJV changes.
+tasks.register<JavaExec>("buildStudy") {
+    group = "content"
+    description = "Builds composeResources/files/study.db and content/study/import-report.md"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("app.bible.pipeline.MainKt")
+    maxHeapSize = "2g"
+    args(
+        "build-study",
+        layout.buildDirectory.dir("study-sources").get().asFile.path,
+        repoRoot.file("composeApp/src/commonMain/composeResources/files/bible-kjv.db").asFile.path,
+        repoRoot.file("composeApp/src/commonMain/composeResources/files/attributions.json").asFile.path,
+        repoRoot.file("composeApp/src/commonMain/composeResources/files/study.db").asFile.path,
+        repoRoot.file("content/study/import-report.md").asFile.path,
     )
 }
 

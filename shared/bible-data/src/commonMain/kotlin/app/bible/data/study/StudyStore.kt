@@ -121,10 +121,12 @@ data class StudySearchResult(
     val english: List<EnglishHit> = emptyList(),
     /** Set when the query is a Bible reference. */
     val reference: Passage? = null,
+    /** People, places and other names (STEP Bible TIPNR) whose name starts with the query. */
+    val entities: List<BibleEntity> = emptyList(),
     /** Close English spellings when nothing matched. */
     val suggestions: List<String> = emptyList(),
 ) {
-    val isEmpty: Boolean get() = strongs.isEmpty() && step.isEmpty() && english.isEmpty() && reference == null
+    val isEmpty: Boolean get() = strongs.isEmpty() && step.isEmpty() && english.isEmpty() && entities.isEmpty() && reference == null
 }
 
 /**
@@ -183,6 +185,52 @@ class StudyStore(private val driver: SqlDriver, private val io: CoroutineContext
     suspend fun senseCounts(ids: Collection<String>): Map<String, Int> = withContext(io) {
         if (ids.isEmpty()) return@withContext emptyMap()
         q.senseCounts(ids.distinct()).executeAsList().associate { it.id to it.verses.toInt() }
+    }
+
+    /** The people, places or other names that STEP ids (e.g. "H0085") refer to. */
+    suspend fun entitiesFor(stepIds: Collection<String>): Map<String, BibleEntity> = withContext(io) {
+        if (stepIds.isEmpty()) return@withContext emptyMap()
+        q.entityForStepIds(stepIds.distinct()).executeAsList().associate { r ->
+            r.step_id to BibleEntity(r.id.toInt(), r.name, r.kind, r.type, r.description, r.summary, r.tribe, r.area, r.lat, r.lon, r.verses.toInt(), r.unique_name)
+        }
+    }
+
+    suspend fun entity(id: Int): BibleEntity? = withContext(io) {
+        q.entityById(id.toLong()).executeAsOneOrNull()?.let { r ->
+            BibleEntity(r.id.toInt(), r.name, r.kind, r.type, r.description, r.summary, r.tribe, r.area, r.lat, r.lon, r.verses.toInt(), r.unique_name)
+        }
+    }
+
+    suspend fun entityNames(id: Int): List<EntityNameForm> = withContext(io) {
+        q.entityNames(id.toLong()).executeAsList().map { EntityNameForm(it.step_id, it.significance, it.original, it.translated) }
+    }
+
+    /** Family and place links, grouped by relation ("parent", "sibling", "partner", "child", "founder", "resident"). */
+    suspend fun entityLinks(id: Int): Map<String, List<BibleEntity>> = withContext(io) {
+        q.entityLinks(id.toLong()).executeAsList().groupBy({ it.rel }) { r ->
+            BibleEntity(r.id.toInt(), r.name, r.kind, r.type, r.description, r.summary, r.tribe, r.area, r.lat, r.lon, r.verses.toInt(), r.unique_name)
+        }
+    }
+
+    suspend fun entityRefs(id: Int, after: VerseId? = null, limit: Int = 40): List<VerseId> = withContext(io) {
+        q.entityRefs(id.toLong(), (after?.value ?: 0).toLong(), limit.toLong()).executeAsList().map { VerseId(it.toInt()) }
+    }
+
+    /** Slugs of VerseUp stories that mention the entity. */
+    suspend fun entityStories(id: Int): List<String> = withContext(io) { q.entityStories(id.toLong()).executeAsList() }
+
+    /** People, places and other names starting with [prefix] (folded), most mentioned first. */
+    suspend fun entitiesByName(prefix: String, limit: Int = 12): List<BibleEntity> = withContext(io) {
+        val p = Fold.fold(prefix.trim())
+        if (p.isEmpty()) return@withContext emptyList()
+        q.entitiesByName(p, p + "\uFFFF", limit.toLong()).executeAsList().map { r ->
+            BibleEntity(r.id.toInt(), r.name, r.kind, r.type, r.description, r.summary, r.tribe, r.area, r.lat, r.lon, r.verses.toInt(), r.unique_name)
+        }
+    }
+
+    /** Cross-references from [verse], most voted first. */
+    suspend fun crossRefs(verse: VerseId, limit: Int = 100): List<CrossReference> = withContext(io) {
+        q.crossRefs(verse.value.toLong(), limit.toLong()).executeAsList().map { CrossReference(VerseId(it.to_start.toInt()), VerseId(it.to_end.toInt()), it.votes.toInt()) }
     }
 
     suspend fun renderings(num: Int, limit: Int = 40): List<KjvRendering> = withContext(io) {
@@ -282,8 +330,15 @@ class StudyStore(private val driver: SqlDriver, private val io: CoroutineContext
             english.sortByDescending { it.count }
         }
 
+        // 4. People, places and other names, by their English name (all words of the query, as typed).
+        val entities = if (Fold.isHebrew(text) || Fold.isGreek(text) || reference != null) emptyList()
+        else q.entitiesByName(folded.trim(), folded.trim() + "\uFFFF", 8).executeAsList().map { r ->
+            BibleEntity(r.id.toInt(), r.name, r.kind, r.type, r.description, r.summary, r.tribe, r.area, r.lat, r.lon, r.verses.toInt(), r.unique_name)
+        }
+
         val result = StudySearchResult(
             query = text,
+            entities = entities,
             strongs = strongs.values.sortedWith(compareByDescending<StrongsEntry> { lemmaMatches(it, terms) }.thenByDescending { it.verses }).take(limit),
             step = step.values.take(limit),
             english = english,

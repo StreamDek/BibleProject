@@ -60,8 +60,11 @@ private val WORD = Regex("[\\p{L}’']+")
  * "Study a word": the verse with every word tappable. Tagged words are underlined with a dotted accent so they
  * read as links without shouting; untagged words are still tappable, and say why they have no original word.
  */
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
-fun StudyWordsSection(vm: StudyViewModel, verse: VerseText, onWord: (WordContext) -> Unit, onInterlinear: () -> Unit) {
+fun StudyWordsSection(vm: StudyViewModel, verse: VerseText, onWord: (WordContext) -> Unit, onInterlinear: () -> Unit, onCrossRefs: () -> Unit) {
+    var xrefCount by remember(verse.id) { mutableStateOf(0) }
+    LaunchedEffect(verse.id) { xrefCount = runCatching { vm.store().crossRefs(verse.id, 500).size }.getOrDefault(0) }
     var tags by remember(verse.id) { mutableStateOf<List<WordTag>?>(null) }
     LaunchedEffect(verse.id) { tags = runCatching { vm.tags(verse.id) }.getOrDefault(emptyList()) }
     val t = tags ?: return
@@ -100,8 +103,11 @@ fun StudyWordsSection(vm: StudyViewModel, verse: VerseText, onWord: (WordContext
             style = MaterialTheme.typography.bodySmall, color = colors.secondary,
         )
         Spacer(Modifier.height(8.dp))
-        OutlinedButton(onClick = onInterlinear, shape = CircleShape) {
-            Text(if (Canon.book(verse.id.book).testament == Testament.OLD) "Read this verse in Hebrew" else "Read this verse in Greek")
+        androidx.compose.foundation.layout.FlowRow(horizontalArrangement = ChipSpacing, verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(onClick = onInterlinear, shape = CircleShape) {
+                Text(if (Canon.book(verse.id.book).testament == Testament.OLD) "Read this verse in Hebrew" else "Read this verse in Greek")
+            }
+            if (xrefCount > 0) OutlinedButton(onClick = onCrossRefs, shape = CircleShape) { Text("Cross-references · $xrefCount") }
         }
     }
 }

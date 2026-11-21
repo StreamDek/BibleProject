@@ -54,7 +54,16 @@ data class WordStudyRequest(
     val context: WordContext? = null,
     /** Open the Hebrew or Greek of this verse, word by word, instead of one word. */
     val interlinear: VerseId? = null,
+    /** Open a person, place or other name (STEP Bible TIPNR entity id). */
+    val entity: Int? = null,
+    /** Open the cross-references of this verse. */
+    val crossRefs: VerseId? = null,
 )
+
+/** VerseUp's stories as the study screens need them: a title for a slug, and opening one. Provided once in App. */
+class StoryLinksForStudy(val title: (String) -> String?, val open: (String) -> Unit)
+
+val LocalStudyStories = staticCompositionLocalOf<StoryLinksForStudy?> { null }
 
 /** Opens the word-study sheet from anywhere in the app. Provided once in App. */
 val LocalWordStudy = staticCompositionLocalOf<(WordStudyRequest) -> Unit> { {} }
@@ -166,6 +175,7 @@ class StudyViewModel(private val bible: BibleRepository, private val user: UserS
          * transliteration, gloss) is read from study.db, never written here.
          */
         val SUGGESTED_HEBREW = listOf(430, 1254, 7307, 2617, 7965, 539, 6944, 3068, 8451, 1285)
+        val SUGGESTED_PEOPLE = listOf("Abraham", "Moses", "Ruth", "David", "Esther", "Peter", "Paul", "Jerusalem", "Bethlehem", "Egypt", "Jordan", "Babylon")
         val SUGGESTED_GREEK = listOf(26, 5485, 4102, 3056, 1680, 1515, 3341, 5547, 4151, 2098).map { StrongsNumber.of('G', it) }
     }
 }

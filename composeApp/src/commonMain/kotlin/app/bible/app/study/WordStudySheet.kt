@@ -92,6 +92,7 @@ import app.bible.data.study.StrongsEntry
 import app.bible.data.study.StrongsNumber
 import app.bible.data.study.WordTag
 import app.bible.data.study.MorphInfo
+import app.bible.data.study.BibleEntity
 import app.bible.data.study.OriginalWord
 import kotlinx.coroutines.launch
 
@@ -102,6 +103,8 @@ sealed interface StudyPage {
         val fromVerse: VerseId? get() = context?.verse ?: verse
     }
     data class Interlinear(val verse: VerseId, val highlight: Int?) : StudyPage
+    data class Entity(val id: Int) : StudyPage
+    data class CrossRefs(val verse: VerseId) : StudyPage
     data class Occurrences(val num: Int, val title: String, val language: Language, val book: Int?) : StudyPage
 }
 
@@ -142,7 +145,9 @@ fun WordStudySheet(
     val scope = rememberCoroutineScope()
     val stack = remember(request) {
         mutableStateListOf<StudyPage>(
-            request.interlinear?.let { StudyPage.Interlinear(it, request.num) } ?: StudyPage.Word(
+            request.entity?.let { StudyPage.Entity(it) }
+                ?: request.crossRefs?.let { StudyPage.CrossRefs(it) }
+                ?: request.interlinear?.let { StudyPage.Interlinear(it, request.num) } ?: StudyPage.Word(
                 num = request.num ?: request.context?.nums?.let { n -> n.firstOrNull { it !in MARKERS } ?: n.firstOrNull() },
                 stepId = request.stepId,
                 context = request.context,
@@ -193,7 +198,15 @@ fun WordStudySheet(
                         onSearch = onSearch,
                         onAttributions = onAttributions,
                         onInterlinear = { verse, num -> stack.add(StudyPage.Interlinear(verse, num)) },
+                        onEntity = { stack.add(StudyPage.Entity(it)) },
                     )
+                    is StudyPage.Entity -> EntityPage(
+                        vm, page.id,
+                        onEntity = { stack.add(StudyPage.Entity(it)) },
+                        onName = { id -> stack.add(StudyPage.Word(StrongsNumber.parse(id)?.takeIf { n -> n > 0 && StrongsNumber.senseLetter(id) == null }, id, null)) },
+                        onOpenVerse = onOpenVerse,
+                    )
+                    is StudyPage.CrossRefs -> CrossRefsPage(vm, page.verse, onOpenVerse)
                     is StudyPage.Interlinear -> InterlinearPage(vm, page.verse, page.highlight) { w ->
                         scope.launch {
                             val root = w.root
@@ -223,7 +236,10 @@ private fun WordPage(
     onSearch: (String) -> Unit,
     onAttributions: () -> Unit,
     onInterlinear: (VerseId, Int?) -> Unit,
+    onEntity: (Int) -> Unit,
 ) {
+    // People and places the word names (STEP Bible TIPNR), from its senses and its use in this verse.
+    var named by remember(page) { mutableStateOf<List<BibleEntity>>(emptyList()) }
     val source by vm.source.collectAsStateWithLifecycle()
     // The original word in the verse it was opened from: its form, grammar and the STEP sense used there.
     var here by remember(page) { mutableStateOf<List<OriginalWord>>(emptyList()) }
@@ -245,6 +261,7 @@ private fun WordPage(
             val step = page.stepId?.let { s.step(it) }
             if (step == null) { missing = true; return@LaunchedEffect }
             data = WordData(null, listOf(step), emptyList(), emptyList(), emptyList(), emptyList())
+            named = runCatching { s.entitiesFor(listOf(step.id)).values.toList() }.getOrDefault(emptyList())
             return@LaunchedEffect
         }
         val entry = s.strongs(num)
@@ -260,6 +277,9 @@ private fun WordPage(
         }
         val d = WordData(entry, senses, s.renderings(num, 24), s.distribution(num), s.derivedFrom(num), s.derivatives(num))
         data = d
+        // In a verse, only the person or place meant there; otherwise everyone the word can name.
+        val ids = hereSenses.ifEmpty { listOfNotNull(page.stepId).ifEmpty { senses.map { it.id } } }
+        named = runCatching { s.entitiesFor(ids).values.distinctBy { it.id }.sortedByDescending { it.verses } }.getOrDefault(emptyList())
         vm.recordStudy(num, d.language, d.lemma, d.gloss, page.context?.verse)
     }
 
@@ -345,6 +365,7 @@ private fun WordPage(
             }
         }
 
+        NamedEntities(named, onEntity)
         page.fromVerse?.let { v -> InThisVerse(here, hereMorph, page.num) { onInterlinear(v, page.num) } }
 
         // In the KJV: how often, where and how it is translated (from the KJV's own word tags).

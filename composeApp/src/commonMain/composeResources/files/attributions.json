@@ -1,89 +1,92 @@
 {
-  "about": "VerseUp's attribution registry. Every third-party text, dataset, font and library the app ships is listed here once; the Attributions & Licences page is generated from this file, and :pipeline:buildStudy copies dataset entries into study.db. Tests fail when a bundled source has no entry or an entry is missing a required field.",
+  "about": "VerseUp is built on the work of many people. These are the texts, study tools, fonts and software in the app, with the credit each one asks for. Tap any of them to see more.",
   "categories": [
     {
       "id": "translations",
-      "title": "Bible translations"
+      "title": "The Bible text"
     },
     {
       "id": "lexicons",
-      "title": "Concordances & lexicons"
+      "title": "Dictionaries"
     },
     {
       "id": "original-language",
-      "title": "Original-language resources"
+      "title": "Hebrew and Greek"
     },
     {
       "id": "study",
-      "title": "Study resources"
+      "title": "People, places and cross-references"
     },
     {
       "id": "software",
-      "title": "Open-source software"
+      "title": "Software"
     },
     {
       "id": "media",
-      "title": "Fonts & media"
+      "title": "Fonts"
     }
   ],
   "resources": [
     {
       "id": "kjv-text",
       "category": "translations",
-      "name": "King James Version (1769 standard text)",
+      "name": "King James Version",
       "author": "Translated 1611; Blayney standard text 1769. Electronic edition by eBible.org",
-      "description": "The Bible text VerseUp shows, with the translators' italics and the words of Jesus.",
+      "description": "The Bible text you read in VerseUp, translated in 1611 and revised in 1769.",
       "copyright": "Public domain. In the United Kingdom the King James Version is under a Crown patent held by Cambridge University Press, Oxford University Press and Collins.",
       "licence": "Public domain",
       "attribution": "King James Version (1769). Public domain. Source: eBible.org.",
       "url": "https://ebible.org/find/details.php?id=eng-kjv",
       "version": "eng-kjv OSIS, 2013-07-12",
-      "modifications": "Whitespace normalised; paragraph and section breaks added for reading. The words are unchanged."
+      "modifications": "We added paragraph breaks to make it easier to read. The words are unchanged.",
+      "summary": "Free for anyone to use."
     },
     {
       "id": "web-paragraphs",
       "category": "study",
-      "name": "World English Bible paragraph positions",
+      "name": "World English Bible paragraphs",
       "author": "eBible.org",
-      "description": "Where paragraphs start, used to break the KJV into readable cards. Only positions are used, no WEB text.",
+      "description": "Shows where paragraphs begin, so the King James text reads in natural sections. None of its words are used.",
       "copyright": "Public domain.",
       "licence": "Public domain",
       "attribution": "Paragraph positions from the World English Bible (public domain), eBible.org.",
       "url": "https://ebible.org/find/details.php?id=eng-web",
-      "version": "content/editorial/paragraphs.txt"
+      "version": "content/editorial/paragraphs.txt",
+      "summary": "Free for anyone to use."
     },
     {
       "id": "strongs-hebrew",
       "category": "lexicons",
       "name": "Strong's Hebrew Dictionary",
       "author": "James Strong, LL.D., S.T.D. (1894). XML edition corrected by David Troidl and David Instone-Brewer, published by Open Scriptures",
-      "description": "A Concise Dictionary of the Words in the Hebrew Bible, with their Renderings in the King James Version: headwords, transliterations, pronunciations, derivations, definitions and KJV renderings for H1-H8674.",
+      "description": "James Strong's classic 1894 dictionary of every Hebrew word in the Old Testament.",
       "copyright": "Public domain.",
       "licence": "Public domain",
       "attribution": "Strong's Hebrew Dictionary (1894), public domain. XML edition: Open Scriptures (github.com/openscriptures/strongs).",
       "url": "https://github.com/openscriptures/strongs",
       "version": "openscriptures/strongs@0acd2f2, hebrew/StrongHebrewG.xml",
-      "modifications": "Only Strong's own fields are used. The outline definitions, Theological Wordbook (TWOT) numbers and Greek equivalents in the same file come from other works and are not included."
+      "modifications": "We use only Strong's own definitions.",
+      "summary": "Free for anyone to use."
     },
     {
       "id": "strongs-greek",
       "category": "lexicons",
       "name": "Strong's Greek Dictionary",
       "author": "James Strong, S.T.D., LL.D. (1890). XML edition by Ulrik Petersen, published by Open Scriptures",
-      "description": "Dictionary of Greek Words taken from Strong's Exhaustive Concordance: headwords, transliterations, pronunciations, derivations, definitions and KJV renderings for G1-G5624.",
+      "description": "James Strong's classic 1890 dictionary of every Greek word in the New Testament.",
       "copyright": "Public domain (\"Public Domain -- Copy Freely\").",
       "licence": "Public domain",
       "attribution": "Strong's Greek Dictionary (1890), public domain. XML edition 1.4 by Ulrik Petersen (ulrikp.org), via Open Scriptures.",
       "url": "https://github.com/openscriptures/strongs",
       "version": "1.4 (2007-09-14), openscriptures/strongs@0acd2f2",
-      "modifications": "Reformatted into VerseUp's study database; text unchanged."
+      "summary": "Free for anyone to use."
     },
     {
       "id": "step-tbesh",
       "category": "lexicons",
-      "name": "STEP Bible TBESH: Translators Brief lexicon of Extended Strongs for Hebrew",
+      "name": "STEP Bible Hebrew dictionary",
       "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
-      "description": "Extended and disambiguated Strong's numbers for Hebrew and Aramaic, with lexical forms, transliterations, grammar codes and glosses written by Tyndale scholars.",
+      "description": "Short, clear meanings of Hebrew words, written by scholars at Tyndale House, Cambridge.",
       "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
       "licence": "CC BY 4.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
@@ -91,14 +94,15 @@
       "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
       "url": "https://github.com/STEPBible/STEPBible-Data",
       "version": "STEPBible-Data@5de0a47 (2026-11-02)",
-      "modifications": "Reformatted into VerseUp's study database. The Meaning column is not included: STEP notes it is based on Online Bible's Abridged BDB and needs Online Bible's permission."
+      "modifications": "We left out one column that needs separate permission.",
+      "summary": "Free to use with credit."
     },
     {
       "id": "step-tbesg",
       "category": "lexicons",
-      "name": "STEP Bible TBESG: Translators Brief lexicon of Extended Strongs for Greek",
+      "name": "STEP Bible Greek dictionary",
       "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
-      "description": "Extended and disambiguated Strong's numbers for Greek, with lexical forms, transliterations, grammar codes, glosses and brief definitions based on a corrected Abbott-Smith.",
+      "description": "Meanings of Greek words, written by scholars at Tyndale House, Cambridge.",
       "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
       "licence": "CC BY 4.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
@@ -106,59 +110,95 @@
       "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
       "url": "https://github.com/STEPBible/STEPBible-Data",
       "version": "STEPBible-Data@5de0a47 (2026-11-02)",
-      "modifications": "Reformatted into VerseUp's study database; definition HTML converted to plain text with bold and line breaks."
+      "summary": "Free to use with credit.",
+      "modifications": "Arranged for use in VerseUp."
     },
     {
       "id": "step-tahot",
       "category": "original-language",
-      "name": "STEP Bible TAHOT: Translators Amalgamated Hebrew Old Testament",
+      "name": "STEP Bible Hebrew Old Testament",
       "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
-      "description": "The Hebrew and Aramaic Old Testament (Leningrad Codex, with the scribes' Qere corrections), word by word, with transliteration, STEP's English translation, disambiguated Strong's numbers and ETCBC-based grammar.",
-      "modifications": "Only the text translators use (Leningrad, Qere and restored words) is included; words found only in Greek sources are left out. Reformatted into VerseUp's study database in KJV verse numbering; Psalm titles are not shown yet.",
+      "description": "The Old Testament in its original Hebrew and Aramaic, word by word, with an English meaning for each word.",
+      "modifications": "Arranged to match the King James verse numbers.",
       "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
       "licence": "CC BY 4.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
       "licenceFile": "licences/cc-by-4.0.txt",
       "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
       "url": "https://github.com/STEPBible/STEPBible-Data",
-      "version": "STEPBible-Data@5de0a47 (2026-11-02)"
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)",
+      "summary": "Free to use with credit."
     },
     {
       "id": "step-tagnt",
       "category": "original-language",
-      "name": "STEP Bible TAGNT: Translators Amalgamated Greek New Testament",
+      "name": "STEP Bible Greek New Testament",
       "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge; English translation based on the Berean Study Bible",
-      "description": "Every word of the main Greek New Testament editions, marked by edition, with transliteration, English translation, disambiguated Strong's numbers and grammar.",
-      "modifications": "Only the words of the Greek text the KJV translators used (Scrivener's Textus Receptus) are included. Where that text has a different word, the Nestle-Aland word is shown with the Traditional reading noted. Reformatted into VerseUp's study database in KJV verse numbering.",
+      "description": "The New Testament in its original Greek, word by word, with an English meaning for each word.",
+      "modifications": "We show the Greek text the King James translators used, and note where other editions differ.",
       "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
       "licence": "CC BY 4.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
       "licenceFile": "licences/cc-by-4.0.txt",
       "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
       "url": "https://github.com/STEPBible/STEPBible-Data",
-      "version": "STEPBible-Data@5de0a47 (2026-11-02)"
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)",
+      "summary": "Free to use with credit."
     },
     {
       "id": "step-morphology",
       "category": "original-language",
-      "name": "STEP Bible TEHMC and TEGMC: Hebrew and Greek grammar codes explained",
+      "name": "STEP Bible grammar guide",
       "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
-      "description": "Plain-language explanations of every Hebrew and Greek grammar code used in the tagged texts.",
-      "modifications": "Only the codes used by the included text are kept.",
+      "description": "Explains the grammar of each Hebrew and Greek word in plain words.",
       "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
       "licence": "CC BY 4.0",
       "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
       "licenceFile": "licences/cc-by-4.0.txt",
       "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
       "url": "https://github.com/STEPBible/STEPBible-Data",
-      "version": "STEPBible-Data@5de0a47 (2026-11-02)"
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)",
+      "summary": "Free to use with credit.",
+      "modifications": "Arranged for use in VerseUp."
+    },
+    {
+      "id": "step-tipnr",
+      "category": "study",
+      "name": "STEP Bible people and places",
+      "author": "STEP Bible (STEPBible.org), based on work at Tyndale House, Cambridge",
+      "description": "Every person and place named in the Bible, with their families and every verse they appear in.",
+      "modifications": "We include STEP's facts only, not its longer written descriptions.",
+      "copyright": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge.",
+      "licence": "CC BY 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenceFile": "licences/cc-by-4.0.txt",
+      "attribution": "STEP Bible (www.STEPBible.org), based on work at Tyndale House, Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data.",
+      "url": "https://github.com/STEPBible/STEPBible-Data",
+      "version": "STEPBible-Data@5de0a47 (2026-11-02)",
+      "summary": "Free to use with credit."
+    },
+    {
+      "id": "openbible-xrefs",
+      "category": "study",
+      "name": "OpenBible.info cross-references",
+      "author": "OpenBible.info",
+      "description": "Links between related verses, ranked by how many readers agreed.",
+      "copyright": "OpenBible.info",
+      "licence": "CC BY",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "licenceFile": "licences/cc-by-4.0.txt",
+      "attribution": "Cross references from OpenBible.info (www.openbible.info/labs/cross-references), CC BY.",
+      "url": "https://www.openbible.info/labs/cross-references/",
+      "version": "2024-11-04",
+      "modifications": "We left out links that no readers agreed with.",
+      "summary": "Free to use with credit."
     },
     {
       "id": "crosswire-kjv",
       "category": "original-language",
-      "name": "CrossWire KJV with Strong's numbers",
+      "name": "CrossWire word links",
       "author": "CrossWire Bible Society. Old Testament Strong's numbers from The Bible Foundation; New Testament from the KJV2003 Project and Dr. Maurice Robinson's Textus Receptus data",
-      "description": "Which Hebrew or Greek word (by Strong's number) each English word or phrase of the KJV translates. VerseUp uses it to let you tap a KJV word and to count occurrences and renderings.",
+      "description": "Connects each English word of the King James text to the Hebrew or Greek word it translates.",
       "copyright": "Any copyright that might be obtained for this effort is held by CrossWire Bible Society © 2003-2023.",
       "licence": "General public licence to use the text for any purpose (CrossWire)",
       "licenceUrl": "https://wiki.crosswire.org/CrossWire_KJV",
@@ -166,28 +206,29 @@
       "attribution": "Strong's tagging of the KJV from the CrossWire Bible Society KJV module 3.1 (crosswire.org), with data from The Bible Foundation, the KJV2003 Project and Dr. Maurice Robinson.",
       "url": "https://gitlab.com/crosswire-bible-society/kjv",
       "version": "KJV module 3.1 (2023-07-26), crosswire-bible-society/kjv@d490be7",
-      "modifications": "The tags are mapped onto VerseUp's eBible.org KJV text by matching words; tags whose words do not match are left out, and Psalm title tags are not used yet."
+      "summary": "Free to use for any purpose."
     },
     {
       "id": "font-literata",
       "category": "media",
       "name": "Literata",
       "author": "The Literata Project Authors (TypeTogether for Google)",
-      "description": "The typeface for Scripture and Greek headwords.",
+      "description": "The typeface used for Bible text.",
       "copyright": "Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata)",
       "licence": "SIL Open Font License 1.1",
       "licenceUrl": "https://openfontlicense.org",
       "licenceFile": "licences/ofl-1.1.txt",
       "attribution": "Literata, Copyright 2017 The Literata Project Authors. SIL Open Font License 1.1.",
       "url": "https://github.com/googlefonts/literata",
-      "version": "Google Fonts"
+      "version": "Google Fonts",
+      "summary": "Free font licence."
     },
     {
       "id": "font-noto-serif-hebrew",
       "category": "media",
       "name": "Noto Serif Hebrew",
       "author": "The Noto Project Authors",
-      "description": "The typeface for Hebrew headwords, with full vowel points and cantillation marks.",
+      "description": "The typeface used for Hebrew words.",
       "copyright": "Copyright 2022 The Noto Project Authors (https://github.com/notofonts/hebrew)",
       "licence": "SIL Open Font License 1.1",
       "licenceUrl": "https://openfontlicense.org",
@@ -195,103 +236,110 @@
       "attribution": "Noto Serif Hebrew, Copyright 2022 The Noto Project Authors. SIL Open Font License 1.1.",
       "url": "https://github.com/notofonts/hebrew",
       "version": "Google Fonts; static 400 and 600 weights",
-      "modifications": "Static instances cut from the variable font."
+      "summary": "Free font licence."
     },
     {
       "id": "sw-kotlin",
       "category": "software",
-      "name": "Kotlin, kotlinx.coroutines, kotlinx.serialization and kotlinx-datetime",
+      "name": "Kotlin",
       "author": "JetBrains s.r.o. and contributors",
-      "description": "The programming language and core libraries VerseUp is written with.",
+      "description": "The programming language VerseUp is written in.",
       "copyright": "Copyright JetBrains s.r.o. and Kotlin Programming Language contributors.",
       "licence": "Apache License 2.0",
       "licenceUrl": "https://www.apache.org/licenses/LICENSE-2.0",
       "licenceFile": "licences/apache-2.0.txt",
       "attribution": "Kotlin and kotlinx libraries, Apache License 2.0.",
       "url": "https://kotlinlang.org",
-      "version": "Kotlin 2.4"
+      "version": "Kotlin 2.4",
+      "summary": "Open-source licence."
     },
     {
       "id": "sw-compose",
       "category": "software",
-      "name": "Compose Multiplatform and Jetpack (AndroidX)",
+      "name": "Compose Multiplatform",
       "author": "JetBrains s.r.o. and The Android Open Source Project",
-      "description": "The user-interface toolkit, Material components and icons, and lifecycle libraries.",
+      "description": "Draws the app's screens and buttons.",
       "copyright": "Copyright JetBrains s.r.o. and The Android Open Source Project.",
       "licence": "Apache License 2.0",
       "licenceUrl": "https://www.apache.org/licenses/LICENSE-2.0",
       "licenceFile": "licences/apache-2.0.txt",
       "attribution": "Compose Multiplatform and AndroidX, Apache License 2.0.",
       "url": "https://www.jetbrains.com/compose-multiplatform/",
-      "version": "Compose Multiplatform 1.9"
+      "version": "Compose Multiplatform 1.9",
+      "summary": "Open-source licence."
     },
     {
       "id": "sw-sqldelight",
       "category": "software",
       "name": "SQLDelight",
       "author": "Square, Inc. and Cash App",
-      "description": "Typed access to VerseUp's on-device databases.",
+      "description": "Helps VerseUp store your highlights, notes and saved words.",
       "copyright": "Copyright Square, Inc.",
       "licence": "Apache License 2.0",
       "licenceUrl": "https://www.apache.org/licenses/LICENSE-2.0",
       "licenceFile": "licences/apache-2.0.txt",
       "attribution": "SQLDelight, Copyright Square, Inc. Apache License 2.0.",
       "url": "https://github.com/sqldelight/sqldelight",
-      "version": "2.4"
+      "version": "2.4",
+      "summary": "Open-source licence."
     },
     {
       "id": "sw-sqlite",
       "category": "software",
       "name": "SQLite",
       "author": "D. Richard Hipp and the SQLite developers",
-      "description": "The database engine behind offline reading, search and word study.",
+      "description": "Keeps the Bible and study tools on your phone so they work offline.",
       "copyright": "Public domain.",
       "licence": "Public domain",
       "attribution": "SQLite (public domain).",
       "url": "https://sqlite.org",
-      "version": "As provided by the operating system"
+      "version": "As provided by the operating system",
+      "summary": "Free for anyone to use."
     },
     {
       "id": "sw-ktor",
       "category": "software",
       "name": "Ktor",
       "author": "JetBrains s.r.o.",
-      "description": "Network client used to fetch story art.",
+      "description": "Downloads story artwork.",
       "copyright": "Copyright JetBrains s.r.o.",
       "licence": "Apache License 2.0",
       "licenceUrl": "https://www.apache.org/licenses/LICENSE-2.0",
       "licenceFile": "licences/apache-2.0.txt",
       "attribution": "Ktor, Apache License 2.0.",
       "url": "https://ktor.io",
-      "version": "3.6"
+      "version": "3.6",
+      "summary": "Open-source licence."
     },
     {
       "id": "sw-coil",
       "category": "software",
       "name": "Coil",
       "author": "Coil Contributors",
-      "description": "Image loading and caching for story art.",
+      "description": "Loads and saves story artwork.",
       "copyright": "Copyright Coil Contributors.",
       "licence": "Apache License 2.0",
       "licenceUrl": "https://www.apache.org/licenses/LICENSE-2.0",
       "licenceFile": "licences/apache-2.0.txt",
       "attribution": "Coil, Apache License 2.0.",
       "url": "https://github.com/coil-kt/coil",
-      "version": "3.4"
+      "version": "3.4",
+      "summary": "Open-source licence."
     },
     {
       "id": "sw-haze",
       "category": "software",
       "name": "Haze",
       "author": "Chris Banes",
-      "description": "The frosted-glass headers.",
+      "description": "Creates the frosted-glass effect at the top of screens.",
       "copyright": "Copyright Chris Banes.",
       "licence": "Apache License 2.0",
       "licenceUrl": "https://www.apache.org/licenses/LICENSE-2.0",
       "licenceFile": "licences/apache-2.0.txt",
       "attribution": "Haze, Copyright Chris Banes. Apache License 2.0.",
       "url": "https://github.com/chrisbanes/haze",
-      "version": "1.6"
+      "version": "1.6",
+      "summary": "Open-source licence."
     }
   ]
 }

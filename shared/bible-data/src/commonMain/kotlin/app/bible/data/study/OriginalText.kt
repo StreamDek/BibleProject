@@ -117,3 +117,43 @@ data class OriginalVerse(val verse: VerseId, val language: Language, val words: 
 
 /** A grammar code explained (STEP Bible TEHMC / TEGMC). */
 data class MorphInfo(val code: String, val parsing: String, val summary: String?, val explanation: String?, val example: String?)
+
+/** A person, place or other named thing (STEP Bible TIPNR). */
+data class BibleEntity(
+    val id: Int,
+    val name: String,
+    /** "person", "place" or "other". */
+    val kind: String,
+    /** "Male", "Female", "Group", "Place", "Supernatural", ... */
+    val type: String,
+    val description: String?,
+    val summary: String?,
+    val tribe: String?,
+    val area: String?,
+    val lat: Double?,
+    val lon: Double?,
+    val verses: Int,
+    /** TIPNR's unique name, with the first reference and last book ("Abraham@Gen.11.26-1Pe"); tells namesakes apart. */
+    val uniqueName: String,
+)
+
+/** One Hebrew or Greek form of an entity's name. */
+data class EntityNameForm(val stepId: String, val significance: String, val original: String, val translated: String)
+
+/** A cross-reference to a verse or range, with how many readers voted for it (OpenBible.info). */
+data class CrossReference(val start: VerseId, val end: VerseId, val votes: Int)
+
+/** STEP Bible's three-letter book codes ("Gen", "Sng", "Jhn", ...), in canonical order. */
+object StepBooks {
+    val codes = listOf(
+        "Gen", "Exo", "Lev", "Num", "Deu", "Jos", "Jdg", "Rut", "1Sa", "2Sa", "1Ki", "2Ki", "1Ch", "2Ch", "Ezr", "Neh",
+        "Est", "Job", "Psa", "Pro", "Ecc", "Sng", "Isa", "Jer", "Lam", "Ezk", "Dan", "Hos", "Jol", "Amo", "Oba", "Jon",
+        "Mic", "Nam", "Hab", "Zep", "Hag", "Zec", "Mal", "Mat", "Mrk", "Luk", "Jhn", "Act", "Rom", "1Co", "2Co", "Gal",
+        "Eph", "Php", "Col", "1Th", "2Th", "1Ti", "2Ti", "Tit", "Phm", "Heb", "Jas", "1Pe", "2Pe", "1Jn", "2Jn", "3Jn",
+        "Jud", "Rev",
+    )
+    private val numbers = codes.withIndex().associate { (i, c) -> c to i + 1 }
+
+    /** The canonical book number (1..66) for a STEP code, or null. */
+    fun number(code: String): Int? = numbers[code]
+}

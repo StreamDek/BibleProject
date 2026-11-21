@@ -188,3 +188,95 @@ SELECT * FROM morph WHERE code IN ?;
 
 senseCounts:
 SELECT id, verses FROM sense_count WHERE id IN ?;
+
+-- People, places and other named things (STEP Bible TIPNR). Only TIPNR's data fields are shipped; its longer
+-- descriptions were adapted from AI output and are left out (docs/concordance.md).
+CREATE TABLE entity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    -- TIPNR's unique name, e.g. "Abraham@Gen.11.26-1Pe".
+    unique_name TEXT NOT NULL,
+    name TEXT NOT NULL,
+    -- Folded name for search.
+    name_fold TEXT NOT NULL,
+    -- "person", "place" or "other".
+    kind TEXT NOT NULL,
+    -- "Male", "Female", "Group", "Place", "Supernatural", "Time", ...
+    type TEXT NOT NULL,
+    description TEXT,
+    summary TEXT,
+    tribe TEXT,
+    area TEXT,
+    lat REAL,
+    lon REAL,
+    verses INTEGER NOT NULL
+);
+
+CREATE INDEX entity_name_fold ON entity(name_fold);
+
+-- Each Hebrew or Greek name form (a STEP dStrong) and the entity it refers to.
+CREATE TABLE entity_name (
+    step_id TEXT NOT NULL PRIMARY KEY,
+    entity INTEGER NOT NULL,
+    significance TEXT NOT NULL,
+    original TEXT NOT NULL,
+    translated TEXT NOT NULL
+) WITHOUT ROWID;
+
+CREATE INDEX entity_name_entity ON entity_name(entity);
+
+-- Family and place links: rel is "parent", "sibling", "partner", "child", "founder" or "resident".
+CREATE TABLE entity_link (
+    entity INTEGER NOT NULL,
+    rel TEXT NOT NULL,
+    other INTEGER NOT NULL,
+    PRIMARY KEY (entity, rel, other)
+) WITHOUT ROWID;
+
+CREATE TABLE entity_ref (
+    entity INTEGER NOT NULL,
+    verse_id INTEGER NOT NULL,
+    PRIMARY KEY (entity, verse_id)
+) WITHOUT ROWID;
+
+-- VerseUp stories (stories.json) whose passages mention the entity.
+CREATE TABLE entity_story (
+    entity INTEGER NOT NULL,
+    slug TEXT NOT NULL,
+    PRIMARY KEY (entity, slug)
+) WITHOUT ROWID;
+
+-- Cross-references (OpenBible.info, CC BY): from a verse to a verse or range, with readers' votes.
+CREATE TABLE xref (
+    verse_id INTEGER NOT NULL,
+    to_start INTEGER NOT NULL,
+    to_end INTEGER NOT NULL,
+    votes INTEGER NOT NULL,
+    PRIMARY KEY (verse_id, to_start, to_end)
+) WITHOUT ROWID;
+
+entityById:
+SELECT * FROM entity WHERE id = ?;
+
+entityForStepIds:
+SELECT n.step_id, e.* FROM entity_name n JOIN entity e ON e.id = n.entity WHERE n.step_id IN ?;
+
+entityNames:
+SELECT * FROM entity_name WHERE entity = ? ORDER BY step_id;
+
+entityLinks:
+SELECT l.rel, e.* FROM entity_link l JOIN entity e ON e.id = l.other WHERE l.entity = ? ORDER BY l.rel, e.name;
+
+entityRefs:
+SELECT verse_id FROM entity_ref WHERE entity = ? AND verse_id > ? ORDER BY verse_id LIMIT ?;
+
+entityStories:
+SELECT slug FROM entity_story WHERE entity = ? ORDER BY slug;
+
+entitiesByName:
+SELECT * FROM entity WHERE name_fold >= ? AND name_fold < ? ORDER BY verses DESC LIMIT ?;
+
+crossRefs:
+SELECT to_start, to_end, votes FROM xref WHERE verse_id = ? ORDER BY votes DESC, to_start LIMIT ?;
+
+crossRefCount:
+SELECT count(*) FROM xref WHERE verse_id = ?;

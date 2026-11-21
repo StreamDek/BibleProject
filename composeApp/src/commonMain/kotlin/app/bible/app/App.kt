@@ -36,6 +36,8 @@ import app.bible.app.stories.StoryReader
 import app.bible.app.study.AttributionsScreen
 import app.bible.app.study.LocalStudy
 import app.bible.app.study.LocalWordStudy
+import app.bible.app.study.LocalStudyStories
+import app.bible.app.study.StoryLinksForStudy
 import app.bible.app.study.StudyScreen
 import app.bible.app.study.StudyViewModel
 import app.bible.app.study.WordStudyRequest
@@ -108,6 +110,10 @@ fun App() {
           LocalOpenSettings provides { settingsOpen = true },
           LocalStudy provides study,
           LocalWordStudy provides { wordStudy = it },
+          LocalStudyStories provides StoryLinksForStudy(
+              title = { slug -> home.library?.get(slug)?.title },
+              open = { slug -> wordStudy = null; openStory(slug) },
+          ),
       ) {
         when (val top = stack.last()) {
             Screen.Bible -> {

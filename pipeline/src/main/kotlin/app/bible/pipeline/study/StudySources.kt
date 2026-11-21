@@ -69,7 +69,29 @@ object StudySources {
         version = "KJV module 3.1 (crosswire-bible-society/kjv@${CROSSWIRE.take(7)})",
     )
 
-    val all = listOf(strongsHebrew, strongsGreek, tbesh, tbesg, crosswireKjv)
+    private fun text(key: String, registry: String, path: String, sha: String) = StudySource(
+        key = key, registryId = registry, url = step(path), sha256 = sha, version = "STEPBible-Data@${STEP.take(7)}",
+    )
+
+    /** STEP Bible's Hebrew Old Testament (TAHOT: Leningrad Codex with STEP's translation, tags and grammar), in 4 files. */
+    val tahot = listOf(
+        text("step-tahot-1", "step-tahot", "Translators Amalgamated OT+NT/TAHOT Gen-Deu - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt", "7763ef367bb0e6e1c1a95fb9b652e1d611b2481827611433e82abbf229216d70"),
+        text("step-tahot-2", "step-tahot", "Translators Amalgamated OT+NT/TAHOT Jos-Est - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt", "b79add01a8c95673e31ec3ab8ad86183d2312cd96421ddf21f3d1f74377526a7"),
+        text("step-tahot-3", "step-tahot", "Translators Amalgamated OT+NT/TAHOT Job-Sng - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt", "e0416880bb78f46715bb17ce526b623c3051da0ef83f7bf83beaad350e6272e8"),
+        text("step-tahot-4", "step-tahot", "Translators Amalgamated OT+NT/TAHOT Isa-Mal - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt", "d5a609f5a4b9f7757a2615e55877b07f9f6931a8afccef012c0b4bf662caf540"),
+    )
+
+    /** STEP Bible's Greek New Testament (TAGNT: every word of the main editions, marked by edition), in 2 files. */
+    val tagnt = listOf(
+        text("step-tagnt-1", "step-tagnt", "Translators Amalgamated OT+NT/TAGNT Mat-Jhn - Translators Amalgamated Greek NT - STEPBible.org CC-BY.txt", "d4c0c820fdf9f2b450c9f96ce6103d6875028affd2e44094d753f1329ca1fd85"),
+        text("step-tagnt-2", "step-tagnt", "Translators Amalgamated OT+NT/TAGNT Act-Rev - Translators Amalgamated Greek NT - STEPBible.org CC-BY.txt", "122040eeeaeba50d6abbf67b39cacaff687211bda69b080e5d53927c830d9968"),
+    )
+
+    /** STEP Bible's expansions of the Hebrew and Greek grammar codes into plain explanations. */
+    val tehmc = text("step-tehmc", "step-morphology", "Morphology codes/TEHMC - Translators Expansion of Hebrew Morphology Codes - STEPBible.org CC BY.txt", "fe37e62b97e531410159e5f1b1ac8a69db4512c3e8407c03bae38639bd09f97f")
+    val tegmc = text("step-tegmc", "step-morphology", "Morphology codes/TEGMC - Translators Expansion of Greek Morphhology Codes - STEPBible.org CC BY.txt", "9e8443fd4759f112253d7a1858c0687a8cf833f4d537e8fda97bfff74ea4c168")
+
+    val all = listOf(strongsHebrew, strongsGreek, tbesh, tbesg, crosswireKjv) + tahot + tagnt + listOf(tehmc, tegmc)
 
     /** Returns the cached file for [source], downloading it first if needed. Fails on any hash mismatch. */
     fun fetch(source: StudySource, cacheDir: File): File {

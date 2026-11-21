@@ -12,6 +12,8 @@ import app.bible.core.VerseId
 import app.bible.core.VerseRange
 import app.bible.data.bible.SearchResult
 import app.bible.data.study.Language
+import app.bible.data.study.MorphInfo
+import app.bible.data.study.OriginalVerse
 import app.bible.data.study.StrongsNumber
 import app.bible.data.study.StudyStore
 import app.bible.data.study.WordTag
@@ -46,7 +48,13 @@ data class WordContext(val verse: VerseId, val text: String, val start: Int, val
 }
 
 /** What to open in the word-study sheet: a Strong's number, a STEP sense, or a tapped word from a verse. */
-data class WordStudyRequest(val num: Int? = null, val stepId: String? = null, val context: WordContext? = null)
+data class WordStudyRequest(
+    val num: Int? = null,
+    val stepId: String? = null,
+    val context: WordContext? = null,
+    /** Open the Hebrew or Greek of this verse, word by word, instead of one word. */
+    val interlinear: VerseId? = null,
+)
 
 /** Opens the word-study sheet from anywhere in the app. Provided once in App. */
 val LocalWordStudy = staticCompositionLocalOf<(WordStudyRequest) -> Unit> { {} }
@@ -114,6 +122,21 @@ class StudyViewModel(private val bible: BibleRepository, private val user: UserS
         // Pages of occurrences are sorted, so one range query covers them; keep only the verses asked for.
         val wanted = ids.toSet()
         return s.tags(VerseRange(ids.min(), ids.max())).filterKeys { it in wanted }
+    }
+
+    suspend fun original(verse: VerseId): OriginalVerse? = runCatching { store().original(verse) }.getOrNull()
+
+    suspend fun morph(codes: Collection<String>): Map<String, MorphInfo> = runCatching { store().morph(codes) }.getOrDefault(emptyMap())
+
+    /**
+     * The KJV word a Strong's number is tagged on in [verse], as a study context, so a word opened from the Hebrew
+     * or Greek still shows where it is in the English.
+     */
+    suspend fun contextFor(verse: VerseId, num: Int): WordContext? {
+        if (num <= 0) return null
+        val text = verse(verse)?.text ?: return null
+        val tag = tags(verse).firstOrNull { num in it.nums } ?: return null
+        return WordContext(verse, text, tag.start, tag.end, tag.nums)
     }
 
     suspend fun searchScripture(query: String): SearchResult = bible.search(query)

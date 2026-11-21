@@ -9,6 +9,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.material3.MaterialTheme
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeStyle
@@ -39,8 +41,9 @@ fun Modifier.glassSource(state: GlassState): Modifier = hazeSource(state)
  * is scrolled under the header.
  */
 @Composable
-fun Modifier.glass(state: GlassState, visibility: Float = 1f): Modifier {
+fun Modifier.glass(state: GlassState, visibility: Float = 1f, fadeTop: Dp? = null): Modifier {
     val colors = MaterialTheme.colorScheme
+    val fadeTopPx = with(LocalDensity.current) { (fadeTop ?: 0.dp).toPx() }
     val dark = colors.background.luminance() < 0.5f
     val tint = colors.background.copy(alpha = if (dark) 0.45f else 0.55f)
     val style = HazeStyle(
@@ -53,8 +56,13 @@ fun Modifier.glass(state: GlassState, visibility: Float = 1f): Modifier {
     )
     return this.hazeEffect(state, style) {
         alpha = visibility
-        // Solid for most of the header, then fading out so it flows into the content.
-        mask = Brush.verticalGradient(0f to Color.Black, 0.7f to Color.Black, 1f to Color.Transparent)
+        mask = if (fadeTop == null) {
+            // Solid for most of the header, then fading out so it flows into the content.
+            Brush.verticalGradient(0f to Color.Black, 0.7f to Color.Black, 1f to Color.Transparent)
+        } else {
+            // A bottom bar: clear at the top edge, solid by [fadeTop] down, so the text above blends into it.
+            Brush.verticalGradient(listOf(Color.Transparent, Color.Black), startY = 0f, endY = fadeTopPx)
+        }
     }
 }
 

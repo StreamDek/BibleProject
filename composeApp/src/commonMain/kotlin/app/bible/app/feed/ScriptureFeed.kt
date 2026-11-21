@@ -301,9 +301,12 @@ private fun Chrome(
                 story != null -> StoryPill("Part of: ${story.title} ›") { onOpenStory(story) }
             }
         }
+        // The bottom bar is ambient glass too, from the bottom of the screen to just above the progress line. Its
+        // top edge fades into the reading text so the two blend (the top padding is room for that fade).
         Column(
-            Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()
-                .padding(horizontal = 16.dp).padding(bottom = 8.dp),
+            Modifier.align(Alignment.BottomCenter).fillMaxWidth()
+                .glass(glass, fadeTop = BottomFade).padding(top = BottomFade)
+                .navigationBarsPadding().padding(horizontal = 16.dp).padding(bottom = 8.dp),
         ) {
             // Quiet reading progress through the book.
             LinearProgressIndicator(
@@ -313,11 +316,12 @@ private fun Chrome(
                 trackColor = colors.onBackground.copy(alpha = 0.12f),
             )
             Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-                NavItem(NavIcons.Search, "Search", onClick = { onOpenSheet(Sheet.Search) })
-                NavItem(NavIcons.Saved, "Saved", onClick = { onOpenSheet(Sheet.Saved) })
+                // Henry's order: Stories, Chapter, Search, Study, Saved.
                 if (links != null) NavItem(NavIcons.Stories, "Stories", onClick = links.onStories)
-                links?.onStudy?.let { NavItem(NavIcons.Study, "Study", onClick = it) }
                 NavItem(NavIcons.Chapter, "Chapter", onClick = onClassic)
+                NavItem(NavIcons.Search, "Search", onClick = { onOpenSheet(Sheet.Search) })
+                links?.onStudy?.let { NavItem(NavIcons.Study, "Study", onClick = it) }
+                NavItem(NavIcons.Saved, "Saved", onClick = { onOpenSheet(Sheet.Saved) })
             }
             Text(
                 "Hold a verse to highlight, note, copy or study a word",
@@ -329,6 +333,9 @@ private fun Chrome(
     }
 }
 
+
+/** How far above the progress line the bottom bar's glass fades in from clear. */
+private val BottomFade = 28.dp
 
 /** Space between the bottom of a reader's header and the first line of text. */
 internal val HeaderGap = 12.dp
